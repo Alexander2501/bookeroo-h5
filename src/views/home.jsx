@@ -8,32 +8,18 @@ import BookList from '../components/booklist';
 class Home extends Component {
 
     state = {
-        bookClasses: ["All","","",""]
+        bookClasses: ["All", "", "", ""]
     }
 
     render() {
         return (
-            <div>
-                <Header />
-
-                <div className="row">
-
-                    <div className="col-xs-6 col-md-offset-2">
-                        <ul className="nav nav-pills  nav-justified">
-                            <li role="presentation" className="active"><a href="#">Books</a></li>
-                            <li role="presentation"><a href="#">Cart</a></li>
-                            <li role="presentation"><a href="#">Buy Again</a></li>
-                            <li role="presentation"><a href="#">About</a></li>
-                            <li role="presentation"><a href="#">Contact-us</a></li>
-                        </ul>
-                    </div>
-                </div>
-
+            <div>     
                 <div className="row">
                     <div className="col-xs-2">
+                    <Header />
                         {/*导航路由链接*/}
                         <div className="panel panel-default">
-                            <div class="panel-heading">Book Classification</div>
+                            <div className="panel-heading">Book Classification</div>
                             <div className="panel-body">
                                 <NavLink className="list-group-item" to='/page/user'>UserManage</NavLink>
                                 <NavLink className="list-group-item" to='/page/book'>BookManage</NavLink>
@@ -43,6 +29,17 @@ class Home extends Component {
 
                     </div>
                     <div className="col-xs-9">
+                        <div className="row">
+                            <div className="col-xs-6 col-md-offset-2">
+                                <ul className="nav nav-pills  nav-justified">
+                                    <li role="presentation" className="active"><a href="#">Books</a></li>
+                                    <li role="presentation"><a href="#">Cart</a></li>
+                                    <li role="presentation"><a href="#">Buy Again</a></li>
+                                    <li role="presentation"><a href="#">About</a></li>
+                                    <li role="presentation"><a href="#">Contact-us</a></li>
+                                </ul>
+                            </div>
+                        </div>
                         {/*可切换的路由组件*/}
                         <Switch>
                             <Route path='/page/user' component={UserList} />
