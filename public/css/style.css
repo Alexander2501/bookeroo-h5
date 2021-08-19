@@ -37,7 +37,7 @@ body{
     overflow-x:hidden;
 }
 
-a,a:hover,a:active,a:focus {
+a {
     display:inline-block;
     text-decoration:none;
     color: #7c8089;
