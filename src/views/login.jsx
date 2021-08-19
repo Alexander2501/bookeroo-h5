@@ -8,7 +8,7 @@ export default class Login extends Component {
     username: "",
     password: "",
   };
-  componentDidMount() {}
+  componentDidMount() { }
 
   nameChange = (e) => {
     const username = e.target.value;
@@ -21,6 +21,7 @@ export default class Login extends Component {
 
   handleSubmit = () => {
     //收集数据
+    // console.log(this.state.username);
 
     //更新状态
     // if(username!=null&&password!=null){
@@ -29,11 +30,11 @@ export default class Login extends Component {
     const url = "https://web.tootz.cn/api/open/user/login";
     axios
       .post(url, {
-        mail: "1191376090@qq.com",
-        password: "123",
+        mail: this.state.username,
+        password: this.state.password,
       })
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         let result = res.data.data;
 
         sessionStorage.setItem("userId", result.userId);
@@ -61,14 +62,13 @@ export default class Login extends Component {
           <div className="sign-content popup-in-content">
             <div className="popup-in-txt">
               <h2>sign in</h2>
-
               <div className="row">
                 <div className="col-sm-12">
                   <div className="signin-form">
                     <form action="signin.html">
                       <div className="form-group">
                         <input
-                          type="email"
+                          type="text"
                           value={username}
                           className="form-control"
                           onChange={this.nameChange}
