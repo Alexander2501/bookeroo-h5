@@ -28,7 +28,7 @@ export default class Login extends Component {
         // if(username!=null&&password!=null){
             
         // }
-        this.props.history.push('/');
+        this.props.history.push('/page');
     }
 
     handleRegister = (e)=>{
@@ -52,8 +52,7 @@ export default class Login extends Component {
                                 <div className="col-sm-12">
                                     <div className="signin-form">
                                         <form action="signin.html">
-                                            <div className="form-group">
-                                                
+                                            <div className="form-group">                                                
                                                 <input type="email" value={username}  className="form-control" onChange={this.nameChange} id="signin_form" placeholder="enter your email here" />
                                             </div>
                                             <div className="form-group">

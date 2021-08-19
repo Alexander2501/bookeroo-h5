@@ -14,17 +14,19 @@ class Home extends Component {
                 <div className="row">
                     <div className="col-xs-2 col-xs-offset-2">
                         {/*导航路由链接*/}
-                        <NavLink className="list-group-item" to='/user'>UserManage</NavLink>
-                        <NavLink className="list-group-item" to='/book'>BookManage</NavLink>
+                        <NavLink className="list-group-item" to='/page/user'>UserManage</NavLink>
+                        <NavLink className="list-group-item" to='/page/book'>BookManage</NavLink>
                     </div>
                     <div className="col-xs-6">
                         <div className="panel">
                             <div className="panel-body">
                                 {/*可切换的路由组件*/}
                                 <Switch>
-                                    <Route path='/user' component={UserList} />
-                                    <Route path='/book' component={BookList} />
-                                    <Redirect to='/user' />
+                                    <Route path='/page/user' component={UserList} />
+                                    <Route path='/page/book' component={BookList} />
+                                    <Route>
+                                        <Redirect to='/page/user' />
+                                    </Route>
                                 </Switch>
                             </div>
                         </div>

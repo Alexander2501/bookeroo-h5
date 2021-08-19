@@ -13,8 +13,11 @@ export default class App extends Component {
         <Switch>
           <Route path='/login' component={Login}></Route>
           <Route path="/register" component={Register}></Route>
-          <Route path="/" component={Home}></Route>          
-        </Switch>       
+          <Route path="/page" component={Home}></Route>
+          <Route path="/">
+            <Redirect to="/page" />
+          </Route>
+        </Switch>
       </BrowserRouter>
     );
   }
