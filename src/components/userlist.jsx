@@ -3,24 +3,7 @@ import React, { Component } from "react";
 
 export default class UserList extends Component {
   state = {
-    userList: [
-      {
-        mail: '1191376090@qq.com',
-        type: 1,
-        name: "lifa",
-        nickName: 'alfa',
-        phoneNumber: "11111111",
-        status: 'blocked'
-      },
-      {
-        mail: '1191376090@qq.com',
-        type: 1,
-        name: "lifa",
-        nickName: 'alfa',
-        phoneNumber: "11111111",
-        status: 'blocked'
-      },
-    ],
+    userList: [],
   };
 
   componentDidMount() {
@@ -38,7 +21,7 @@ export default class UserList extends Component {
       .then((res) => {
         let result = res.data.data;
         this.setState({
-          userList:result.entity
+          userList: result.entity
         });
       })
       .catch((err) => {
@@ -55,8 +38,8 @@ export default class UserList extends Component {
   deleteUser = (index) => {
     if (window.confirm("Confirm Delete？")) {
       const url = "https://web.tootz.cn/api/open/user/delete";
-      let userId = sessionStorage.getItem("userId");
-      let token = sessionStorage.getItem("token");
+      let userId = this.state.userList[index].userId;
+
       let data = { userId };
       axios
         .post(url, data)
