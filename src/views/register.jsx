@@ -28,29 +28,23 @@ export default class Register extends Component {
 			console.log(err);
 		})
 	}
-
-
 	render() {
 		return (
 			<div className="signin signup">
 				<div className="container">
-
 					<div className="sign-content">
 						<h2>sign up</h2>
-
 						<div className="row">
 							<div className="col-sm-12">
 								<div className="signin-form">
 									<form action="signin.html">
 										<div className="form-col">
-											<div className="form-group">
-											
+											<div className="form-group">											
 												<input type="text" className="form-control" id="signin_form" placeholder="first name" />
 											</div>
 										</div>
 										<div className="form-col1">
-											<div className="form-group">
-												
+											<div className="form-group">												
 												<input type="text" className="form-control" id="signin_form" placeholder="last name" />
 											</div>
 										</div>
