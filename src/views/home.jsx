@@ -42,10 +42,10 @@ class Home extends Component {
                         </div>
                         {/*可切换的路由组件*/}
                         <Switch>
-                            <Route path='/page/user' component={UserList} />
-                            <Route path='/page/book' component={BookList} />
+                            <Route path='/user' component={UserList} />
+                            <Route path='/book' component={BookList} />
                             <Route>
-                                <Redirect to='/page/user' />
+                                <Redirect to='/user' />
                             </Route>
                         </Switch>
                     </div>
