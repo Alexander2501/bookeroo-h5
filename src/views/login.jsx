@@ -33,7 +33,7 @@ export default class Login extends Component {
 
     handleRegister = (e)=>{
         e.preventDefault();
-        this.props.history.push('/register');
+        this.props.history.push('/api/register');
     }
 
 
