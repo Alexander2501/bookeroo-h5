@@ -34,9 +34,10 @@ export default class Login extends Component {
       })
       .then((res) => {
         console.log(res);
+        let result = res.data.data;
         // this.props.history.push("/");
-        sessionStorage.setItem('userId',res.data.data.userId);
-        sessionStorage.setItem('token',res.data.data.token);
+        sessionStorage.setItem('userId',result.userId);
+        sessionStorage.setItem('token',result.token);
       })
       .catch((err) => {
         console.log(err);
