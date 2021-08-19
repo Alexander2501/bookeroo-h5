@@ -12,18 +12,19 @@ export default class Register extends Component {
 		nickName: '',
 		phoneNumber: ''
 	}
-
+	
 	componentDidMount() {
-		const url = 'http://IP:port/api/open/user/register';
+		const url = 'https://web.tootz.cn/api/open/user/register';
 		axios.post(url,{
 			'mail': '1191376090@qq.com',
 			'password': '123',
 			'type': 0,
-			'name': 'lifa',
+			'name': 'zhangsan',
 			'nickName': 'alfa',
 			'phoneNumber': '12345678'
 		}).then(res => {
 			console.log(res.data);
+			this.props.history.push('/login');
 		}).catch(err => {
 			console.log(err);
 		})

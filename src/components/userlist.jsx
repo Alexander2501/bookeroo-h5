@@ -18,12 +18,18 @@ export default class UserList extends Component {
   };
 
   componentDidMount() {
-    const url = "";
-    let data = {};
+    const url = "https://web.tootz.cn/api/open/user/list";
+    let userId = sessionStorage.getItem("userId");
+    let token = sessionStorage.getItem("token");
+    let data = { userId, token };
     axios
       .post(url, data)
-      .then((res) => {})
-      .catch((err) => {});
+      .then((res) => {
+        let result = res.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   addUser = () => {};
@@ -34,7 +40,18 @@ export default class UserList extends Component {
 
   deleteUser = (index) => {
     if (window.confirm("Confirm Delete？")) {
-      console.log(index);
+      const url = "https://web.tootz.cn/api/open/user/delete";
+      let userId = sessionStorage.getItem("userId");
+      let token = sessionStorage.getItem("token");
+      let data = { userId, token };
+      axios
+        .post(url, data)
+        .then((res) => {
+          let result = res.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   };
 

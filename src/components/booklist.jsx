@@ -42,11 +42,11 @@ class BookList extends Component {
         </div>
 
         <div className="row">
-            {
-                this.state.books.map((item,index)=>{
-                    <BookItem bookInfo={item} key={index}/>
-                })
-            }
+          {this.state.books.map((item, index) => {
+            <div key={index}>
+              {index}             
+            </div>;
+          })}
         </div>
       </div>
     );
