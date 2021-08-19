@@ -21,8 +21,8 @@ class Home extends Component {
                         <div className="panel panel-default">
                             <div className="panel-heading">Book Classification</div>
                             <div className="panel-body">
-                                <NavLink className="list-group-item" to='/page/user'>UserManage</NavLink>
-                                <NavLink className="list-group-item" to='/page/book'>BookManage</NavLink>
+                                <NavLink className="list-group-item" to='/user'>UserManage</NavLink>
+                                <NavLink className="list-group-item" to='/book'>BookManage</NavLink>
                             </div>
 
                         </div>
