@@ -45,7 +45,6 @@ export default class UserList extends Component {
         return (
             <div>
                 <div className="panel panel-default">
-
                     <div className="panel-heading">USER MANAGEMENT</div>
                     <div className="panel-body">
                         <div className="col-md-2">
