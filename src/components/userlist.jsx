@@ -5,14 +5,20 @@ export default class UserList extends Component {
   state = {
     userList: [
       {
+        mail: '1191376090@qq.com',
+        type: 1,
         name: "lifa",
-        password: "123",
+        nickName: 'alfa',
         phoneNumber: "11111111",
+        status: 'blocked'
       },
       {
-        name: "lifa222",
-        password: "123222",
-        phoneNumber: "2222222",
+        mail: '1191376090@qq.com',
+        type: 1,
+        name: "lifa",
+        nickName: 'alfa',
+        phoneNumber: "11111111",
+        status: 'blocked'
       },
     ],
   };
@@ -21,18 +27,26 @@ export default class UserList extends Component {
     const url = "https://web.tootz.cn/api/open/user/list";
     let userId = sessionStorage.getItem("userId");
     let token = sessionStorage.getItem("token");
-    let data = { userId, token };
+    //设置请求头
+    axios.defaults.headers.common["token"] = token;
+    axios.defaults.headers.common["userId"] = userId;
     axios
-      .post(url, data)
+      .post(url, {
+        pageNum: 1,
+        pageSize: 10
+      })
       .then((res) => {
-        let result = res.data;
+        let result = res.data.data;
+        this.setState({
+          userList:result.entity
+        });
       })
       .catch((err) => {
         console.log(err);
       });
   }
 
-  addUser = () => {};
+  addUser = () => { };
 
   updateUser = () => {
     alert("click update");
@@ -43,7 +57,7 @@ export default class UserList extends Component {
       const url = "https://web.tootz.cn/api/open/user/delete";
       let userId = sessionStorage.getItem("userId");
       let token = sessionStorage.getItem("token");
-      let data = { userId, token };
+      let data = { userId };
       axios
         .post(url, data)
         .then((res) => {
@@ -93,16 +107,22 @@ export default class UserList extends Component {
                 <tr>
                   <td>ID</td>
                   <td>UserName</td>
-                  <td>PassWord</td>
+                  <td>NickName</td>
+                  <td>Mail</td>
+                  <td>Type</td>
                   <td>PhoneNumber</td>
+                  <td>Status</td>
                   <td>Control</td>
                 </tr>
                 {userList.map((item, index) => (
                   <tr key={index}>
-                    <td>{index}</td>
+                    <td>{index + 1}</td>
                     <td>{item.name}</td>
-                    <td>{item.password}</td>
+                    <td>{item.nickName}</td>
+                    <td>{item.mail}</td>
+                    <td>{item.type}</td>
                     <td>{item.phoneNumber}</td>
+                    <td>{item.status}</td>
                     <td>
                       <button
                         className="btn btn-primary"
