@@ -19,34 +19,11 @@ class BookList extends Component {
   render() {
     return (
       <div>
-        <div className="row">
-          <div className="col-xs-12">
-            <ul className="nav nav-pills  nav-justified">
-              <li role="presentation" className="active">
-                <a href="#">Books</a>
-              </li>
-              <li role="presentation">
-                <a href="#">Cart</a>
-              </li>
-              <li role="presentation">
-                <a href="#">Buy Again</a>
-              </li>
-              <li role="presentation">
-                <a href="#">About</a>
-              </li>
-              <li role="presentation">
-                <a href="#">Contact-us</a>
-              </li>
-            </ul>
+         <div className="panel panel-default">
+          <div className="panel-heading">USER MANAGEMENT</div>
+          <div className="panel-body">
+            
           </div>
-        </div>
-
-        <div className="row">
-          {this.state.books.map((item, index) => {
-            <div key={index}>
-              {index}             
-            </div>;
-          })}
         </div>
       </div>
     );

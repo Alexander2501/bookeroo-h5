@@ -158,17 +158,12 @@ export default class UserList extends Component {
         <div className="panel panel-default">
           <div className="panel-heading">USER MANAGEMENT</div>
           <div className="panel-body">
-            <div className="col-md-2">
-              <button
-                className="btn btn-primary"
-                data-toggle="modal"
-                data-target="#addModal"
-              >
+            <div className='row'>
+              <form className='navbar-form navbar-left'>
+              <button className="btn btn-primary" data-toggle="modal" data-target="#addModal">
                 Add
               </button>
-            </div>
-            <div className="col-md-4"></div>
-            <div className="col-md-6">
+              </form>              
               <form className="form-inline">
                 <div className="form-group">
                   <input
@@ -182,54 +177,58 @@ export default class UserList extends Component {
                 </button>
               </form>
             </div>
-          </div>
-          <div className="table-responsive">
-            <table className="table">
-              <tbody>
-                <tr>
-                  <td>ID</td>
-                  <td>UserName</td>
-                  <td>NickName</td>
-                  <td>Mail</td>
-                  <td>Type</td>
-                  <td>PhoneNumber</td>
-                  <td>Status</td>
-                  <td>Control</td>
-                </tr>
-                {userList.map((item, index) => (
-                  <tr key={index}>
-                    <td>{index + 1}</td>
-                    <td>{item.name}</td>
-                    <td>{item.nickName}</td>
-                    <td>{item.mail}</td>
-                    <td>{item.type}</td>
-                    <td>{item.phoneNumber}</td>
-                    <td>{item.status}</td>
-                    <td>
-                      <button
-                        className="btn btn-primary"
-                        data-toggle="modal"
-                        data-target="#editModal"
-                        onClick={() => { this.openEditModal(index) }}
-                      >
-                        Edit
-                      </button>
-                      <button
-                        className="btn btn btn-danger"
-                        onClick={() => {
-                          this.deleteUser(index);
-                        }}
-                        style={{ marginLeft: "5px" }}
-                      >
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <div className='row'>
+              <div className="table-responsive">
+                <table className="table">
+                  <tbody>
+                    <tr>
+                      <td>ID</td>
+                      <td>UserName</td>
+                      <td>NickName</td>
+                      <td>Mail</td>
+                      <td>Type</td>
+                      <td>PhoneNumber</td>
+                      <td>Status</td>
+                      <td>Control</td>
+                    </tr>
+                    {userList.map((item, index) => (
+                      <tr key={index}>
+                        <td>{index + 1}</td>
+                        <td>{item.name}</td>
+                        <td>{item.nickName}</td>
+                        <td>{item.mail}</td>
+                        <td>{item.type}</td>
+                        <td>{item.phoneNumber}</td>
+                        <td>{item.status}</td>
+                        <td>
+                          <button
+                            className="btn btn-primary"
+                            data-toggle="modal"
+                            data-target="#editModal"
+                            onClick={() => { this.openEditModal(index) }}
+                          >
+                            Edit
+                          </button>
+                          <button
+                            className="btn btn btn-danger"
+                            onClick={() => {
+                              this.deleteUser(index);
+                            }}
+                            style={{ marginLeft: "5px" }}
+                          >
+                            Delete
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
 
+
+          {/* EditModal */}
           <div
             className="modal fade"
             id="editModal"
@@ -455,6 +454,7 @@ export default class UserList extends Component {
             </div>
           </div>
         </div>
+
       </div>
     );
   }
