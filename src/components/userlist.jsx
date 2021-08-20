@@ -10,7 +10,7 @@ export default class UserList extends Component {
     nickName: '',
     phoneNumber: '',
     status: '',
-    modalField:['mail',"type",'name','nickName','phoneNumber','status']
+    modalField: ['mail', "type", 'name', 'nickName', 'phoneNumber', 'status']
   };
 
   componentDidMount() {
@@ -36,7 +36,31 @@ export default class UserList extends Component {
       });
   }
 
-  addUser = () => { };
+  addUser = () => {
+    let mail = this.addMail.value.toString();
+    let type = parseInt(this.addType.value);
+    let name = this.addName.value.toString();
+    let nickName = this.addNickName.value.toString();
+    let phoneNumber = this.addPhoneNum.value.toString();
+    let status = parseInt(this.addStatus.value);
+    const url = "https://web.tootz.cn/api/open/user/set";
+    let data = {
+      mail,
+      type,
+      name,
+      nickName,
+      phoneNumber,
+      status
+    }
+    axios.post(url, data).then(
+      res => {
+        console.log(res);
+      }
+    ).catch(err => {
+      console.log(err);
+    });
+
+  };
 
   openEditModal = (index) => {
     let userMes = this.state.userList[index];
@@ -49,7 +73,6 @@ export default class UserList extends Component {
       status: userMes.status
     });
   }
-
   //修改用户input值获取
   handleEditChange = (e) => {
     // console.log(e.target.name);
@@ -88,29 +111,29 @@ export default class UserList extends Component {
       default:
         break;
     }
-    
+
   }
+  //用户修改
   updateUser = () => {
-   const url =  "https://web.tootz.cn/api/open/user/set";
-   let data ={
-     userId:sessionStorage.getItem('userId'),
-     mail:this.state.mail,
-     type:this.state.type,
-     name:this.state.name,
-     nickName:this.state.nickName,
-     phoneNumber:this.state.phoneNumber,
-     status:this.state.status
-   }
-   axios.post(url,data).then(
-     res=>{
-       console.log(res);
-     }
-   ).catch(err=>{
-     console.log(err);
-   });
+    const url = "https://web.tootz.cn/api/open/user/set";
+    let data = {
+      mail: this.state.mail,
+      type: this.state.type,
+      name: this.state.name,
+      nickName: this.state.nickName,
+      phoneNumber: this.state.phoneNumber,
+      status: this.state.status
+    }
+    axios.post(url, data).then(
+      res => {
+        console.log(res);
+      }
+    ).catch(err => {
+      console.log(err);
+    });
 
   };
-
+  //用户删除
   deleteUser = (index) => {
     if (window.confirm("Confirm Delete？")) {
       const url = "https://web.tootz.cn/api/open/user/delete";
@@ -230,7 +253,7 @@ export default class UserList extends Component {
                   </h4>
                 </div>
                 <div className="modal-body">
-                  <form>                    
+                  <form>
                     <div className="form-group">
                       <label>Email</label>
                       <input
@@ -321,7 +344,7 @@ export default class UserList extends Component {
             </div>
           </div>
 
-{/* AddModal */}
+          {/* AddModal */}
           <div
             className="modal fade"
             id="addModal"
@@ -344,16 +367,15 @@ export default class UserList extends Component {
                   </h4>
                 </div>
                 <div className="modal-body">
-                <form>                    
+                  <form>
                     <div className="form-group">
                       <label>Email</label>
                       <input
                         type="text"
                         className="form-control"
                         placeholder="Email"
-                        value={this.state.mail}
                         name="mail"
-                        ref={value=>this.addMail = value}
+                        ref={value => this.addMail = value}
                       />
                     </div>
                     <div className="form-group">
@@ -362,9 +384,8 @@ export default class UserList extends Component {
                         type="text"
                         name="type"
                         className="form-control"
-                        value={this.state.type}
                         placeholder="Type"
-                        ref={value=>this.addType = value}
+                        ref={value => this.addType = value}
                       />
                     </div>
                     <div className="form-group">
@@ -373,9 +394,9 @@ export default class UserList extends Component {
                         type="text"
                         name="name"
                         className="form-control"
-                        value={this.state.name}
+
                         placeholder="Name"
-                        ref={value=>this.addName = value}
+                        ref={value => this.addName = value}
                       />
                     </div>
                     <div className="form-group">
@@ -384,9 +405,9 @@ export default class UserList extends Component {
                         type="text"
                         name="nickname"
                         className="form-control"
-                        value={this.state.nickName}
+
                         placeholder="NickName"
-                        ref={value=>this.addNickName = value}
+                        ref={value => this.addNickName = value}
                       />
                     </div>
                     <div className="form-group">
@@ -394,11 +415,11 @@ export default class UserList extends Component {
                       <input
                         type="text"
                         name="pwd"
-                        value={this.phoneNumber}
+
                         className="form-control"
                         id="exampleInputPassword1"
                         placeholder="Password"
-                        ref={value=>this.addPhoneNum = value}
+                        ref={value => this.addPhoneNum = value}
                       />
                     </div>
                     <div className="form-group">
@@ -407,9 +428,8 @@ export default class UserList extends Component {
                         type="text"
                         name="status"
                         className="form-control"
-                        value={this.state.status}
                         placeholder="Status"
-                        ref={value=>this.addStatus = value}
+                        ref={value => this.addStatus = value}
                       />
                     </div>
 
@@ -426,9 +446,9 @@ export default class UserList extends Component {
                   <button
                     type="button"
                     className="btn btn-primary"
-                    onClick={this.updateUser}
+                    onClick={this.addUser}
                   >
-                    Save changes
+                    Add User
                   </button>
                 </div>
               </div>
