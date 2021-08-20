@@ -70,7 +70,7 @@ export default class UserList extends Component {
             </div>
             <div className="col-md-4"></div>
             <div className="col-md-6">
-              <form class="form-inline">
+              <form className="form-inline">
                 <div className="form-group">
                   <input
                     type="text"
@@ -133,7 +133,7 @@ export default class UserList extends Component {
           <div
             className="modal fade"
             id="editModal"
-            tabindex="-1"
+
             role="dialog"
             aria-labelledby="myModalLabel"
           >
@@ -154,7 +154,7 @@ export default class UserList extends Component {
                 </div>
                 <div className="modal-body">
                   <form>
-                    <div class="form-group">
+                    <div className="form-group">
                       <label>Email address</label>
                       <input
                         type="text"
@@ -163,7 +163,7 @@ export default class UserList extends Component {
                         placeholder="Email"
                       />
                     </div>
-                    <div class="form-group">
+                    <div className="form-group">
                       <label>Password</label>
                       <input
                         type="text"
@@ -172,7 +172,7 @@ export default class UserList extends Component {
                         placeholder="Password"
                       />
                     </div>
-                    <div class="form-group">
+                    <div className="form-group">
                       <label>PhoneNumber</label>
                       <input
                         type="text"
@@ -206,7 +206,6 @@ export default class UserList extends Component {
           <div
             className="modal fade"
             id="addModal"
-            tabindex="-1"
             role="dialog"
             aria-labelledby="myModalLabel"
           >
@@ -227,7 +226,7 @@ export default class UserList extends Component {
                 </div>
                 <div className="modal-body">
                   <form>
-                    <div class="form-group">
+                    <div className="form-group">
                       <label>Email address</label>
                       <input
                         type="text"
@@ -236,7 +235,7 @@ export default class UserList extends Component {
                         placeholder="Email"
                       />
                     </div>
-                    <div class="form-group">
+                    <div className="form-group">
                       <label>Password</label>
                       <input
                         type="text"
@@ -245,7 +244,7 @@ export default class UserList extends Component {
                         placeholder="Password"
                       />
                     </div>
-                    <div class="form-group">
+                    <div className="form-group">
                       <label>PhoneNumber</label>
                       <input
                         type="text"

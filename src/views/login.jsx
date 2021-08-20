@@ -102,7 +102,7 @@ export default class Login extends Component {
                             type="checkbox"
                             value="value2"
                           />
-                          <label for="styled-checkbox-2">
+                          <label>
                             remember password
                           </label>
                         </li>
