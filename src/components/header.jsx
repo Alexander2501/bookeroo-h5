@@ -1,6 +1,12 @@
 import React, { Component } from "react";
 
 class Header extends Component {
+
+  state={}
+  logout=()=>{
+
+  }
+  
   render() {
     return (
       <div>
@@ -41,7 +47,7 @@ class Header extends Component {
                 </button>
                 <ul className="dropdown-menu">
                   <li><a href="#">Person Setting</a></li>
-                  <li><a href="#">Logout</a></li>
+                  <li onClick="this.logout">Logout</li>
                 </ul>
               </div>
             </div>

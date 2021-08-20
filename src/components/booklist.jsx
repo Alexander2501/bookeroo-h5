@@ -25,16 +25,16 @@ class BookList extends Component {
     const url = `https://api.github.com/search/users?q=js`
 
     // 使用axios库
-    axios.get(url)
-      .then((response) => {
-        console.log(response)
+    // axios.get(url)
+    //   .then((response) => {
+    //     console.log(response)
 
-      })
-      .catch((error) => {
-        // debugger
-        console.log('error', error.response.data.message, error.message)
+    //   })
+    //   .catch((error) => {
+    //     // debugger
+    //     // console.log('error', error.response.data.message, error.message)
 
-      })
+    //   })
 
 
   }
@@ -43,7 +43,7 @@ class BookList extends Component {
   render() {
     return (
       <div>
-        <div class="page-header text-center">
+        <div className="page-header text-center">
           <h2>Book At Bookeroo</h2>
         </div>
 
@@ -52,7 +52,7 @@ class BookList extends Component {
             this.state.books.map((item, index) => (
 
               <NavLink to='/book'>
-               <BookItem bookInfo={item} key={index}/>
+                <BookItem bookInfo={item} key={index} />
               </NavLink>
             )
 
