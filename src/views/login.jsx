@@ -36,7 +36,7 @@ export default class Login extends Component {
       .then((res) => {
         // console.log(res);
         let result = res.data.data;
-
+        console.log(res);
         sessionStorage.setItem("userId", result.userId);
         sessionStorage.setItem("token", result.token);
         if ((res.code = "1000000")) {

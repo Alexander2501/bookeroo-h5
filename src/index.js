@@ -7,7 +7,7 @@ import axios from 'axios'
 
 
 ReactDOM.render(
-  <App />,
+  <App/>,
   document.getElementById('root')
 );
 

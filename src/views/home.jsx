@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Switch, Route, NavLink, Redirect } from 'react-router-dom';
+import React, {Component} from 'react';
+import {Switch, Route, NavLink, Redirect} from 'react-router-dom';
 
 import Header from "../components/header"
 import UserList from '../components/userlist';
@@ -13,10 +13,10 @@ class Home extends Component {
 
     render() {
         return (
-            <div>     
+            <div>
                 <div className="row">
                     <div className="col-xs-2">
-                    <Header />
+                        <Header/>
                         {/*导航路由链接*/}
                         <div className="panel panel-default">
                             <div className="panel-heading">Book Classification</div>
@@ -26,14 +26,13 @@ class Home extends Component {
                             </div>
                         </div>
                     </div>
-                    <div className="col-xs-9">   
-
+                    <div className="col-xs-9">
                         {/*可切换的路由组件*/}
                         <Switch>
-                            <Route path='/user' component={UserList} />
-                            <Route path='/book' component={BookList} />
-                            <Route>
-                                <Redirect to='/user' />
+                            <Route path='/user' component={UserList}/>
+                            <Route path='/book' component={BookList}/>
+                            <Route path='/'>
+                                <Redirect to='/user'></Redirect>
                             </Route>
                         </Switch>
                     </div>
