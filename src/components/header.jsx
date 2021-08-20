@@ -1,12 +1,24 @@
+import axios from "axios";
 import React, { Component } from "react";
+
+let userId = sessionStorage.getItem("userId");
+let token = sessionStorage.getItem("token");
+//设置请求头
+axios.defaults.headers.common["token"] = token;
+axios.defaults.headers.common["userId"] = userId;
 
 class Header extends Component {
 
-  state={}
-  logout=()=>{
-
+  state = {}
+  logout = () => {
+    const url = "https://web.tootz.cn/api/open/user/logout";
+    axios.post(url, {}).then(res => {
+      console.log(res);
+    }).catch(err => {
+      console.log(err);
+    })
   }
-  
+
   render() {
     return (
       <div>
@@ -47,7 +59,7 @@ class Header extends Component {
                 </button>
                 <ul className="dropdown-menu">
                   <li><a href="#">Person Setting</a></li>
-                  <li onClick="this.logout">Logout</li>
+                  <li onClick={this.logout}><a href="#">LogOut</a></li>
                 </ul>
               </div>
             </div>
