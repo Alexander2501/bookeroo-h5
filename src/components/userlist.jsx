@@ -4,6 +4,13 @@ import React, { Component } from "react";
 export default class UserList extends Component {
   state = {
     userList: [],
+    mail: '',
+    type: 1,
+    name: '',
+    nickName: '',
+    phoneNumber: '',
+    status: '',
+    modalField:['mail',"type",'name','nickName','phoneNumber','status']
   };
 
   componentDidMount() {
@@ -31,8 +38,77 @@ export default class UserList extends Component {
 
   addUser = () => { };
 
+  openEditModal = (index) => {
+    let userMes = this.state.userList[index];
+    this.setState({
+      mail: userMes.mail,
+      type: userMes.type,
+      name: userMes.name,
+      nickName: userMes.nickName,
+      phoneNumber: userMes.phoneNumber,
+      status: userMes.status
+    });
+  }
+
+  //修改用户input值获取
+  handleEditChange = (e) => {
+    // console.log(e.target.name);
+    // console.log(e.target.value);
+    switch (e.target.name) {
+      case 'mail':
+        this.setState({
+          mail: e.target.value.toString()
+        });
+        break;
+      case 'type':
+        this.setState({
+          type: e.target.value
+        });
+        break;
+      case 'name':
+        this.setState({
+          name: e.target.value.toString()
+        });
+        break;
+      case 'nickname':
+        this.setState({
+          nickName: e.target.value.toString()
+        });
+        break;
+      case 'phoneNumber':
+        this.setState({
+          phoneNumber: e.target.value.toString()
+        });
+        break;
+      case 'status':
+        this.setState({
+          status: e.target.value
+        });
+        break;
+      default:
+        break;
+    }
+    
+  }
   updateUser = () => {
-    alert("click update");
+   const url =  "https://web.tootz.cn/api/open/user/set";
+   let data ={
+     userId:sessionStorage.getItem('userId'),
+     mail:this.state.mail,
+     type:this.state.type,
+     name:this.state.name,
+     nickName:this.state.nickName,
+     phoneNumber:this.state.phoneNumber,
+     status:this.state.status
+   }
+   axios.post(url,data).then(
+     res=>{
+       console.log(res);
+     }
+   ).catch(err=>{
+     console.log(err);
+   });
+
   };
 
   deleteUser = (index) => {
@@ -44,7 +120,7 @@ export default class UserList extends Component {
       axios
         .post(url, data)
         .then((res) => {
-          let result = res.data;
+
         })
         .catch((err) => {
           console.log(err);
@@ -111,6 +187,7 @@ export default class UserList extends Component {
                         className="btn btn-primary"
                         data-toggle="modal"
                         data-target="#editModal"
+                        onClick={() => { this.openEditModal(index) }}
                       >
                         Edit
                       </button>
@@ -149,38 +226,79 @@ export default class UserList extends Component {
                     <span aria-hidden="true">&times;</span>
                   </button>
                   <h4 className="modal-title" id="myModalLabel">
-                    Modal title
+                    Edit User
                   </h4>
                 </div>
                 <div className="modal-body">
-                  <form>
+                  <form>                    
                     <div className="form-group">
-                      <label>Email address</label>
+                      <label>Email</label>
                       <input
                         type="text"
                         className="form-control"
-                        id="exampleInputEmail1"
                         placeholder="Email"
+                        value={this.state.mail}
+                        name="mail"
+                        onChange={this.handleEditChange}
                       />
                     </div>
                     <div className="form-group">
-                      <label>Password</label>
+                      <label>Type</label>
                       <input
                         type="text"
+                        name="type"
                         className="form-control"
-                        id="exampleInputPassword1"
-                        placeholder="Password"
+                        value={this.state.type}
+                        placeholder="Type"
+                        onChange={this.handleEditChange}
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label>name</label>
+                      <input
+                        type="text"
+                        name="name"
+                        className="form-control"
+                        value={this.state.name}
+                        placeholder="Name"
+                        onChange={this.handleEditChange}
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label>NickName</label>
+                      <input
+                        type="text"
+                        name="nickname"
+                        className="form-control"
+                        value={this.state.nickName}
+                        placeholder="NickName"
+                        onChange={this.handleEditChange}
                       />
                     </div>
                     <div className="form-group">
                       <label>PhoneNumber</label>
                       <input
                         type="text"
+                        name="pwd"
+                        value={this.phoneNumber}
                         className="form-control"
                         id="exampleInputPassword1"
                         placeholder="Password"
+                        onChange={this.handleEditChange}
                       />
                     </div>
+                    <div className="form-group">
+                      <label>Status</label>
+                      <input
+                        type="text"
+                        name="status"
+                        className="form-control"
+                        value={this.state.status}
+                        placeholder="Status"
+                        onChange={this.handleEditChange}
+                      />
+                    </div>
+
                   </form>
                 </div>
                 <div className="modal-footer">
@@ -203,6 +321,7 @@ export default class UserList extends Component {
             </div>
           </div>
 
+{/* AddModal */}
           <div
             className="modal fade"
             id="addModal"
@@ -225,34 +344,75 @@ export default class UserList extends Component {
                   </h4>
                 </div>
                 <div className="modal-body">
-                  <form>
+                <form>                    
                     <div className="form-group">
-                      <label>Email address</label>
+                      <label>Email</label>
                       <input
                         type="text"
                         className="form-control"
-                        id="exampleInputEmail1"
                         placeholder="Email"
+                        value={this.state.mail}
+                        name="mail"
+                        ref={value=>this.addMail = value}
                       />
                     </div>
                     <div className="form-group">
-                      <label>Password</label>
+                      <label>Type</label>
                       <input
                         type="text"
+                        name="type"
                         className="form-control"
-                        id="exampleInputPassword1"
-                        placeholder="Password"
+                        value={this.state.type}
+                        placeholder="Type"
+                        ref={value=>this.addType = value}
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label>name</label>
+                      <input
+                        type="text"
+                        name="name"
+                        className="form-control"
+                        value={this.state.name}
+                        placeholder="Name"
+                        ref={value=>this.addName = value}
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label>NickName</label>
+                      <input
+                        type="text"
+                        name="nickname"
+                        className="form-control"
+                        value={this.state.nickName}
+                        placeholder="NickName"
+                        ref={value=>this.addNickName = value}
                       />
                     </div>
                     <div className="form-group">
                       <label>PhoneNumber</label>
                       <input
                         type="text"
+                        name="pwd"
+                        value={this.phoneNumber}
                         className="form-control"
                         id="exampleInputPassword1"
                         placeholder="Password"
+                        ref={value=>this.addPhoneNum = value}
                       />
                     </div>
+                    <div className="form-group">
+                      <label>Status</label>
+                      <input
+                        type="text"
+                        name="status"
+                        className="form-control"
+                        value={this.state.status}
+                        placeholder="Status"
+                        ref={value=>this.addStatus = value}
+                      />
+                    </div>
+
                   </form>
                 </div>
                 <div className="modal-footer">
