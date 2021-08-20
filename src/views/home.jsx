@@ -14,9 +14,9 @@ class Home extends Component {
     render() {
         return (
             <div>
+                <div className='row'>  <Header /></div>
                 <div className="row">
                     <div className="col-xs-2">
-                        <Header />
                         {/*导航路由链接*/}
                         <div className="panel panel-default">
                             <div className="panel-heading">Book Classification</div>

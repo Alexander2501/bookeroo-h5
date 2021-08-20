@@ -4,20 +4,25 @@ import PropTypes from "prop-types";
 class BookItem extends Component {
   static prop;
   state = {
-    bookinfo: {},
+    src: '',
+    name: "",
+    price: "",
+    author: "",
   };
-  render() {
-    let container = { width: "50vw", height: "70vh", border: "1px solid grey" };
-    const { bookinfo } = this.props;
+  render() {   
+    const { src,name,price,author } = this.props.bookInfo;
     return (
       <div>
-        <div>
-          123
-          <img src="../../public/imgs/book.jpg" alt="" />
+        <div style={{ width: '200px', height: '230px', border: '1px solid #e6e6e6', textAlign: 'center', display: 'inline-block', padding: '5px 10px' }}>
+          <img src="https://avatars.githubusercontent.com/u/23626?v=4" alt="" />
+          <p>{name}</p>
+          <p style={{ fontWeight: 'bold', color: 'red' }}>{price}</p>
         </div>
       </div>
     );
   }
 }
-
+BookItem.propTypes = {
+  bookInfo: PropTypes.object.isRequired
+}
 export default BookItem;
