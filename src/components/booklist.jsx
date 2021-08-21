@@ -10,6 +10,7 @@ class BookList extends Component {
     picUrl: '',
     pageNum: 1,
     pageSize: 10,
+    isShow: true,
     books: [
       {
         src: '',
@@ -44,7 +45,7 @@ class BookList extends Component {
       res => {
         // console.log(res.data.data.entity);
         this.setState({
-          books:res.data.data.entity
+          books: res.data.data.entity
         });
 
       }
@@ -56,20 +57,38 @@ class BookList extends Component {
   }
 
   changPic = () => {
+
     let reads = new FileReader();
-
     let f = document.getElementById('file').files[0];
+    let param = new FormData()  // 创建form对象
+    param.append('file', f)  // 通过append向form对象添加数据
 
-    reads.readAsDataURL(f);
+    // reads.readAsDataURL(f);
 
-    reads.onload = function (e) {
+    // reads.onload = function (e) {
 
-      document.getElementById('show').src = this.result;
-      this.setState({
-        picUrl: this.result
-      });
+    //   document.getElementById('show').src = this.result;
+    //   this.setState({
+    //     picUrl: this.result
+    //   });
+    // };
 
-    };
+    let upImgUrl = "https://web.tootz.cn/api/open/upload";
+    axios.post(upImgUrl, param).then(res => {
+      if (res.data.code == "1000000") {
+        let imgUrl = res.data.data;
+        this.setState({
+          picUrl: imgUrl
+        });
+      }
+    }).catch(err => {
+      console.log(err);
+    });
+
+
+
+
+
   }
 
   addBook = (book) => {
@@ -77,7 +96,7 @@ class BookList extends Component {
     books.unshift(book);
     this.setState({ books });
 
-    let addNBookUrl = "https://web.tootz.cn/api/open/book/addNew";
+    let addNBookUrl = "https://web.tootz.cn/api/book/addNew";
 
     let bookName = this.bookName.value.toString();
     let bookDesc = this.bookDesc.value.toString();
@@ -95,6 +114,12 @@ class BookList extends Component {
 
     axios.post(addNBookUrl, data).then(res => {
       console.log(res.data);
+     if(res.data.code="1000000"){
+      alert("图书添加成功");
+      this.setState({
+        isShow: false
+      });
+     }
     }).catch(err => {
       console.log(err);
     });
@@ -136,7 +161,7 @@ class BookList extends Component {
         </div>
 
 
-        <div className="modal fade" id="bookAddModal" role="dialog" aria-labelledby="myModalLabel">
+        <div className="modal fade" id="bookAddModal" role="dialog" aria-labelledby="myModalLabel" style={{ display: this.state.isShow }}>
           <div className="modal-dialog" role="document">
             <div className="modal-content">
               <div className="modal-header">
@@ -146,71 +171,71 @@ class BookList extends Component {
 
                 <form className="form-horizontal">
                   <div className="form-group">
-                    <label className="col-sm-2 control-label">BookName</label>
+                    <label className=" col-sm-3 control-label">BookName</label>
                     <div className="col-sm-6">
-                      <input type="email" className="form-control" ref={value => this.bookName = value} placeholder="BookName" />
+                      <input type="text" className="form-control" ref={value => this.bookName = value} placeholder="BookName" />
                     </div>
                   </div>
                   <div className="form-group">
-                    <label className="col-sm-2 control-label">BookDesc</label>
+                    <label className=" col-sm-3 control-label">BookDesc</label>
                     <div className="col-sm-6">
-                      <input type="password" className="form-control" ref={value => this.bookDesc = value} placeholder="BookDesc" />
+                      <input type="text" className="form-control" ref={value => this.bookDesc = value} placeholder="BookDesc" />
                     </div>
                   </div>
                   <div className="form-group">
-                    <label className="col-sm-2 control-label">PicUrl</label>
+                    <label className=" col-sm-3 control-label">PicUrl</label>
                     <div className="col-sm-6">
                       <label>File input</label>
                       <input type="file" id="file" accept="image/*" onChange={this.changPic} />
-                      <img src="" id="show" width="200" />
+                      <img src={this.state.picUrl} id="show" width="200" />
                     </div>
                   </div>
                   <div className="form-group">
-                    <label className="col-sm-2 control-label">Author</label>
+                    <label className=" col-sm-3 control-label">Author</label>
                     <div className="col-sm-6">
-                      <input type="password" className="form-control" ref={value => this.author = value} placeholder="Author" />
+                      <input type="text" className="form-control" ref={value => this.author = value} placeholder="Author" />
                     </div>
                   </div>
                   <div className="form-group">
-                    <label className="col-sm-2 control-label">Price</label>
+                    <label className=" col-sm-3 control-label">Price</label>
                     <div className="col-sm-6">
-                      <input type="email" className="form-control" ref={value => this.price = value} placeholder="Price" />
+                      <input type="text" className="form-control" ref={value => this.price = value} placeholder="Price" />
                     </div>
                   </div>
                   <div className="form-group">
-                    <label className="col-sm-2 control-label">ISBN</label>
+                    <label className=" col-sm-3 control-label">ISBN</label>
                     <div className="col-sm-6">
-                      <input type="password" className="form-control" ref={value => this.isbn = value} placeholder="ISBN" />
+                      <input type="text" className="form-control" ref={value => this.isbn = value} placeholder="ISBN" />
                     </div>
                   </div>
                   <div className="form-group">
-                    <label className="col-sm-2 control-label">PublishingHouse</label>
+                    <label className=" col-sm-3 control-label">PublishingHouse</label>
                     <div className="col-sm-6">
-                      <input type="password" className="form-control" ref={value => this.publishingHouse = value} placeholder="PublishingHouse" />
+                      <input type="text" className="form-control" ref={value => this.publishingHouse = value} placeholder="PublishingHouse" />
                     </div>
                   </div>
                   <div className="form-group">
-                    <label className="col-sm-2 control-label">PublishingTime</label>
+                    <label className=" col-sm-3 control-label">PublishingTime</label>
                     <div className="col-sm-6">
-                      <input type="password" className="form-control" ref={value => this.publishingTime = value} placeholder="PublishingTime" />
+                      <input type="date" className="form-control" ref={value => this.publishingTime = value} placeholder="PublishingTime" />
                     </div>
                   </div>
                   <div className="form-group">
-                    <label className="col-sm-2 control-label">Language</label>
+                    <label className=" col-sm-3 control-label">Language</label>
                     <div className="col-sm-6">
-                      <input type="password" className="form-control" ref={value => this.language = value} placeholder="Language" />
+                      <input type="text" className="form-control" ref={value => this.language = value} placeholder="Language" />
                     </div>
                   </div>
                   <div className="form-group">
-                    <label className="col-sm-2 control-label">Stock</label>
+                    <label className=" col-sm-3 control-label">Stock</label>
                     <div className="col-sm-6">
-                      <input type="password" className="form-control" ref={value => this.stock = value} placeholder="Stock" />
+                      <input type="number" className="form-control" ref={value => this.stock = value} placeholder="Stock" />
                     </div>
                   </div>
                   <div className="form-group">
-                    <label className="col-sm-2 control-label">Status</label>
+                    <label className=" col-sm-3 control-label">Status</label>
                     <div className="col-sm-6">
-                      <input type="password" className="form-control" ref={value => this.status = value} placeholder="Status" />
+                      <input type="number" min="10" max="1" className="form-control" ref={value => this.status = value} placeholder="Status" />
                     </div>
                   </div>
 
