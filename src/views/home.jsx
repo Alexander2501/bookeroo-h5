@@ -5,6 +5,7 @@ import Header from "../components/header"
 import UserList from '../components/userlist';
 import BookList from '../components/booklist';
 import Detail from '../components/detail';
+import MyOrder from '../components/myorder/myorder';
 
 class Home extends Component {
 
@@ -39,6 +40,7 @@ class Home extends Component {
                             <Route path='/book' component={BookList} />
                             <Route path='/user' component={UserList} />
                             <Route path='/detail' component={Detail} />
+                            <Route path='/orders' component={MyOrder}></Route>
                             <Route path='/'>
                                 <Redirect to='/book'></Redirect>
                             </Route>

@@ -12,7 +12,9 @@ export default class Register extends Component {
      let mail = this.mail.value.toString();
      let password = this.password.value.toString();
      let name = this.name.value.toString();
+     let nickName = this.nickName.value.toString();
      let phoneNumber = this.phoneNumber.value.toString();
+
       console.log(mail)
 
       const url = "https://web.tootz.cn/api/open/user/register";
@@ -22,7 +24,7 @@ export default class Register extends Component {
             password:password,
             type: 1,
             name: name,
-            nickName: "lisa",
+            nickName:nickName,
             phoneNumber: phoneNumber,
           })
           .then((res) => {
@@ -51,6 +53,14 @@ export default class Register extends Component {
                                                 className="form-control"
                                                 placeholder="enter your name here"
                                                 ref={inputValue=>this.name=inputValue}
+                                            />
+                                        </div>
+                                        <div className="form-group">
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                placeholder="enter your nickname here"
+                                                ref={inputValue=>this.nickName=inputValue}
                                             />
                                         </div>
 

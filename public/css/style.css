@@ -41,7 +41,7 @@ a {
     display:inline-block;
     text-decoration:none;
     color: #7c8089;
-    font-size: 16px;
+    /* font-size: 16px; */
     font-weight: 400;
     padding:0;
 }

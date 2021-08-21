@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 let userId = sessionStorage.getItem("userId");
 let token = sessionStorage.getItem("token");
@@ -10,6 +11,7 @@ axios.defaults.headers.common["userId"] = userId;
 class Header extends Component {
 
   state = {}
+ 
   logout = () => {
     const url = "https://web.tootz.cn/api/open/user/logout";
     axios.post(url, {}).then(res => {
@@ -49,8 +51,8 @@ class Header extends Component {
           <div className='col-md-4'>
             <div className="btn-group pull-right" role="group" style={{ marginRight: '30px' }}>
 
-              <button type="button" className="btn btn-default">My Cart</button>
-              <button type="button" className="btn btn-default">My Orders</button>
+              <button type="button" className="btn btn-default"><Link to='/cart'>My Cart</Link></button>
+              <button type="button" className="btn btn-default"><Link to='/orders'>My Orders</Link></button>
 
               <div className="btn-group" role="group">
                 <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
