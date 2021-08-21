@@ -35,14 +35,18 @@ class BookList extends Component {
     axios.defaults.headers.common["userId"] = userId;
 
     //   const url = `https://api.github.com/search/users?q=js`
-    let globalBooksUrl = "https://web.tootz.cn/api/open/book/globalList";
+    let globalBooksUrl = "https://web.tootz.cn/api/book/globalList";
     let data = {
       pageNum: this.state.pageNum,
       pageSize: this.state.pageSize
     }
     axios.post(globalBooksUrl, data).then(
       res => {
-        console.log(res.data);
+        // console.log(res.data.data.entity);
+        this.setState({
+          books:res.data.data.entity
+        });
+
       }
     ).catch(err => {
       console.log(err);
