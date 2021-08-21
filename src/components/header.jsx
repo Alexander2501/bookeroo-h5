@@ -24,11 +24,11 @@ class Header extends Component {
       <div>
         <div className='row App-header' style={{}}>
           <div className='col-md-2'>
-            <h2 style={{ marginLeft: '5px' }}>Bookeroo</h2>
+         
           </div>
 
 
-          <div className='col-md-8'>
+          <div className='col-md-6'>
             <div className="input-group">
               <div className="input-group-btn">
                 <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">All Department <span className="caret"></span></button>
@@ -46,8 +46,8 @@ class Header extends Component {
           </div>
 
 
-          <div className='col-md-2'>
-            <div className="btn-group" role="group" aria-label="...">
+          <div className='col-md-4'>
+            <div className="btn-group pull-right" role="group" style={{ marginRight: '30px' }}>
 
               <button type="button" className="btn btn-default">My Cart</button>
               <button type="button" className="btn btn-default">My Orders</button>

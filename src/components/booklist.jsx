@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import BookItem from "./bookitem";
 import axios from "axios";
-import { NavLink } from "react-router-dom";
+import { Link, Route } from "react-router-dom";
+import Detail from "./detail";
+
 
 class BookList extends Component {
   state = {
@@ -51,14 +53,15 @@ class BookList extends Component {
           {
             this.state.books.map((item, index) => (
 
-              <NavLink to='/book'>
-                <BookItem bookInfo={item} key={index} />
-              </NavLink>
+              <BookItem bookInfo={item} key={index} />
+              
             )
 
             )
           }
         </div>
+
+
       </div>
     );
   }

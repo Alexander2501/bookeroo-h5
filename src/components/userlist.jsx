@@ -160,26 +160,30 @@ export default class UserList extends Component {
         </div>
 
         <div className='row'>
-          <form className='navbar-form navbar-left'>
+          <div className='col-xs-8'>
             <button className="btn btn-primary" data-toggle="modal" data-target="#addModal">
               Add
             </button>
-          </form>
-          <form className="form-inline">
-            <div className="form-group">
-              <input
-                type="text"
-                className="form-control"
-                id="exampleInputEmail2"
-              />
-            </div>
-            <button type="submit" className="btn btn-default">
-              Search
-            </button>
-          </form>
+
+          </div>
+          <div className='col-xs-4'>
+            <form className="form-inline">
+              <div className="form-group">
+                <input
+                  type="text"
+                  className="form-control"
+                  id="exampleInputEmail2"
+                />
+              </div>
+              <button type="submit" className="btn btn-default">
+                Search
+              </button>
+            </form>
+          </div>
+
         </div>
-        
-        
+
+
         <div className='row'>
           <div className="table-responsive">
             <table className="table">
@@ -351,7 +355,7 @@ export default class UserList extends Component {
           className="modal fade"
           id="addModal"
           role="dialog"
-          aria-labelledby="myModalLabel"
+          aria-labelledby="myModalLabel1"
         >
           <div className="modal-dialog" role="document">
             <div className="modal-content">
