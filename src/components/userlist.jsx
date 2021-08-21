@@ -10,6 +10,7 @@ export default class UserList extends Component {
     nickName: '',
     phoneNumber: '',
     status: '',
+    userId: '',
     modalField: ['mail', "type", 'name', 'nickName', 'phoneNumber', 'status']
   };
 
@@ -70,7 +71,8 @@ export default class UserList extends Component {
       name: userMes.name,
       nickName: userMes.nickName,
       phoneNumber: userMes.phoneNumber,
-      status: userMes.status
+      status: userMes.status,
+      userId: userMes.userId
     });
   }
   //修改用户input值获取
@@ -122,7 +124,8 @@ export default class UserList extends Component {
       name: this.state.name,
       nickName: this.state.nickName,
       phoneNumber: this.state.phoneNumber,
-      status: this.state.status
+      status: this.state.status,
+      userId: this.state.userId
     }
     axios.post(url, data).then(
       res => {

@@ -25,6 +25,7 @@ class BookList extends Component {
         author: "test",
       },
     ],
+    editBookMes:{}
   };
 
   componentDidMount() {
@@ -131,11 +132,18 @@ class BookList extends Component {
     const { books } = this.state;
     books.splice(index, 1);
     this.setState({ books });
-
-
-
   }
-  editBook = (index) => {
+  //fill edit modal input
+  handleEditBook = (index) => {
+    this.setState({
+      editBookMes:this.state.books[index]
+    });
+  }
+  //get new book info
+  editInputChange=(e)=>{
+  }
+  
+  editBook=()=>{
 
   }
 
@@ -153,14 +161,14 @@ class BookList extends Component {
         <div>
           {
             this.state.books.map((item, index) => (
-              <BookItem bookInfo={item} key={index} index={index} deleteBook={this.deleteBook} editBook={this.editBook} />
+              <BookItem bookInfo={item} key={index} index={index} deleteBook={this.deleteBook} handleEditBook={this.handleEditBook} />
             )
 
             )
           }
         </div>
 
-
+        {/* Add Book Modal*/}
         <div className="modal fade" id="bookAddModal" role="dialog" aria-labelledby="myModalLabel" style={{ display: this.state.isShow }}>
           <div className="modal-dialog" role="document">
             <div className="modal-content">
@@ -240,13 +248,6 @@ class BookList extends Component {
                   </div>
 
                 </form>
-
-
-
-
-
-
-
               </div>
               <div className="modal-footer">
                 <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
@@ -255,6 +256,102 @@ class BookList extends Component {
             </div>
           </div>
         </div>
+
+        {/* Edit Book Modal */}
+        <div className="modal fade" id="bookEditModal" role="dialog" aria-labelledby="myModalLabel" style={{ display: this.state.isShow }}>
+          <div className="modal-dialog" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h4 className="modal-title" id="myModalLabel">Add Book</h4>
+              </div>
+              <div className="modal-body">
+
+                <form className="form-horizontal">
+                  <div className="form-group">
+                    <label className=" col-sm-3 control-label">BookName</label>
+                    <div className="col-sm-6">
+                      <input type="text" className="form-control" name="bookName" value={this.state.editBookMes.bookName} onChange={this.editInputChange} placeholder="BookName" />
+                    </div>
+                  </div>
+                  <div className="form-group">
+                    <label className=" col-sm-3 control-label">BookDesc</label>
+                    <div className="col-sm-6">
+                      <input type="text" className="form-control" name="bookDesc" value={this.state.editBookMes.bookDesc} onChange={this.editInputChange} placeholder="BookDesc" />
+                    </div>
+                  </div>
+                  <div className="form-group">
+                    <label className=" col-sm-3 control-label">PicUrl</label>
+                    <div className="col-sm-6">
+                      <label>File input</label>
+                      <input type="file" id="file" accept="image/*" onChange={this.changPic} />
+                      <img src={this.state.editBookMes.picUrl} id="show" width="200" />
+                    </div>
+                  </div>
+                  <div className="form-group">
+                    <label className=" col-sm-3 control-label">Author</label>
+                    <div className="col-sm-6">
+                      <input type="text" className="form-control" name="author" value={this.state.editBookMes.author} onChange={this.editInputChange} placeholder="Author" />
+                    </div>
+                  </div>
+                  <div className="form-group">
+                    <label className=" col-sm-3 control-label">Price</label>
+                    <div className="col-sm-6">
+                      <input type="text" className="form-control" name="price" value={this.state.editBookMes.price} onChange={this.editInputChange} placeholder="Price" />
+                    </div>
+                  </div>
+                  <div className="form-group">
+                    <label className=" col-sm-3 control-label">ISBN</label>
+                    <div className="col-sm-6">
+                      <input type="text" className="form-control" name="isbn" value={this.state.editBookMes.isbn} onChange={this.editInputChange} placeholder="ISBN" />
+                    </div>
+                  </div>
+                  <div className="form-group">
+                    <label className=" col-sm-3 control-label">PublishingHouse</label>
+                    <div className="col-sm-6">
+                      <input type="text" className="form-control" name="publishingHouse" value={this.state.editBookMes.publishingHouse} onChange={this.editInputChange} placeholder="PublishingHouse" />
+                    </div>
+                  </div>
+                  <div className="form-group">
+                    <label className=" col-sm-3 control-label">PublishingTime</label>
+                    <div className="col-sm-6">
+                      <input type="date" className="form-control" name="publishingTime" value={this.state.editBookMes.publishingTime} onChange={this.editInputChange} placeholder="PublishingTime" />
+                    </div>
+                  </div>
+                  <div className="form-group">
+                    <label className=" col-sm-3 control-label">Language</label>
+                    <div className="col-sm-6">
+                      <input type="text" className="form-control" name="language" value={this.state.editBookMes.language} onChange={this.editInputChange} placeholder="Language" />
+                    </div>
+                  </div>
+                  <div className="form-group">
+                    <label className=" col-sm-3 control-label">Stock</label>
+                    <div className="col-sm-6">
+                      <input type="number" className="form-control" name="stock" value={this.state.editBookMes.stock} onChange={this.editInputChange} placeholder="Stock" />
+                    </div>
+                  </div>
+                  <div className="form-group">
+                    <label className=" col-sm-3 control-label">Status</label>
+                    <div className="col-sm-6">
+                      <input type="number" min="10" max="1" className="form-control" name="status" value={this.state.editBookMes.status} onChange={this.editInputChange} placeholder="Status" />
+                    </div>
+                  </div>
+
+                </form>
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" className="btn btn-primary" onClick={this.editBook}>Edit</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+
+
 
 
       </div>
