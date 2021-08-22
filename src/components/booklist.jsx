@@ -25,7 +25,7 @@ class BookList extends Component {
         author: "test",
       },
     ],
-    editBookMes:{}
+    editBookMes: {}
   };
 
   componentDidMount() {
@@ -115,12 +115,12 @@ class BookList extends Component {
 
     axios.post(addNBookUrl, data).then(res => {
       console.log(res.data);
-     if(res.data.code="1000000"){
-      alert("图书添加成功");
-      this.setState({
-        isShow: false
-      });
-     }
+      if (res.data.code = "1000000") {
+        alert("图书添加成功");
+        this.setState({
+          isShow: false
+        });
+      }
     }).catch(err => {
       console.log(err);
     });
@@ -136,14 +136,10 @@ class BookList extends Component {
   //fill edit modal input
   handleEditBook = (index) => {
     this.setState({
-      editBookMes:this.state.books[index]
+      editBookMes: this.state.books[index]
     });
   }
-  //get new book info
-  editInputChange=(e)=>{
-  }
-  
-  editBook=()=>{
+  editBook = () => {
 
   }
 
@@ -345,11 +341,6 @@ class BookList extends Component {
             </div>
           </div>
         </div>
-
-
-
-
-
 
 
 

@@ -11,7 +11,7 @@ class BookItem extends Component {
     author: "",
     type: sessionStorage.getItem('type')
   };
-  componentDidMount() {
+  componentDidMount(){
     let userId = sessionStorage.getItem("userId");
     let token = sessionStorage.getItem("token");
     //设置请求头
@@ -19,29 +19,29 @@ class BookItem extends Component {
     axios.defaults.headers.common["userId"] = userId;
 
   }
-  handleEdit = (index) => {
-    //callout parent function
-    this.props.handleEditBook(index);
+  openEditModal = (index) => {
+    console.log(index);
   }
   handleDelete = (index) => {
     // console.log(index);
     let bookId = this.props.bookInfo.bookId;
+    
+  if(window.confirm("Confirm Delete?")){
+    this.props.deleteBook(index);//call father function
+    let delBookUrl = "https://web.tootz.cn/api/book/delete";
+    axios.post(delBookUrl,{bookId}).then(res=>{
+      if(res.data.code=="1000000"){
+        alert("删除成功");
+      }
+    }).catch();
+    
+  }
 
-    if (window.confirm("Confirm Delete?")) {
-      this.props.deleteBook(index);//call father function
-      let delBookUrl = "https://web.tootz.cn/api/book/delete";
-      axios.post(delBookUrl, { bookId }).then(res => {
-        if (res.data.code == "1000000") {
-          alert("删除成功");
-        }
-      }).catch();
-
-    }
-
+    
   }
   render() {
     const { picUrl, bookName, price, author } = this.props.bookInfo;
-
+   
     return (
       <div style={{ width: '200px', height: '250px', border: '1px solid #e6e6e6', textAlign: 'center', display: 'inline-block', padding: '5px 10px' }}>
         <Link to='/detail'>
@@ -54,8 +54,8 @@ class BookItem extends Component {
         <button
           className="btn btn-primary"
           data-toggle="modal"
-          data-target="#bookEditModal"
-          onClick={() => { this.handleEdit(this.props.index) }}
+          data-target="#editModal"
+          onClick={() => { this.openEditModal(this.props.index) }}
         >
           Edit
         </button>
