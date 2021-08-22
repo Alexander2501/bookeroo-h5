@@ -27,14 +27,12 @@ class BookList extends Component {
   };
 
   componentDidMount() {
-
     let userId = sessionStorage.getItem("userId");
     let token = sessionStorage.getItem("token");
     //设置请求头
     axios.defaults.headers.common["token"] = token;
     axios.defaults.headers.common["userId"] = userId;
     this.getBookList();
-
 
   }
 
@@ -124,10 +122,7 @@ class BookList extends Component {
     axios.post(addNBookUrl, data).then(res => {
       console.log(res.data);
       if (res.data.code = "1000000") {
-        alert("图书添加成功");
-        this.setState({
-          isShow: false
-        });
+        alert("图书添加成功");       
       }
     }).catch(err => {
       console.log(err);
@@ -442,7 +437,7 @@ class BookList extends Component {
                 </div>
                 <div className="modal-footer">
                   <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
-                  <button type="button" className="btn btn-primary" onClick={this.addBook}>Add</button>
+                  <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.addBook}>Add</button>
                 </div>
               </div>
             </div>
@@ -531,7 +526,7 @@ class BookList extends Component {
                 </div>
                 <div className="modal-footer">
                   <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
-                  <button type="button" className="btn btn-primary" onClick={this.editBook}>Edit</button>
+                  <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.editBook}>Edit</button>
                 </div>
               </div>
             </div>

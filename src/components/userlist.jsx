@@ -15,12 +15,18 @@ export default class UserList extends Component {
   };
 
   componentDidMount() {
-    const url = "https://web.tootz.cn/api/open/user/list";
+  
     let userId = sessionStorage.getItem("userId");
     let token = sessionStorage.getItem("token");
     //设置请求头
     axios.defaults.headers.common["token"] = token;
     axios.defaults.headers.common["userId"] = userId;
+    this.getUserList();
+  }
+
+  getUserList=()=>{
+    const url = "https://web.tootz.cn/api/open/user/list";
+   
     axios
       .post(url, {
         pageNum: 1,
@@ -36,7 +42,6 @@ export default class UserList extends Component {
         console.log(err);
       });
   }
-
   addUser = () => {
     let mail = this.addMail.value.toString();
     let type = parseInt(this.addType.value);
@@ -56,6 +61,7 @@ export default class UserList extends Component {
     axios.post(url, data).then(
       res => {
         console.log(res);
+        this.getUserList();
       }
     ).catch(err => {
       console.log(err);
@@ -143,6 +149,7 @@ export default class UserList extends Component {
     }
     axios.post(url, data).then(
       res => {
+        this.getUserList();
         console.log(res);
       }
     ).catch(err => {
@@ -160,6 +167,7 @@ export default class UserList extends Component {
       axios
         .post(url, data)
         .then((res) => {
+          this.getUserList();
 
         })
         .catch((err) => {
@@ -178,7 +186,7 @@ export default class UserList extends Component {
 
         <div className='row'>
           <div className='col-xs-8'>
-            <button className="btn btn-primary" data-toggle="modal" data-target="#addModal">
+            <button className="btn btn-primary" data-toggle="modal" data-target="#addModal" onClick={this.addUser}>
               Add
             </button>
 
@@ -358,6 +366,7 @@ export default class UserList extends Component {
                 <button
                   type="button"
                   className="btn btn-primary"
+                  data-dismiss="modal"
                   onClick={this.updateUser}
                 >
                   Save changes
@@ -441,7 +450,7 @@ export default class UserList extends Component {
 
                       className="form-control"
                       id="exampleInputPassword1"
-                      placeholder="Password"
+                      placeholder="PhoneNumber"
                       ref={value => this.addPhoneNum = value}
                     />
                   </div>
@@ -469,6 +478,7 @@ export default class UserList extends Component {
                 <button
                   type="button"
                   className="btn btn-primary"
+                  data-dismiss="modal"
                   onClick={this.addUser}
                 >
                   Add User

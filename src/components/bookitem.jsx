@@ -26,7 +26,7 @@ class BookItem extends Component {
 
 
   render() {
-    const { picUrl, bookName, price, author } = this.props.bookInfo;
+    const { picUrl, bookName,bookDesc,price, author } = this.props.bookInfo;
 
     return (
       <div className="col-sm-4 col-md-3" onClick={this.handleBuy}>
@@ -34,7 +34,7 @@ class BookItem extends Component {
           <img src={picUrl} alt="" />
           <div className="caption">
             <h3>{bookName}</h3>
-            <p>{author}</p>
+            <p>{bookDesc}</p>
             <p> <button
               className="btn btn-default"
               data-toggle="modal"

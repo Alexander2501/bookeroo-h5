@@ -57,7 +57,7 @@ class IndexList extends Component {
     }
     axios.post(this.state.bookUrl, data).then(
       res => {
-        // console.log(res.data.data.entity);
+        console.log(res.data.data.entity);
         this.setState({
           books: res.data.data.entity
         });
