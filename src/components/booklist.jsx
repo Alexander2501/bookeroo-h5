@@ -25,7 +25,18 @@ class BookList extends Component {
         author: "test",
       },
     ],
-    editBookMes: {}
+    editBookMes: {},
+    bookName: '',
+    bookDesc: '',
+    author: '',
+    price: '',
+    isbn: '',
+    publishingHouse: '',
+    publishingTime: '',
+    language: '',
+    stock: '',
+    status: '',
+    bookUrl: ""
   };
 
   componentDidMount() {
@@ -35,14 +46,33 @@ class BookList extends Component {
     //设置请求头
     axios.defaults.headers.common["token"] = token;
     axios.defaults.headers.common["userId"] = userId;
+    this.getBookList();
+
+
+  }
+
+
+  getBookList = () => {
+    let userType = sessionStorage.getItem("type");
+    if (userType == 3) {//Admin
+      this.state.bookUrl = "https://web.tootz.cn/api/book/globalList";
+    } else if (userType == 2) {
+      this.state.bookUrl = "https://web.tootz.cn/api/book/personalList";
+
+    } else {
+      this.state.bookUrl = "https://web.tootz.cn/api/book/publicList";
+
+    }
+
+
 
     //   const url = `https://api.github.com/search/users?q=js`
-    let globalBooksUrl = "https://web.tootz.cn/api/book/globalList";
+
     let data = {
       pageNum: this.state.pageNum,
       pageSize: this.state.pageSize
     }
-    axios.post(globalBooksUrl, data).then(
+    axios.post(this.state.bookUrl, data).then(
       res => {
         // console.log(res.data.data.entity);
         this.setState({
@@ -53,7 +83,6 @@ class BookList extends Component {
     ).catch(err => {
       console.log(err);
     });
-
 
   }
 
@@ -136,11 +165,111 @@ class BookList extends Component {
   //fill edit modal input
   handleEditBook = (index) => {
     this.setState({
-      editBookMes: this.state.books[index]
+      bookId: this.state.books[index].bookId,
+      bookName: this.state.books[index].bookName,
+      bookDesc: this.state.books[index].bookDesc,
+      author: this.state.books[index].author,
+      price: this.state.books[index].price,
+      isbn: this.state.books[index].isbn,
+      publishingHouse: this.state.books[index].publishingHouse,
+      publishingTime: this.state.books[index].publishingTime,
+      language: this.state.books[index].language,
+      stock: this.state.books[index].stock,
+      status: this.state.books[index].status,
+      picUrl: this.state.books[index].picUrl
     });
+
+
+  }
+  editInputChange = (e) => {
+    console.log(e.target.name);
+    switch (e.target.name) {
+      case 'bookName':
+        this.setState({
+          bookName: e.target.value
+        });
+        break;
+      case 'bookDesc':
+        this.setState({
+          bookDesc: e.target.value.toString()
+        });
+        break;
+      case 'picUrl':
+        this.setState({
+          picUrl: e.target.value.toString()
+        });
+        break;
+      case 'author':
+        this.setState({
+          author: e.target.value.toString()
+        });
+        break;
+      case 'price':
+
+        this.setState({
+          price: e.target.value
+        });
+        console.log(e.target.value);
+        break;
+      case 'isbn':
+        this.setState({
+          isbn: e.target.value
+        });
+        break;
+      case 'publishingHouse':
+        this.setState({
+          publishingHouse: e.target.value
+        });
+        break;
+      case 'publishingTime':
+        this.setState({
+          publishingTime: e.target.value
+        });
+        break;
+      case 'language':
+        this.setState({
+          language: e.target.value
+        });
+        break;
+      case 'stock':
+        this.setState({
+          stock: e.target.value
+        });
+
+        break;
+      case 'status':
+        this.setState({
+          status: e.target.value
+        });
+        break;
+      default:
+        break;
+    }
   }
   editBook = () => {
 
+    const { bookId, bookName, bookDesc, picUrl, author, price, isbn, publishingHouse, publishingTime, language, stock, status } = this.state;
+    let data = {
+      bookId: bookId,
+      bookName: bookName,
+      bookDesc: bookDesc,
+      picUrl: picUrl,
+      author: author,
+      price: parseFloat(price),
+      isbn: isbn,
+      publishingHouse: publishingHouse,
+      publishingTime: publishingTime,
+      language: language,
+      stock: parseInt(stock),
+      status: parseInt(status)
+    };
+    let editUrl = "https://web.tootz.cn/api/book/update";
+    axios.post(editUrl, data).then(res => {
+      console.log(res);
+      this.getBookList();
+    }).catch(err => {
+      console.log(err);
+    });
   }
 
   render() {
@@ -266,13 +395,13 @@ class BookList extends Component {
                   <div className="form-group">
                     <label className=" col-sm-3 control-label">BookName</label>
                     <div className="col-sm-6">
-                      <input type="text" className="form-control" name="bookName" value={this.state.editBookMes.bookName} onChange={this.editInputChange} placeholder="BookName" />
+                      <input type="text" className="form-control" name="bookName" value={this.state.bookName} onChange={this.editInputChange} placeholder="BookName" />
                     </div>
                   </div>
                   <div className="form-group">
                     <label className=" col-sm-3 control-label">BookDesc</label>
                     <div className="col-sm-6">
-                      <input type="text" className="form-control" name="bookDesc" value={this.state.editBookMes.bookDesc} onChange={this.editInputChange} placeholder="BookDesc" />
+                      <input type="text" className="form-control" name="bookDesc" value={this.state.bookDesc} onChange={this.editInputChange} placeholder="BookDesc" />
                     </div>
                   </div>
                   <div className="form-group">
@@ -280,55 +409,55 @@ class BookList extends Component {
                     <div className="col-sm-6">
                       <label>File input</label>
                       <input type="file" id="file" accept="image/*" onChange={this.changPic} />
-                      <img src={this.state.editBookMes.picUrl} id="show" width="200" />
+                      <img src={this.state.picUrl} id="show" width="200" />
                     </div>
                   </div>
                   <div className="form-group">
                     <label className=" col-sm-3 control-label">Author</label>
                     <div className="col-sm-6">
-                      <input type="text" className="form-control" name="author" value={this.state.editBookMes.author} onChange={this.editInputChange} placeholder="Author" />
+                      <input type="text" className="form-control" name="author" value={this.state.author} onChange={this.editInputChange} placeholder="Author" />
                     </div>
                   </div>
                   <div className="form-group">
                     <label className=" col-sm-3 control-label">Price</label>
                     <div className="col-sm-6">
-                      <input type="text" className="form-control" name="price" value={this.state.editBookMes.price} onChange={this.editInputChange} placeholder="Price" />
+                      <input type="text" className="form-control" name="price" value={this.state.price} onChange={this.editInputChange} placeholder="Price" />
                     </div>
                   </div>
                   <div className="form-group">
                     <label className=" col-sm-3 control-label">ISBN</label>
                     <div className="col-sm-6">
-                      <input type="text" className="form-control" name="isbn" value={this.state.editBookMes.isbn} onChange={this.editInputChange} placeholder="ISBN" />
+                      <input type="text" className="form-control" name="isbn" value={this.state.isbn} onChange={this.editInputChange} placeholder="ISBN" />
                     </div>
                   </div>
                   <div className="form-group">
                     <label className=" col-sm-3 control-label">PublishingHouse</label>
                     <div className="col-sm-6">
-                      <input type="text" className="form-control" name="publishingHouse" value={this.state.editBookMes.publishingHouse} onChange={this.editInputChange} placeholder="PublishingHouse" />
+                      <input type="text" className="form-control" name="publishingHouse" value={this.state.publishingHouse} onChange={this.editInputChange} placeholder="PublishingHouse" />
                     </div>
                   </div>
                   <div className="form-group">
                     <label className=" col-sm-3 control-label">PublishingTime</label>
                     <div className="col-sm-6">
-                      <input type="date" className="form-control" name="publishingTime" value={this.state.editBookMes.publishingTime} onChange={this.editInputChange} placeholder="PublishingTime" />
+                      <input type="date" className="form-control" name="publishingTime" value={this.state.publishingTime} onChange={this.editInputChange} placeholder="PublishingTime" />
                     </div>
                   </div>
                   <div className="form-group">
                     <label className=" col-sm-3 control-label">Language</label>
                     <div className="col-sm-6">
-                      <input type="text" className="form-control" name="language" value={this.state.editBookMes.language} onChange={this.editInputChange} placeholder="Language" />
+                      <input type="text" className="form-control" name="language" value={this.state.language} onChange={this.editInputChange} placeholder="Language" />
                     </div>
                   </div>
                   <div className="form-group">
                     <label className=" col-sm-3 control-label">Stock</label>
                     <div className="col-sm-6">
-                      <input type="number" className="form-control" name="stock" value={this.state.editBookMes.stock} onChange={this.editInputChange} placeholder="Stock" />
+                      <input type="number" className="form-control" name="stock" value={this.state.stock} onChange={this.editInputChange} placeholder="Stock" />
                     </div>
                   </div>
                   <div className="form-group">
                     <label className=" col-sm-3 control-label">Status</label>
                     <div className="col-sm-6">
-                      <input type="number" min="10" max="1" className="form-control" name="status" value={this.state.editBookMes.status} onChange={this.editInputChange} placeholder="Status" />
+                      <input type="number" min="10" max="1" className="form-control" name="status" value={this.state.status} onChange={this.editInputChange} placeholder="Status" />
                     </div>
                   </div>
 

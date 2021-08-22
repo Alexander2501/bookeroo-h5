@@ -20,7 +20,7 @@ class BookItem extends Component {
 
   }
   openEditModal = (index) => {
-    console.log(index);
+    this.props.handleEditBook(index);
   }
   handleDelete = (index) => {
     // console.log(index);
@@ -54,7 +54,7 @@ class BookItem extends Component {
         <button
           className="btn btn-primary"
           data-toggle="modal"
-          data-target="#editModal"
+          data-target="#bookEditModal"
           onClick={() => { this.openEditModal(this.props.index) }}
         >
           Edit

@@ -29,7 +29,11 @@ export default class Register extends Component {
           })
           .then((res) => {
             console.log(res.data);
-            // this.props.history.push('/login');
+            if(res.data.code="1000000"){
+                this.props.history.push('/login');
+            }else{
+                alert(this.data.message);
+            }            
           })
           .catch((err) => {
             console.log(err);
