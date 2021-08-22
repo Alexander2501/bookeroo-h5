@@ -123,13 +123,13 @@ class BookList extends Component {
       console.log(res.data);
       if (res.data.code = "1000000") {
         this.getBookList();
-        alert("图书添加成功");       
-      }else{
+        alert("图书添加成功");
+      } else {
         alert(res.message);
       }
     }).catch(err => {
       console.log(err);
-    
+
     });
 
 
@@ -150,7 +150,7 @@ class BookList extends Component {
       }).catch();
 
     }
-  
+
 
   }
 
@@ -277,19 +277,22 @@ class BookList extends Component {
     console.log('userType', userType);
     if (userType == 1 || userType == null) {
       return (
-        <div className="row">
-          {
-            this.state.books.map((item, index) => (
-              <BookItem bookInfo={item} key={index} index={index} handleToDetail={this.handleToDetail} />
-            )
+        <div className="container-fluid">
+          <div className="row">
+            {
+              this.state.books.map((item, index) => (
+                <BookItem bookInfo={item} key={index} index={index} handleToDetail={this.handleToDetail} />
+              )
 
-            )
-          }
+              )
+            }
+          </div>
         </div>
+
       )
     } else {
       return (
-        <div>
+        <div className="container-fluid">
           <div className="page-header text-center">
             <h2>Book At Bookeroo</h2>
             <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#bookAddModal">
@@ -313,7 +316,7 @@ class BookList extends Component {
                   <th>Language</th>
                   <th>Stock</th>
                   <th>Status</th>
-                  <th>Control</th>
+                  <th width="15%">Control</th>
                 </tr>
                 {
                   this.state.books.map((item, index) => (
@@ -324,14 +327,14 @@ class BookList extends Component {
                       <td>{item.bookDesc}</td>
                       <td>{item.author}</td>
                       <td>{item.price}</td>
-                     
+
                       <td>{item.isbn}</td>
                       <td>{item.publishingHouse}</td>
                       <td>{item.publishingTime}</td>
                       <td>{item.language}</td>
                       <td>{item.stock}</td>
                       <td>{item.status}</td>
-                      <td>
+                      <td width="15%">
                         <button
                           className="btn btn-primary"
                           data-toggle="modal"

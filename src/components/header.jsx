@@ -19,16 +19,16 @@ class Header extends Component {
 
   render() {
     return (
-      <div>
+      <div className="container-fluid">
         <div className='row App-header' style={{}}>
-          <div className='col-md-2'>
+          <div className='col-xs-2'>
             <div className="App-header">
               <h2>Bookeroo</h2>
             </div>
           </div>
 
 
-          <div className='col-md-6'>
+          <div className='col-xs-6'>
             <div className="input-group">
               <div className="input-group-btn">
                 <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">All Department <span className="caret"></span></button>

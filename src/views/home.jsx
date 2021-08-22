@@ -34,7 +34,7 @@ class Home extends Component {
         let topShow = sessionStorage.getItem('token') ? "block" : "none";
         let topHide = sessionStorage.getItem('token') ? "none" : "block";
         return (
-            <div>
+            <div className="container-fluid">
                 <div style={{ textAlign: 'right', fontWeight: '10px', paddingRight: '30px' }}>
                     <span style={{ display: topShow, fontWeight: 'bold' }}>Welcom!</span>
                     <h4 style={{ display: topHide, fontWeight: 'bold' }}><Link to='/login'>Please Login</Link></h4>

@@ -179,7 +179,7 @@ export default class UserList extends Component {
   render() {
     const { userList } = this.state;
     return (
-      <div>
+      <div className="container-fluid">
         <div className="page-header text-center">
           <h2>User Management</h2>
         </div>
