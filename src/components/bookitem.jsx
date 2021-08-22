@@ -22,23 +22,7 @@ class BookItem extends Component {
   openEditModal = (index) => {
     this.props.handleEditBook(index);
   }
-  handleDelete = (index) => {
-    // console.log(index);
-    let bookId = this.props.bookInfo.bookId;
-    
-  if(window.confirm("Confirm Delete?")){
-    this.props.deleteBook(index);//call father function
-    let delBookUrl = "https://web.tootz.cn/api/book/delete";
-    axios.post(delBookUrl,{bookId}).then(res=>{
-      if(res.data.code=="1000000"){
-        alert("删除成功");
-      }
-    }).catch();
-    
-  }
 
-    
-  }
   render() {
     const { picUrl, bookName, price, author } = this.props.bookInfo;
    

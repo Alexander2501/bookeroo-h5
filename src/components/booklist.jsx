@@ -63,11 +63,7 @@ class BookList extends Component {
       this.state.bookUrl = "https://web.tootz.cn/api/book/publicList";
 
     }
-
-
-
     //   const url = `https://api.github.com/search/users?q=js`
-
     let data = {
       pageNum: this.state.pageNum,
       pageSize: this.state.pageSize
@@ -157,13 +153,29 @@ class BookList extends Component {
 
   }
   deleteBook = (index) => {
-    // console.log(index);
+    console.log(index);
     const { books } = this.state;
+   
+    let bookId = books[index].bookId;    
+    if(window.confirm("Confirm Delete?")){     
+      let delBookUrl = "https://web.tootz.cn/api/book/delete";
+      axios.post(delBookUrl,{bookId}).then(res=>{
+        if(res.data.code=="1000000"){
+          alert("删除成功");
+        }
+      }).catch();
+      
+    }
     books.splice(index, 1);
     this.setState({ books });
+
+
+
   }
-  //fill edit modal input
-  handleEditBook = (index) => {
+
+
+  openEditModal = (index) => {
+    console.log(this.state.books);
     this.setState({
       bookId: this.state.books[index].bookId,
       bookName: this.state.books[index].bookName,
@@ -178,9 +190,8 @@ class BookList extends Component {
       status: this.state.books[index].status,
       picUrl: this.state.books[index].picUrl
     });
-
-
   }
+
   editInputChange = (e) => {
     console.log(e.target.name);
     switch (e.target.name) {
@@ -274,15 +285,10 @@ class BookList extends Component {
 
   render() {
 
-    return (
-      <div>
-        <div className="page-header text-center">
-          <h2>Book At Bookeroo</h2>
-          <button type="button" className="btn btn-primary btn-lg" data-toggle="modal" data-target="#bookAddModal">
-            Add
-          </button>
-        </div>
-
+    let userType = sessionStorage.getItem("type");
+    console.log('userType',userType);
+    if (userType == 1 || userType == null) {
+      return (
         <div>
           {
             this.state.books.map((item, index) => (
@@ -292,190 +298,261 @@ class BookList extends Component {
             )
           }
         </div>
+      )
+    } else {
+      return (
+        <div>
+          <div className="page-header text-center">
+            <h2>Book At Bookeroo</h2>
+            <button type="button" className="btn btn-primary btn-lg" data-toggle="modal" data-target="#bookAddModal">
+              Add
+            </button>
+          </div>
 
-        {/* Add Book Modal*/}
-        <div className="modal fade" id="bookAddModal" role="dialog" aria-labelledby="myModalLabel" style={{ display: this.state.isShow }}>
-          <div className="modal-dialog" role="document">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h4 className="modal-title" id="myModalLabel">Add Book</h4>
-              </div>
-              <div className="modal-body">
+          <div className="table-responsive">
+            <table className="table">
+              <tbody>
+                <tr>
+                  <th>Index</th>
+                  <th>Image</th>
+                  <th>BookName</th>
+                  <th>BookDesc</th>
+                  <th>Author</th>
+                  <th>Price</th>
+                  <th>ISBN</th>
+                  <th>PublishHouse</th>
+                  <th>PublishTime</th>
+                  <th>Language</th>
+                  <th>Stock</th>
+                  <th>Status</th>
+                  <th>Control</th>
+                </tr>
+                {
+                  this.state.books.map((item, index) => (
+                    <tr key={index}>
+                      <td><img src={item.picUrl} alt="" style={{ width: '50px', height: '30px' }} /></td>
+                      <td>{item.bookName}</td>
+                      <td>{item.bookDesc}</td>
+                      <td>{item.author}</td>
+                      <td>{item.price}</td>
+                      <td>{item.price}</td>
+                      <td>{item.isbn}</td>
+                      <td>{item.publishingHouse}</td>
+                      <td>{item.publishingTime}</td>
+                      <td>{item.language}</td>
+                      <td>{item.stock}</td>
+                      <td>{item.status}</td>
+                      <td>
+                        <button
+                          className="btn btn-primary"
+                          data-toggle="modal"
+                          data-target="#bookEditModal"
+                          onClick={() => { this.openEditModal(index) }}
+                        >
+                          Edit
+                        </button>
+                        <button
+                          className="btn btn btn-danger"
+                          onClick={() => {
+                            this.deleteBook(index);
+                          }}
+                          style={{ marginLeft: "5px" }}
+                        >
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
 
-                <form className="form-horizontal">
-                  <div className="form-group">
-                    <label className=" col-sm-3 control-label">BookName</label>
-                    <div className="col-sm-6">
-                      <input type="text" className="form-control" ref={value => this.bookName = value} placeholder="BookName" />
-                    </div>
-                  </div>
-                  <div className="form-group">
-                    <label className=" col-sm-3 control-label">BookDesc</label>
-                    <div className="col-sm-6">
-                      <input type="text" className="form-control" ref={value => this.bookDesc = value} placeholder="BookDesc" />
-                    </div>
-                  </div>
-                  <div className="form-group">
-                    <label className=" col-sm-3 control-label">PicUrl</label>
-                    <div className="col-sm-6">
-                      <label>File input</label>
-                      <input type="file" id="file" accept="image/*" onChange={this.changPic} />
-                      <img src={this.state.picUrl} id="show" width="200" />
-                    </div>
-                  </div>
-                  <div className="form-group">
-                    <label className=" col-sm-3 control-label">Author</label>
-                    <div className="col-sm-6">
-                      <input type="text" className="form-control" ref={value => this.author = value} placeholder="Author" />
-                    </div>
-                  </div>
-                  <div className="form-group">
-                    <label className=" col-sm-3 control-label">Price</label>
-                    <div className="col-sm-6">
-                      <input type="text" className="form-control" ref={value => this.price = value} placeholder="Price" />
-                    </div>
-                  </div>
-                  <div className="form-group">
-                    <label className=" col-sm-3 control-label">ISBN</label>
-                    <div className="col-sm-6">
-                      <input type="text" className="form-control" ref={value => this.isbn = value} placeholder="ISBN" />
-                    </div>
-                  </div>
-                  <div className="form-group">
-                    <label className=" col-sm-3 control-label">PublishingHouse</label>
-                    <div className="col-sm-6">
-                      <input type="text" className="form-control" ref={value => this.publishingHouse = value} placeholder="PublishingHouse" />
-                    </div>
-                  </div>
-                  <div className="form-group">
-                    <label className=" col-sm-3 control-label">PublishingTime</label>
-                    <div className="col-sm-6">
-                      <input type="date" className="form-control" ref={value => this.publishingTime = value} placeholder="PublishingTime" />
-                    </div>
-                  </div>
-                  <div className="form-group">
-                    <label className=" col-sm-3 control-label">Language</label>
-                    <div className="col-sm-6">
-                      <input type="text" className="form-control" ref={value => this.language = value} placeholder="Language" />
-                    </div>
-                  </div>
-                  <div className="form-group">
-                    <label className=" col-sm-3 control-label">Stock</label>
-                    <div className="col-sm-6">
-                      <input type="number" className="form-control" ref={value => this.stock = value} placeholder="Stock" />
-                    </div>
-                  </div>
-                  <div className="form-group">
-                    <label className=" col-sm-3 control-label">Status</label>
-                    <div className="col-sm-6">
-                      <input type="number" min="10" max="1" className="form-control" ref={value => this.status = value} placeholder="Status" />
-                    </div>
-                  </div>
+                  ))
+                }
+              </tbody>
+            </table>
 
-                </form>
-              </div>
-              <div className="modal-footer">
-                <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" className="btn btn-primary" onClick={this.addBook}>Add</button>
+          </div>
+
+          {/* Add Book Modal*/}
+          <div className="modal fade" id="bookAddModal" role="dialog" aria-labelledby="myModalLabel" style={{ display: this.state.isShow }}>
+            <div className="modal-dialog" role="document">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h4 className="modal-title" id="myModalLabel">Add Book</h4>
+                </div>
+                <div className="modal-body">
+
+                  <form className="form-horizontal">
+                    <div className="form-group">
+                      <label className=" col-sm-3 control-label">BookName</label>
+                      <div className="col-sm-6">
+                        <input type="text" className="form-control" ref={value => this.bookName = value} placeholder="BookName" />
+                      </div>
+                    </div>
+                    <div className="form-group">
+                      <label className=" col-sm-3 control-label">BookDesc</label>
+                      <div className="col-sm-6">
+                        <input type="text" className="form-control" ref={value => this.bookDesc = value} placeholder="BookDesc" />
+                      </div>
+                    </div>
+                    <div className="form-group">
+                      <label className=" col-sm-3 control-label">PicUrl</label>
+                      <div className="col-sm-6">
+                        <label>File input</label>
+                        <input type="file" id="file" accept="image/*" onChange={this.changPic} />
+                        <img src={this.state.picUrl} id="show" width="200" />
+                      </div>
+                    </div>
+                    <div className="form-group">
+                      <label className=" col-sm-3 control-label">Author</label>
+                      <div className="col-sm-6">
+                        <input type="text" className="form-control" ref={value => this.author = value} placeholder="Author" />
+                      </div>
+                    </div>
+                    <div className="form-group">
+                      <label className=" col-sm-3 control-label">Price</label>
+                      <div className="col-sm-6">
+                        <input type="text" className="form-control" ref={value => this.price = value} placeholder="Price" />
+                      </div>
+                    </div>
+                    <div className="form-group">
+                      <label className=" col-sm-3 control-label">ISBN</label>
+                      <div className="col-sm-6">
+                        <input type="text" className="form-control" ref={value => this.isbn = value} placeholder="ISBN" />
+                      </div>
+                    </div>
+                    <div className="form-group">
+                      <label className=" col-sm-3 control-label">PublishingHouse</label>
+                      <div className="col-sm-6">
+                        <input type="text" className="form-control" ref={value => this.publishingHouse = value} placeholder="PublishingHouse" />
+                      </div>
+                    </div>
+                    <div className="form-group">
+                      <label className=" col-sm-3 control-label">PublishingTime</label>
+                      <div className="col-sm-6">
+                        <input type="date" className="form-control" ref={value => this.publishingTime = value} placeholder="PublishingTime" />
+                      </div>
+                    </div>
+                    <div className="form-group">
+                      <label className=" col-sm-3 control-label">Language</label>
+                      <div className="col-sm-6">
+                        <input type="text" className="form-control" ref={value => this.language = value} placeholder="Language" />
+                      </div>
+                    </div>
+                    <div className="form-group">
+                      <label className=" col-sm-3 control-label">Stock</label>
+                      <div className="col-sm-6">
+                        <input type="number" className="form-control" ref={value => this.stock = value} placeholder="Stock" />
+                      </div>
+                    </div>
+                    <div className="form-group">
+                      <label className=" col-sm-3 control-label">Status</label>
+                      <div className="col-sm-6">
+                        <input type="number" min="10" max="1" className="form-control" ref={value => this.status = value} placeholder="Status" />
+                      </div>
+                    </div>
+
+                  </form>
+                </div>
+                <div className="modal-footer">
+                  <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
+                  <button type="button" className="btn btn-primary" onClick={this.addBook}>Add</button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        {/* Edit Book Modal */}
-        <div className="modal fade" id="bookEditModal" role="dialog" aria-labelledby="myModalLabel" style={{ display: this.state.isShow }}>
-          <div className="modal-dialog" role="document">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h4 className="modal-title" id="myModalLabel">Add Book</h4>
-              </div>
-              <div className="modal-body">
+          {/* Edit Book Modal */}
+          <div className="modal fade" id="bookEditModal" role="dialog" aria-labelledby="myModalLabel" style={{ display: this.state.isShow }}>
+            <div className="modal-dialog" role="document">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h4 className="modal-title" id="myModalLabel">Add Book</h4>
+                </div>
+                <div className="modal-body">
 
-                <form className="form-horizontal">
-                  <div className="form-group">
-                    <label className=" col-sm-3 control-label">BookName</label>
-                    <div className="col-sm-6">
-                      <input type="text" className="form-control" name="bookName" value={this.state.bookName} onChange={this.editInputChange} placeholder="BookName" />
+                  <form className="form-horizontal">
+                    <div className="form-group">
+                      <label className=" col-sm-3 control-label">BookName</label>
+                      <div className="col-sm-6">
+                        <input type="text" className="form-control" name="bookName" value={this.state.bookName} onChange={this.editInputChange} placeholder="BookName" />
+                      </div>
                     </div>
-                  </div>
-                  <div className="form-group">
-                    <label className=" col-sm-3 control-label">BookDesc</label>
-                    <div className="col-sm-6">
-                      <input type="text" className="form-control" name="bookDesc" value={this.state.bookDesc} onChange={this.editInputChange} placeholder="BookDesc" />
+                    <div className="form-group">
+                      <label className=" col-sm-3 control-label">BookDesc</label>
+                      <div className="col-sm-6">
+                        <input type="text" className="form-control" name="bookDesc" value={this.state.bookDesc} onChange={this.editInputChange} placeholder="BookDesc" />
+                      </div>
                     </div>
-                  </div>
-                  <div className="form-group">
-                    <label className=" col-sm-3 control-label">PicUrl</label>
-                    <div className="col-sm-6">
-                      <label>File input</label>
-                      <input type="file" id="file" accept="image/*" onChange={this.changPic} />
-                      <img src={this.state.picUrl} id="show" width="200" />
+                    <div className="form-group">
+                      <label className=" col-sm-3 control-label">PicUrl</label>
+                      <div className="col-sm-6">
+                        <label>File input</label>
+                        <input type="file" id="file" accept="image/*" onChange={this.changPic} />
+                        <img src={this.state.picUrl} id="show" width="200" />
+                      </div>
                     </div>
-                  </div>
-                  <div className="form-group">
-                    <label className=" col-sm-3 control-label">Author</label>
-                    <div className="col-sm-6">
-                      <input type="text" className="form-control" name="author" value={this.state.author} onChange={this.editInputChange} placeholder="Author" />
+                    <div className="form-group">
+                      <label className=" col-sm-3 control-label">Author</label>
+                      <div className="col-sm-6">
+                        <input type="text" className="form-control" name="author" value={this.state.author} onChange={this.editInputChange} placeholder="Author" />
+                      </div>
                     </div>
-                  </div>
-                  <div className="form-group">
-                    <label className=" col-sm-3 control-label">Price</label>
-                    <div className="col-sm-6">
-                      <input type="text" className="form-control" name="price" value={this.state.price} onChange={this.editInputChange} placeholder="Price" />
+                    <div className="form-group">
+                      <label className=" col-sm-3 control-label">Price</label>
+                      <div className="col-sm-6">
+                        <input type="text" className="form-control" name="price" value={this.state.price} onChange={this.editInputChange} placeholder="Price" />
+                      </div>
                     </div>
-                  </div>
-                  <div className="form-group">
-                    <label className=" col-sm-3 control-label">ISBN</label>
-                    <div className="col-sm-6">
-                      <input type="text" className="form-control" name="isbn" value={this.state.isbn} onChange={this.editInputChange} placeholder="ISBN" />
+                    <div className="form-group">
+                      <label className=" col-sm-3 control-label">ISBN</label>
+                      <div className="col-sm-6">
+                        <input type="text" className="form-control" name="isbn" value={this.state.isbn} onChange={this.editInputChange} placeholder="ISBN" />
+                      </div>
                     </div>
-                  </div>
-                  <div className="form-group">
-                    <label className=" col-sm-3 control-label">PublishingHouse</label>
-                    <div className="col-sm-6">
-                      <input type="text" className="form-control" name="publishingHouse" value={this.state.publishingHouse} onChange={this.editInputChange} placeholder="PublishingHouse" />
+                    <div className="form-group">
+                      <label className=" col-sm-3 control-label">PublishingHouse</label>
+                      <div className="col-sm-6">
+                        <input type="text" className="form-control" name="publishingHouse" value={this.state.publishingHouse} onChange={this.editInputChange} placeholder="PublishingHouse" />
+                      </div>
                     </div>
-                  </div>
-                  <div className="form-group">
-                    <label className=" col-sm-3 control-label">PublishingTime</label>
-                    <div className="col-sm-6">
-                      <input type="date" className="form-control" name="publishingTime" value={this.state.publishingTime} onChange={this.editInputChange} placeholder="PublishingTime" />
+                    <div className="form-group">
+                      <label className=" col-sm-3 control-label">PublishingTime</label>
+                      <div className="col-sm-6">
+                        <input type="date" className="form-control" name="publishingTime" value={this.state.publishingTime} onChange={this.editInputChange} placeholder="PublishingTime" />
+                      </div>
                     </div>
-                  </div>
-                  <div className="form-group">
-                    <label className=" col-sm-3 control-label">Language</label>
-                    <div className="col-sm-6">
-                      <input type="text" className="form-control" name="language" value={this.state.language} onChange={this.editInputChange} placeholder="Language" />
+                    <div className="form-group">
+                      <label className=" col-sm-3 control-label">Language</label>
+                      <div className="col-sm-6">
+                        <input type="text" className="form-control" name="language" value={this.state.language} onChange={this.editInputChange} placeholder="Language" />
+                      </div>
                     </div>
-                  </div>
-                  <div className="form-group">
-                    <label className=" col-sm-3 control-label">Stock</label>
-                    <div className="col-sm-6">
-                      <input type="number" className="form-control" name="stock" value={this.state.stock} onChange={this.editInputChange} placeholder="Stock" />
+                    <div className="form-group">
+                      <label className=" col-sm-3 control-label">Stock</label>
+                      <div className="col-sm-6">
+                        <input type="number" className="form-control" name="stock" value={this.state.stock} onChange={this.editInputChange} placeholder="Stock" />
+                      </div>
                     </div>
-                  </div>
-                  <div className="form-group">
-                    <label className=" col-sm-3 control-label">Status</label>
-                    <div className="col-sm-6">
-                      <input type="number" min="10" max="1" className="form-control" name="status" value={this.state.status} onChange={this.editInputChange} placeholder="Status" />
+                    <div className="form-group">
+                      <label className=" col-sm-3 control-label">Status</label>
+                      <div className="col-sm-6">
+                        <input type="number" min="10" max="1" className="form-control" name="status" value={this.state.status} onChange={this.editInputChange} placeholder="Status" />
+                      </div>
                     </div>
-                  </div>
 
-                </form>
-              </div>
-              <div className="modal-footer">
-                <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" className="btn btn-primary" onClick={this.editBook}>Edit</button>
+                  </form>
+                </div>
+                <div className="modal-footer">
+                  <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
+                  <button type="button" className="btn btn-primary" onClick={this.editBook}>Edit</button>
+                </div>
               </div>
             </div>
           </div>
+
+
         </div>
+      );
+    }
 
-
-
-
-      </div>
-    );
   }
 }
 
