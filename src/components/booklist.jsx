@@ -324,7 +324,7 @@ class BookList extends Component {
                       <td>{item.bookDesc}</td>
                       <td>{item.author}</td>
                       <td>{item.price}</td>
-                      <td>{item.price}</td>
+                     
                       <td>{item.isbn}</td>
                       <td>{item.publishingHouse}</td>
                       <td>{item.publishingTime}</td>
