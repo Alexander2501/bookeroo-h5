@@ -12,9 +12,9 @@ axios.defaults.headers.common["userId"] = userId;
 class Header extends Component {
 
   state = {}
- 
+
   logout = () => {
-   this.props.handleLogout();
+    this.props.handleLogout();
   }
 
   render() {
@@ -22,7 +22,9 @@ class Header extends Component {
       <div>
         <div className='row App-header' style={{}}>
           <div className='col-md-2'>
-         
+            <div className="App-header">
+              <h2>Bookeroo</h2>
+            </div>
           </div>
 
 
@@ -71,8 +73,8 @@ class Header extends Component {
     );
   }
 }
-Header.protoTypes={
-  handleLogout:PropTypes.func.isRequired
+Header.protoTypes = {
+  handleLogout: PropTypes.func.isRequired
 }
 
 export default Header;

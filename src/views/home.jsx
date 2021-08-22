@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Switch, Route, NavLink, Redirect } from 'react-router-dom';
+import { Switch, Route, NavLink, Redirect, Link } from 'react-router-dom';
 import axios from 'axios';
 
 import Header from "../components/header"
@@ -13,30 +13,41 @@ class Home extends Component {
     state = {
         bookClasses: ["All", "", "", ""],
         type: sessionStorage.getItem("type")
+
+        
     }
-    logout = ()=>{
+
+
+
+
+    logout = () => {
         const url = "https://web.tootz.cn/api/open/user/logout";
         axios.post(url, {}).then(res => {
-            if(res.data.code=="1000000"){
+            if (res.data.code == "1000000") {
                 this.props.history.push('/login');
             }
-            
+
         }).catch(err => {
-          console.log(err);
+            console.log(err);
         })
-       
+
     }
 
     render() {
-        let linkShow = this.state.type == 3 ? 'block' : 'none'
+        let leftPanelShow = this.state.type == 1 || !sessionStorage.getItem('token') ? "none" : "block"
+        let linkShow = this.state.type == 3 ? 'block' : 'none';
+        let topShow = sessionStorage.getItem('token') ? "block" : "none";
+        let topHide = sessionStorage.getItem('token') ? "none" : "block";
         return (
-
             <div>
+                <div style={{ textAlign: 'right', fontWeight: '10px', paddingRight: '30px' }}>
+                    <span style={{ display: topShow, fontWeight: 'bold' }}>Welcom!</span>
+                    <h4 style={{ display: topHide, fontWeight: 'bold' }}><Link to='/login'>Please Login</Link></h4>
+                </div>
+                <Header handleLogout={this.logout} />
                 <div className="row">
-                    <div className="col-xs-2" style={{ paddingRight: '0px' }}>
-                        <div className="App-header">
-                            <h2>Bookeroo</h2>
-                        </div>
+                    <div className="col-xs-2" style={{ paddingRight: '0px', display: leftPanelShow }}>
+
                         {/*导航路由链接*/}
                         <div className="panel panel-default">
                             <div className="panel-heading">Book Classification</div>
@@ -47,7 +58,7 @@ class Home extends Component {
                         </div>
                     </div>
                     <div className="col-xs-10">
-                        <Header handleLogout={this.logout} />
+
                         {/*可切换的路由组件*/}
                         <Switch>
                             <Route path='/book' component={BookList} />

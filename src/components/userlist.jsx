@@ -131,7 +131,7 @@ export default class UserList extends Component {
   updateUser = () => {
     const url = "https://web.tootz.cn/api/open/user/set";
     console.log(this.state.nickName);
-    debugger
+    // debugger
     let data = {
       mail: this.state.mail,
       type: this.state.type,
