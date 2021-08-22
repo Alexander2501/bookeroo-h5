@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
 let userId = sessionStorage.getItem("userId");
 let token = sessionStorage.getItem("token");
@@ -13,12 +14,7 @@ class Header extends Component {
   state = {}
  
   logout = () => {
-    const url = "https://web.tootz.cn/api/open/user/logout";
-    axios.post(url, {}).then(res => {
-      console.log(res);
-    }).catch(err => {
-      console.log(err);
-    })
+   this.props.handleLogout();
   }
 
   render() {
@@ -74,6 +70,9 @@ class Header extends Component {
       </div >
     );
   }
+}
+Header.protoTypes={
+  handleLogout:PropTypes.func.isRequired
 }
 
 export default Header;

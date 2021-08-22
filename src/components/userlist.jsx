@@ -64,16 +64,28 @@ export default class UserList extends Component {
   };
 
   openEditModal = (index) => {
+    console.log(index);
     let userMes = this.state.userList[index];
+    console.log(userMes);
+    let mail = userMes.mail;
+    let type = parseInt(userMes.type);
+    let name = userMes.name == null ? "null" : userMes.name;
+    let nickName = userMes.nickName == null ? "null" : userMes.nickName;
+    let phoneNumber = userMes.phoneNumber == null ? "null" : userMes.phoneNumber;
+    let status = parseInt(userMes.status);
+    let userId = userMes.userId;
+
     this.setState({
-      mail: userMes.mail,
-      type: userMes.type,
-      name: userMes.name,
-      nickName: userMes.nickName,
-      phoneNumber: userMes.phoneNumber,
-      status: userMes.status,
-      userId: userMes.userId
+      mail,
+      type,
+      name,
+      nickName,
+      phoneNumber,
+      status,
+      userId
     });
+
+
   }
   //修改用户input值获取
   handleEditChange = (e) => {
@@ -95,7 +107,7 @@ export default class UserList extends Component {
           name: e.target.value.toString()
         });
         break;
-      case 'nickname':
+      case 'nickName':
         this.setState({
           nickName: e.target.value.toString()
         });
@@ -118,6 +130,8 @@ export default class UserList extends Component {
   //用户修改
   updateUser = () => {
     const url = "https://web.tootz.cn/api/open/user/set";
+    console.log(this.state.nickName);
+    debugger
     let data = {
       mail: this.state.mail,
       type: this.state.type,
@@ -300,7 +314,7 @@ export default class UserList extends Component {
                     <label>NickName</label>
                     <input
                       type="text"
-                      name="nickname"
+                      name="nickName"
                       className="form-control"
                       value={this.state.nickName}
                       placeholder="NickName"
@@ -312,7 +326,7 @@ export default class UserList extends Component {
                     <input
                       type="text"
                       name="pwd"
-                      value={this.phoneNumber}
+                      value={this.state.phoneNumber}
                       className="form-control"
                       id="exampleInputPassword1"
                       placeholder="Password"

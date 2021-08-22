@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Switch, Route, NavLink, Redirect } from 'react-router-dom';
+import axios from 'axios';
 
 import Header from "../components/header"
 import UserList from '../components/userlist';
@@ -12,6 +13,18 @@ class Home extends Component {
     state = {
         bookClasses: ["All", "", "", ""],
         type: sessionStorage.getItem("type")
+    }
+    logout = ()=>{
+        const url = "https://web.tootz.cn/api/open/user/logout";
+        axios.post(url, {}).then(res => {
+            if(res.data.code=="1000000"){
+                this.props.history.push('/login');
+            }
+            
+        }).catch(err => {
+          console.log(err);
+        })
+       
     }
 
     render() {
@@ -34,7 +47,7 @@ class Home extends Component {
                         </div>
                     </div>
                     <div className="col-xs-10">
-                        <Header />
+                        <Header handleLogout={this.logout} />
                         {/*可切换的路由组件*/}
                         <Switch>
                             <Route path='/book' component={BookList} />

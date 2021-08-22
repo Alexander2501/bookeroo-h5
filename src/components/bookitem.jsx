@@ -11,7 +11,7 @@ class BookItem extends Component {
     author: "",
     type: sessionStorage.getItem('type')
   };
-  componentDidMount(){
+  componentDidMount() {
     let userId = sessionStorage.getItem("userId");
     let token = sessionStorage.getItem("token");
     //设置请求头
@@ -19,47 +19,48 @@ class BookItem extends Component {
     axios.defaults.headers.common["userId"] = userId;
 
   }
-  openEditModal = (index) => {
-    this.props.handleEditBook(index);
+  handleBuy = () => {
+    this.props.handleToDetail();
   }
+
+
 
   render() {
     const { picUrl, bookName, price, author } = this.props.bookInfo;
-   
+
     return (
-      <div style={{ width: '200px', height: '250px', border: '1px solid #e6e6e6', textAlign: 'center', display: 'inline-block', padding: '5px 10px' }}>
-        <Link to='/detail'>
-          <div>
-            <img src={picUrl} alt="" />
-            <p>{bookName}</p>
-            <p style={{ fontWeight: 'bold', color: 'red' }}>{price}</p>
+      <div className="col-sm-4 col-md-3" onClick={this.handleBuy}>
+        <div className="thumbnail">
+          <img src={picUrl} alt="" />
+          <div className="caption">
+            <h3>{bookName}</h3>
+            <p>{author}</p>
+            <p> <button
+              className="btn btn-default"
+              data-toggle="modal"
+              data-target="#bookEditModal"
+              onClick={this.handleBuy}
+            >
+              Buy
+            </button> </p>
           </div>
-        </Link>
-        <button
-          className="btn btn-primary"
-          data-toggle="modal"
-          data-target="#bookEditModal"
-          onClick={() => { this.openEditModal(this.props.index) }}
-        >
-          Edit
-        </button>
-        <button
-          className="btn btn btn-danger"
-          onClick={() => {
-            this.handleDelete(this.props.index);
-          }}
-          style={{ marginLeft: "5px" }}
-        >
-          Delete
-        </button>
+        </div>
       </div>
+
+
+
+
+
+
+
+
     );
   }
 }
 BookItem.propTypes = {
   bookInfo: PropTypes.object.isRequired,
   index: PropTypes.number.isRequired,
-  deleteBook: PropTypes.func.isRequired,
-  handleEditBook: PropTypes.func.isRequired
+  handleToDetail: PropTypes.func.isRequired
+
 }
 export default BookItem;

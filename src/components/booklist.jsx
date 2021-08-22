@@ -111,10 +111,6 @@ class BookList extends Component {
       console.log(err);
     });
 
-
-
-
-
   }
 
   addBook = (book) => {
@@ -155,16 +151,16 @@ class BookList extends Component {
   deleteBook = (index) => {
     console.log(index);
     const { books } = this.state;
-   
-    let bookId = books[index].bookId;    
-    if(window.confirm("Confirm Delete?")){     
+
+    let bookId = books[index].bookId;
+    if (window.confirm("Confirm Delete?")) {
       let delBookUrl = "https://web.tootz.cn/api/book/delete";
-      axios.post(delBookUrl,{bookId}).then(res=>{
-        if(res.data.code=="1000000"){
+      axios.post(delBookUrl, { bookId }).then(res => {
+        if (res.data.code == "1000000") {
           alert("删除成功");
         }
       }).catch();
-      
+
     }
     books.splice(index, 1);
     this.setState({ books });
@@ -172,7 +168,6 @@ class BookList extends Component {
 
 
   }
-
 
   openEditModal = (index) => {
     console.log(this.state.books);
@@ -258,7 +253,6 @@ class BookList extends Component {
     }
   }
   editBook = () => {
-
     const { bookId, bookName, bookDesc, picUrl, author, price, isbn, publishingHouse, publishingTime, language, stock, status } = this.state;
     let data = {
       bookId: bookId,
@@ -282,17 +276,30 @@ class BookList extends Component {
       console.log(err);
     });
   }
+  handleToDetail = () => {
+    let userId = sessionStorage.getItem("userId");
+    let token = sessionStorage.getItem("token");
+    if (userId != null && token != null) {
+      this.props.history.push('/detail');
+    } else {
+      this.props.history.push('/login');
+    }
+  }
 
   render() {
 
     let userType = sessionStorage.getItem("type");
-    console.log('userType',userType);
+    console.log('userType', userType);
     if (userType == 1 || userType == null) {
       return (
-        <div>
+        <div className="row">
           {
             this.state.books.map((item, index) => (
-              <BookItem bookInfo={item} key={index} index={index} deleteBook={this.deleteBook} handleEditBook={this.handleEditBook} />
+
+              <BookItem bookInfo={item} key={index} index={index} handleToDetail={this.handleToDetail} />
+
+
+
             )
 
             )
@@ -304,7 +311,7 @@ class BookList extends Component {
         <div>
           <div className="page-header text-center">
             <h2>Book At Bookeroo</h2>
-            <button type="button" className="btn btn-primary btn-lg" data-toggle="modal" data-target="#bookAddModal">
+            <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#bookAddModal">
               Add
             </button>
           </div>
@@ -330,6 +337,7 @@ class BookList extends Component {
                 {
                   this.state.books.map((item, index) => (
                     <tr key={index}>
+                      <td>{index + 1}</td>
                       <td><img src={item.picUrl} alt="" style={{ width: '50px', height: '30px' }} /></td>
                       <td>{item.bookName}</td>
                       <td>{item.bookDesc}</td>
