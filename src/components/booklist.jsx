@@ -152,8 +152,6 @@ class BookList extends Component {
     books.splice(index, 1);
     this.setState({ books });
 
-
-
   }
 
   openEditModal = (index) => {
@@ -282,11 +280,7 @@ class BookList extends Component {
         <div className="row">
           {
             this.state.books.map((item, index) => (
-
               <BookItem bookInfo={item} key={index} index={index} handleToDetail={this.handleToDetail} />
-
-
-
             )
 
             )

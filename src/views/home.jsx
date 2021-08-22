@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Switch, Route, NavLink, Redirect, Link } from 'react-router-dom';
 import axios from 'axios';
 
+import IndexList from '../components/indexlist';
 import Header from "../components/header"
 import UserList from '../components/userlist';
 import BookList from '../components/booklist';
@@ -53,6 +54,7 @@ class Home extends Component {
                         <div className="panel panel-default">
                             <div className="panel-heading">Book Classification</div>
                             <div className="panel-body">
+                                <NavLink className="list-group-item" to='/booklist' style={{ display: linkShow }}>All Books</NavLink>
                                 <NavLink className="list-group-item" to='/user' style={{ display: linkShow }}>UserManage</NavLink>
                                 <NavLink className="list-group-item" to='/book'>BookManage</NavLink>
                             </div>
@@ -62,12 +64,13 @@ class Home extends Component {
 
                         {/*可切换的路由组件*/}
                         <Switch>
+                            <Route path='/booklist' component={IndexList} />
                             <Route path='/book' component={BookList} />
                             <Route path='/user' component={UserList} />
                             <Route path='/detail' component={Detail} />
                             <Route path='/orders' component={MyOrder}></Route>
                             <Route path='/'>
-                                <Redirect to='/book'></Redirect>
+                                <Redirect to='/booklist'></Redirect>
                             </Route>
                         </Switch>
                     </div>

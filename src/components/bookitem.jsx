@@ -47,13 +47,6 @@ class BookItem extends Component {
         </div>
       </div>
 
-
-
-
-
-
-
-
     );
   }
 }

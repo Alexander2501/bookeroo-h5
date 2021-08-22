@@ -15,7 +15,7 @@ export default class Register extends Component {
      let nickName = this.nickName.value.toString();
      let phoneNumber = this.phoneNumber.value.toString();
 
-      console.log(mail)
+    //   console.log(mail)
 
       const url = "https://web.tootz.cn/api/open/user/register";
       axios
@@ -30,7 +30,7 @@ export default class Register extends Component {
           .then((res) => {
             console.log(res.data);
             if(res.data.code="1000000"){
-                this.props.history.push('/login');
+                this.props.history.push('/');
             }else{
                 alert(this.data.message);
             }            
