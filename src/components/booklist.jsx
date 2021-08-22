@@ -116,12 +116,13 @@ class BookList extends Component {
     let language = this.language.value.toString();
     let stock = this.stock.value;
     let status = this.status.value;
-    
+
     let data = { bookName, bookDesc, picUrl, author, price, isbn, publishingHouse, publishingTime, language, stock, status }
 
     axios.post(addNBookUrl, data).then(res => {
       console.log(res.data);
       if (res.data.code = "1000000") {
+        this.getBookList();
         alert("图书添加成功");       
       }
     }).catch(err => {
