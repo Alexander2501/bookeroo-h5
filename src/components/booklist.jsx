@@ -116,7 +116,7 @@ class BookList extends Component {
     let language = this.language.value.toString();
     let stock = this.stock.value;
     let status = this.status.value;
-
+    
     let data = { bookName, bookDesc, picUrl, author, price, isbn, publishingHouse, publishingTime, language, stock, status }
 
     axios.post(addNBookUrl, data).then(res => {
@@ -139,13 +139,14 @@ class BookList extends Component {
       let delBookUrl = "https://web.tootz.cn/api/book/delete";
       axios.post(delBookUrl, { bookId }).then(res => {
         if (res.data.code == "1000000") {
+          books.splice(index, 1);
+          this.setState({ books });
           alert("删除成功");
         }
       }).catch();
 
     }
-    books.splice(index, 1);
-    this.setState({ books });
+  
 
   }
 

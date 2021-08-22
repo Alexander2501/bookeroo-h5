@@ -20,19 +20,12 @@ class Home extends Component {
     logout = () => {
         const url = "https://web.tootz.cn/api/open/user/logout";
         axios.post(url, {}).then(res => {
-            if (res.data.code == "1000000") {
-                if (window.confirm("Are You Sure To Logout?")) {
-
-                    this.props.history.push('/login');
-                    sessionStorage.clear();
-                }
-
-            }
 
         }).catch(err => {
             console.log(err);
         })
-
+        this.props.history.push('/login');
+        sessionStorage.clear();
     }
 
     render() {
