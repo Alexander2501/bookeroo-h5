@@ -124,9 +124,12 @@ class BookList extends Component {
       if (res.data.code = "1000000") {
         this.getBookList();
         alert("图书添加成功");       
+      }else{
+        alert(res.message);
       }
     }).catch(err => {
       console.log(err);
+    
     });
 
 
