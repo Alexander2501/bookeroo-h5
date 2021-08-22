@@ -11,20 +11,7 @@ class BookList extends Component {
     pageNum: 1,
     pageSize: 10,
     isShow: true,
-    books: [
-      {
-        src: '',
-        name: "小王子",
-        price: "20",
-        author: "test",
-      },
-      {
-        src: '../imgs/book.jpg',
-        name: "小王子",
-        price: "20",
-        author: "test",
-      },
-    ],
+    books: [],
     editBookMes: {},
     bookName: '',
     bookDesc: '',

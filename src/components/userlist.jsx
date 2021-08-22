@@ -321,7 +321,7 @@ export default class UserList extends Component {
                       onChange={this.handleEditChange}
                     />
                   </div>
-                  <div className="form-group">
+                  {/* <div className="form-group">
                     <label>PhoneNumber</label>
                     <input
                       type="text"
@@ -332,7 +332,7 @@ export default class UserList extends Component {
                       placeholder="Password"
                       onChange={this.handleEditChange}
                     />
-                  </div>
+                  </div> */}
                   <div className="form-group">
                     <label>Status</label>
                     <input

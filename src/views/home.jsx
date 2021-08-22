@@ -13,18 +13,19 @@ class Home extends Component {
     state = {
         bookClasses: ["All", "", "", ""],
         type: sessionStorage.getItem("type")
-
-        
     }
-
-
 
 
     logout = () => {
         const url = "https://web.tootz.cn/api/open/user/logout";
         axios.post(url, {}).then(res => {
             if (res.data.code == "1000000") {
-                this.props.history.push('/login');
+                if (window.confirm("Are You Sure To Logout?")) {
+
+                    this.props.history.push('/login');
+                    sessionStorage.clear();
+                }
+
             }
 
         }).catch(err => {
