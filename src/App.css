@@ -1,12 +1,15 @@
 .App {
   /* text-align: center; */
 }
+.container-fluid{
+  padding: 0;
+}
 
 .App-header {
   background-color: #282c34;
   min-height: 20vh;
-
   display: flex;
+  flex-wrap: wrap;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;

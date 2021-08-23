@@ -36,7 +36,7 @@ class Home extends Component {
         let topHide = sessionStorage.getItem('token') ? "none" : "block";
         return (
             <div className="container-fluid">
-                <div style={{ textAlign: 'right', fontWeight: '10px', paddingRight: '30px' }}>
+                <div className='hidden-xs' style={{ textAlign: 'right', fontWeight: '10px', paddingRight: '30px' }}>
                     <span style={{ display: topShow, fontWeight: 'bold' }}>Welcom!</span>
                     <h4 style={{ display: topHide, fontWeight: 'bold' }}><Link to='/login'>Please Login</Link></h4>
                 </div>
@@ -47,10 +47,8 @@ class Home extends Component {
 
                 {/* function area */}
                 <div className='row' style={{ padding: '10px 0' }}>
-
-                    <div className='col-md-8 col-md-offset-2'>
+                    <div className='col-xs-12 col-md-8 col-md-offset-2'>
                         <ul className="nav nav-tabs">
-
                             <li role="presentation" className="dropdown">
                                 <a className="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                                     All <span className="caret"></span>

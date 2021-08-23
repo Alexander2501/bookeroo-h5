@@ -22,7 +22,7 @@ class Header extends Component {
       <div className="container-fluid">
         <div className='row App-header' style={{}}>
           <div className='col-xs-12 col-md-2'>
-            <div className="App-header">
+            <div>
               <h2>Bookeroo</h2>
             </div>
           </div>

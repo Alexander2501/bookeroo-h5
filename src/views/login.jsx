@@ -43,6 +43,7 @@ export default class Login extends Component {
         if ((res.code = "1000000")) {
           this.props.history.push("/");
         } else {
+          alert(res.data.message);
         }
       })
       .catch((err) => {
