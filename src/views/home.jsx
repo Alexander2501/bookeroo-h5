@@ -46,12 +46,12 @@ class Home extends Component {
 
 
                 {/* function area */}
-                <div className='row' style={{padding: '10px 0'}}>
+                <div className='row' style={{ padding: '10px 0' }}>
 
                     <div className='col-md-8 col-md-offset-2'>
-                        <ul className="nav nav-pills">
+                        <ul className="nav nav-tabs">
 
-                            <li role="presentation" className="dropdown active">
+                            <li role="presentation" className="dropdown">
                                 <a className="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                                     All <span className="caret"></span>
                                 </a>
@@ -59,7 +59,7 @@ class Home extends Component {
                                     <li><NavLink to='/booklist' style={{ display: linkShow }}>All Books</NavLink></li>
                                     <li><a href="#">Another action</a></li>
                                     <li><a href="#">Something else here</a></li>
-                                    <li role="separator" class="divider"></li>
+                                    <li role="separator" className="divider"></li>
                                     <li><a href="#">Separated link</a></li>
                                 </ul>
                             </li>
