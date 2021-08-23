@@ -1,0 +1,40 @@
+.thumbnail img{
+    height: 360px;
+    width: 300px;
+}
+.bookdesc p{
+    color:black;
+}
+.bookinfo{
+    display: flex;
+    flex-wrap: wrap;
+}
+.infoitem{
+    flex:0 1 30%;
+}
+.infoitem>span:nth-child(1){
+    color: gray;
+}
+.infoitem>span:nth-child(2){
+    font-weight: bold;
+}
+.bookprice{
+    padding: 20px 0px;
+    display: flex;
+    align-items: center;
+}
+.bookprice>span:nth-child(1){
+    color: gray;
+}
+.bookprice>span:nth-child(2){
+    font-weight: bold;
+    color:red;
+    font-size: 26px;
+   padding-left: 10px;
+}
+.purchase{
+    padding: 20px 0px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}

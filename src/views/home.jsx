@@ -6,7 +6,7 @@ import IndexList from '../components/indexlist';
 import Header from "../components/header"
 import UserList from '../components/userlist';
 import BookList from '../components/booklist';
-import Detail from '../components/detail';
+import Detail from '../components/detail/detail';
 import MyOrder from '../components/myorder/myorder';
 
 class Home extends Component {
@@ -41,7 +41,7 @@ class Home extends Component {
                 </div>
                 <Header handleLogout={this.logout} />
                 <div className="row">
-                    <div className="col-xs-2" style={{ paddingRight: '0px', display: leftPanelShow }}>
+                    <div className="col-xs-2 col-md-2" style={{ paddingRight: '0px', display: leftPanelShow }}>
 
                         {/*导航路由链接*/}
                         <div className="panel panel-default">
@@ -53,7 +53,7 @@ class Home extends Component {
                             </div>
                         </div>
                     </div>
-                    <div className="col-xs-10">
+                    <div className="col-xs-12 col-md-10">
 
                         {/*可切换的路由组件*/}
                         <Switch>

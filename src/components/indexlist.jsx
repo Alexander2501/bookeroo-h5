@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import BookItem from "./bookitem";
 import axios from "axios";
 import { Link, Route } from "react-router-dom";
-import Detail from "./detail";
+import Detail from "./detail/detail";
 
 
 class IndexList extends Component {
