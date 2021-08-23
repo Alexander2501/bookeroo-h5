@@ -261,7 +261,8 @@ class BookList extends Component {
       console.log(err);
     });
   }
-  handleToDetail = () => {
+  handleToDetail = (index) => {
+    console.log(index);
     let userId = sessionStorage.getItem("userId");
     let token = sessionStorage.getItem("token");
     if (userId != null && token != null) {

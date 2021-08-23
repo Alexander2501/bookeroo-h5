@@ -69,38 +69,42 @@ class IndexList extends Component {
 
   }
 
-  handleToDetail = () => {
+  handleToDetail = (bookindex) => {
+
+    let bookMes = this.state.books[bookindex];
+    sessionStorage.setItem('bookMes', JSON.stringify(bookMes));
+
     let userId = sessionStorage.getItem("userId");
     let token = sessionStorage.getItem("token");
     if (userId != null && token != null) {
-      this.props.history.push('/detail');
+      this.props.history.push({ pathname: '/detail' });
     } else {
       this.props.history.push('/login');
     }
   }
 
- 
- 
+
+
   render() {
 
     let userType = sessionStorage.getItem("type");
     console.log('userType', userType);
     return (
-        <div className="row">
-          {
-            this.state.books.map((item, index) => (
-              <BookItem bookInfo={item} key={index} index={index} handleToDetail={this.handleToDetail} />
-            )
+      <div className="row">
+        {
+          this.state.books.map((item, index) => (
+            <BookItem bookInfo={item} key={index} index={index} handleToDetail={this.handleToDetail} />
+          )
 
-            )
-          }
-        </div>
-      )
+          )
+        }
+      </div>
+    )
 
-
-    }
 
   }
+
+}
 
 
 export default IndexList;

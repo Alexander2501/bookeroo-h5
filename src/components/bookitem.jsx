@@ -20,7 +20,7 @@ class BookItem extends Component {
 
   }
   handleBuy = () => {
-    this.props.handleToDetail();
+    this.props.handleToDetail(this.props.index);
   }
 
 

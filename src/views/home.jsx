@@ -30,7 +30,6 @@ class Home extends Component {
     }
 
     render() {
-        let leftPanelShow = this.state.type == 1 || !sessionStorage.getItem('token') ? "none" : "block"
         let linkShow = this.state.type == 3 ? 'block' : 'none';
         let topShow = sessionStorage.getItem('token') ? "block" : "none";
         let topHide = sessionStorage.getItem('token') ? "none" : "block";
@@ -43,8 +42,6 @@ class Home extends Component {
 
                 <Header handleLogout={this.logout} />
 
-
-
                 {/* function area */}
                 <div className='row' style={{ padding: '10px 0' }}>
                     <div className='col-xs-12 col-md-8 col-md-offset-2'>
@@ -54,7 +51,7 @@ class Home extends Component {
                                     All <span className="caret"></span>
                                 </a>
                                 <ul className="dropdown-menu">
-                                    <li><NavLink to='/booklist' style={{ display: linkShow }}>All Books</NavLink></li>
+                                    <li><NavLink to='/booklist'>All Books</NavLink></li>
                                     <li><a href="#">Another action</a></li>
                                     <li><a href="#">Something else here</a></li>
                                     <li role="separator" className="divider"></li>
@@ -66,10 +63,10 @@ class Home extends Component {
                             <li role="presentation"><a href="#">My Comments</a></li>
 
                             <li role="presentation"><Link to='/orders'>My Orders</Link></li>
-                            <li role="presentation">
-                                <NavLink to='/user' style={{ display: linkShow }}>UserManage</NavLink>
+                            <li role="presentation" style={{ display: linkShow }}>
+                                <NavLink to='/user'>UserManage</NavLink>
                             </li>
-                            <li role="presentation">
+                            <li role="presentation" style={{ display: linkShow }}>
                                 <NavLink to='/book'>BookManage</NavLink>
                             </li>
                         </ul>
@@ -84,18 +81,7 @@ class Home extends Component {
                 </div> */}
                 {/* main content */}
                 <div className="row">
-                    {/* <div className="col-md-2" style={{ paddingRight: '0px', display: leftPanelShow }}>
-
-                        导航路由链接
-                        <div className="panel panel-default">
-                            <div className="panel-heading">Book Classification</div>
-                            <div className="panel-body">
-                               
-                               <NavLink to='/booklist' style={{ display: linkShow }}>All Books</NavLink>
-                                <NavLink className="list-group-item" to='/book'>BookManage</NavLink>
-                            </div>
-                        </div>
-                    </div> */}
+         
                     <div className="col-xs-12 col-md-10 col-md-offset-2">
 
                         {/*可切换的路由组件*/}
@@ -105,6 +91,7 @@ class Home extends Component {
                             <Route path='/user' component={UserList} />
                             <Route path='/detail' component={Detail} />
                             <Route path='/orders' component={MyOrder}></Route>
+                            
                             <Route path='/'>
                                 <Redirect to='/booklist'></Redirect>
                             </Route>

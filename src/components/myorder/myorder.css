@@ -1,0 +1,11 @@
+.emptyImg{
+    height: 275px;
+    background: url('./imgs/empty.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.orderrow>div:nth-child(2){
+    height: 275px;
+    display: flex;
+    align-items: center;
+}

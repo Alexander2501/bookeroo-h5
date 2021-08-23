@@ -49,7 +49,7 @@ class Header extends Component {
           <div className='col-xs-12 col-md-4'>
             <div className="btn-group pull-right" role="group" style={{ marginRight: '30px' }}>
 
-              <button type="button" className="btn btn-default"><Link to='/cart'>My Cart</Link></button>
+              <button type="button" className="btn btn-default"><Link to='/orders'>My Order</Link></button>
 
               <div className="btn-group" role="group">
                 <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
