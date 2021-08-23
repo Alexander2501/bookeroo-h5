@@ -7,12 +7,12 @@ class Detail extends Component {
         return (
 
             <div className="row">
-                <div className="col-xs-12 col-md-4 col-md-offset-2">
+                <div className="col-xs-12 col-md-3">
                     <div className="thumbnail">
                         <img src="https://i.loli.net/2021/08/22/7r1uPlpTyMhDBk5.png" alt="..." />
                     </div>
                 </div>
-                <div className="col-xs-12 col-md-4">
+                <div className="col-xs-12 col-md-5">
                     <div className="head">
                         <div className='bookname'>
                             <h2>A Journey to the Center of the Earth</h2>
