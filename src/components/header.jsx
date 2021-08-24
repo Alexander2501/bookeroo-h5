@@ -3,8 +3,8 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
-let userId = sessionStorage.getItem("userId");
-let token = sessionStorage.getItem("token");
+let userId = localStorage.getItem("userId");
+let token = localStorage.getItem("token");
 //设置请求头
 axios.defaults.headers.common["token"] = token;
 axios.defaults.headers.common["userId"] = userId;

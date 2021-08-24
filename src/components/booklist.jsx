@@ -27,8 +27,8 @@ class BookList extends Component {
   };
 
   componentDidMount() {
-    let userId = sessionStorage.getItem("userId");
-    let token = sessionStorage.getItem("token");
+    let userId = localStorage.getItem("userId");
+    let token = localStorage.getItem("token");
     //设置请求头
     axios.defaults.headers.common["token"] = token;
     axios.defaults.headers.common["userId"] = userId;
@@ -38,7 +38,7 @@ class BookList extends Component {
 
 
   getBookList = () => {
-    let userType = sessionStorage.getItem("type");
+    let userType = localStorage.getItem("type");
     if (userType == 3) {//Admin
       this.state.bookUrl = "https://web.tootz.cn/api/book/globalList";
     } else if (userType == 2) {
@@ -263,8 +263,8 @@ class BookList extends Component {
   }
   handleToDetail = (index) => {
     console.log(index);
-    let userId = sessionStorage.getItem("userId");
-    let token = sessionStorage.getItem("token");
+    let userId = localStorage.getItem("userId");
+    let token = localStorage.getItem("token");
     if (userId != null && token != null) {
       this.props.history.push('/detail');
     } else {
@@ -274,7 +274,7 @@ class BookList extends Component {
 
   render() {
 
-    let userType = sessionStorage.getItem("type");
+    let userType = localStorage.getItem("type");
     console.log('userType', userType);
     if (userType == 1 || userType == null) {
       return (

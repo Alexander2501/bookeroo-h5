@@ -28,8 +28,8 @@ class IndexList extends Component {
 
   componentDidMount() {
 
-    let userId = sessionStorage.getItem("userId");
-    let token = sessionStorage.getItem("token");
+    let userId = localStorage.getItem("userId");
+    let token = localStorage.getItem("token");
     //设置请求头
     axios.defaults.headers.common["token"] = token;
     axios.defaults.headers.common["userId"] = userId;
@@ -40,7 +40,7 @@ class IndexList extends Component {
 
 
   getBookList = () => {
-    let userType = sessionStorage.getItem("type");
+    let userType = localStorage.getItem("type");
     if (userType == 3) {//Admin
       this.state.bookUrl = "https://web.tootz.cn/api/book/globalList";
     } else if (userType == 2) {
@@ -72,10 +72,10 @@ class IndexList extends Component {
   handleToDetail = (bookindex) => {
 
     let bookMes = this.state.books[bookindex];
-    sessionStorage.setItem('bookMes', JSON.stringify(bookMes));
+    localStorage.setItem('bookMes', JSON.stringify(bookMes));
 
-    let userId = sessionStorage.getItem("userId");
-    let token = sessionStorage.getItem("token");
+    let userId = localStorage.getItem("userId");
+    let token = localStorage.getItem("token");
     if (userId != null && token != null) {
       this.props.history.push({ pathname: '/detail' });
     } else {
@@ -87,7 +87,7 @@ class IndexList extends Component {
 
   render() {
 
-    let userType = sessionStorage.getItem("type");
+    let userType = localStorage.getItem("type");
     console.log('userType', userType);
     return (
       <div className="row">

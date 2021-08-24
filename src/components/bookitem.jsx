@@ -9,11 +9,11 @@ class BookItem extends Component {
     name: "",
     price: "",
     author: "",
-    type: sessionStorage.getItem('type')
+    type: localStorage.getItem('type')
   };
   componentDidMount() {
-    let userId = sessionStorage.getItem("userId");
-    let token = sessionStorage.getItem("token");
+    let userId = localStorage.getItem("userId");
+    let token = localStorage.getItem("token");
     //设置请求头
     axios.defaults.headers.common["token"] = token;
     axios.defaults.headers.common["userId"] = userId;

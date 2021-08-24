@@ -19,14 +19,14 @@ class Detail extends Component {
     }
 
     componentDidMount() {
-        let userId = sessionStorage.getItem("userId");
-        let token = sessionStorage.getItem("token");
+        let userId = localStorage.getItem("userId");
+        let token = localStorage.getItem("token");
         //设置请求头
         axios.defaults.headers.common["token"] = token;
         axios.defaults.headers.common["userId"] = userId;
 
         this.setState({
-            bookMes: JSON.parse(sessionStorage.getItem('bookMes'))
+            bookMes: JSON.parse(localStorage.getItem('bookMes'))
         });
 
 
@@ -52,6 +52,7 @@ class Detail extends Component {
         let url = "https://web.tootz.cn/api/order/create";
         axios.post(url, data).then(res => {
             if (res.code = "1000000") {
+                localStorage
 
                 window.location.href = res.data.data;
             }

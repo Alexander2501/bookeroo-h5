@@ -16,7 +16,7 @@ class Home extends Component {
 
     state = {
         bookClasses: ["All", "", "", ""],
-        type: sessionStorage.getItem("type")
+        type: localStorage.getItem("type")
     }
 
 
@@ -28,13 +28,13 @@ class Home extends Component {
             console.log(err);
         })
         this.props.history.push('/login');
-        sessionStorage.clear();
+        localStorage.clear();
     }
 
     render() {
         let linkShow = this.state.type == 3 ? 'block' : 'none';
-        let topShow = sessionStorage.getItem('token') ? "block" : "none";
-        let topHide = sessionStorage.getItem('token') ? "none" : "block";
+        let topShow = localStorage.getItem('token') ? "block" : "none";
+        let topHide = localStorage.getItem('token') ? "none" : "block";
         return (
             <div className="container-fluid">
                 <div className='hidden-xs' style={{ textAlign: 'right', fontWeight: '10px', paddingRight: '30px' }}>
