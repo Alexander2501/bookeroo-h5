@@ -47,18 +47,16 @@ class Home extends Component {
                 {/* function area */}
                 <div className='row' style={{ padding: '10px 0' }}>
                     <div className='col-xs-12 col-md-8 col-md-offset-2'>
-                        <ul className="nav nav-tabs funitem" style={{ display: 'flex', flexWrap: 'nowrap' }}>
+                        <ul className="nav nav-tabs" style={{ display: 'flex', flexWrap: 'nowrap', overflowX: 'scroll' }}>
                             <li role="presentation" className="dropdown">
-                                <a className="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                    All <span className="caret"></span>
+                                <a href="">
+                                    <select style={{ border: 'none' }}>
+                                        <option value="volvo">Volvo</option>
+                                        <option value="saab">Saab</option>
+                                        <option value="opel">Opel</option>
+                                        <option value="audi">Audi</option>
+                                    </select>
                                 </a>
-                                <ul className="dropdown-menu">
-                                    <li><NavLink to='/booklist'>All Books</NavLink></li>
-                                    <li><a href="#">Another action</a></li>
-                                    <li><a href="#">Something else here</a></li>
-                                    <li role="separator" className="divider"></li>
-                                    <li><a href="#">Separated link</a></li>
-                                </ul>
                             </li>
 
                             <li role="presentation" className=""><a href="#">Bookeroo</a></li>
@@ -84,7 +82,7 @@ class Home extends Component {
                 {/* main content */}
                 <div className="row">
 
-                    <div className="col-xs-12 col-md-10 col-md-offset-2">
+                    <div className="col-xs-12 col-md-8 col-md-offset-2">
 
                         {/*可切换的路由组件*/}
                         <Switch>

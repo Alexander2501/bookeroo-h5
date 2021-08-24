@@ -12,4 +12,10 @@
 .orderheader{
     display: flex;
     flex-wrap: nowrap;
+    font-weight: bold;
+}
+
+.ordercontrol>p{
+text-align: center;
+cursor: pointer;
 }

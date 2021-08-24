@@ -31,7 +31,7 @@
   }
 }
 .funitem{
-  overflow-y: hidden;
+  /* overflow-y: hidden; */
 }
 .funitem>li{
 width: 100px;

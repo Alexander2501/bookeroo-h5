@@ -6,11 +6,22 @@ class MyOrder extends Component {
         orderList: [{
             orderName: '',
             orderId: '1234532356',
-            picUrl: '',
-            price: '',
-            num: '',
+            picUrl: 'https://i.loli.net/2021/08/22/7r1uPlpTyMhDBk5.png',
+            price: '12',
+            num: '1',
             status: 'complete transaction',
-            orderDesc: ''
+            orderDesc: '',
+            time: '2021-08-22'
+
+        }, {
+            orderName: '',
+            orderId: '1234532356',
+            picUrl: 'https://i.loli.net/2021/08/22/7r1uPlpTyMhDBk5.png',
+            price: '12',
+            num: '1',
+            status: 'complete transaction',
+            orderDesc: '',
+            time: '2021-08-22'
 
         }],
         orders: []
@@ -37,16 +48,39 @@ class MyOrder extends Component {
         } else {
             return (
                 <div>
-                    <div className='panel panel-default orderheader' style={{border:'none'}}>
-                        <div className='col-md-4 panel-heading'>Order Detail</div>
+                    <div className='panel panel-default orderheader' style={{ border: 'none' }}>
+                        <div className='col-md-6 panel-heading'>Order Detail</div>
                         <div className='col-md-3 panel-heading'>Order Status</div>
                         <div className='col-md-3 panel-heading'>Order Control</div>
                     </div>
-                    <div className='row'>
-                        <div className='col-md-4'>
-                            
-                        </div>
-                    </div>
+                    {
+                        this.state.orderList.map((item, index) => (
+                            <div>
+                                <div className='panel panel-default'>
+                                    <div className='col-md-12 panel-heading' style={{ backgroundColor: '#eaf8ff' }}>
+                                        <span style={{ fontWeight: 'bold' }}>{item.time}</span>
+                                        <span style={{ marginLeft: '10px' }}>OrderId:{item.orderId}</span>
+                                        <span className="pull-right text-danger" style={{cursor:'pointer'}} >Delete Order</span>
+                                    </div>
+                                </div>
+                                <div className='row' style={{ display: 'flex', alignItems: 'center' }}>
+                                    <div className='col-md-6'>
+                                        <div className='col-md-3'><img src={item.picUrl} style={{ height: '100px' }} /></div>
+                                        <div className='col-md-9'>{item.orderDesc}</div>
+                                    </div>
+                                    <div className='col-md-3'>
+                                        {item.status}
+                                    </div>
+                                    <div className='col-md-3 ordercontrol'>
+                                        <p className="bg-success">Confirm Order</p>
+                                        <p className="bg-danger">Cancel Order</p>
+                                        <p className="bg-primary">Add Comment</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        ))
+                    }
 
 
                 </div>
