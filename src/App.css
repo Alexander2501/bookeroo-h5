@@ -30,15 +30,14 @@
     transform: rotate(360deg);
   }
 }
-.funitem{
+.funitem li{
   /* overflow-y: hidden; */
+  text-align: center;
 }
 .funitem>li{
 width: 100px;
 }
-.funitem::-webkit-sxrollbar {
-  display: none;
-}
+.funitem::-webkit-scrollbar { width: 0 !important }
 .nav > li > a {
 
   padding: none;

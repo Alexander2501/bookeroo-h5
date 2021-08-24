@@ -47,21 +47,10 @@ class Home extends Component {
                 {/* function area */}
                 <div className='row' style={{ padding: '10px 0' }}>
                     <div className='col-xs-12 col-md-8 col-md-offset-2'>
-                        <ul className="nav nav-tabs" style={{ display: 'flex', flexWrap: 'nowrap', overflowX: 'scroll' }}>
-                            <li role="presentation" className="dropdown">
-                                <a href="">
-                                    <select style={{ border: 'none' }}>
-                                        <option value="volvo">Volvo</option>
-                                        <option value="saab">Saab</option>
-                                        <option value="opel">Opel</option>
-                                        <option value="audi">Audi</option>
-                                    </select>
-                                </a>
-                            </li>
-
+                        <ul className="nav nav-tabs funitem" style={{ display: 'flex', flexWrap: 'nowrap', overflow: 'scroll' }}>
+                            <li role="presentation" className=""><NavLink to='/booklist'>All</NavLink></li>
                             <li role="presentation" className=""><a href="#">Bookeroo</a></li>
                             <li role="presentation"><a href="#">Comments</a></li>
-
                             <li role="presentation"><Link to='/orders'>Orders</Link></li>
                             <li role="presentation" style={{ display: linkShow }}>
                                 <NavLink to='/user'>UserManage</NavLink>
