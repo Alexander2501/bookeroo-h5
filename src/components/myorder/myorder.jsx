@@ -9,7 +9,8 @@ class MyOrder extends Component {
             picUrl: '',
             price: '',
             num: '',
-            status: 'complete transaction'
+            status: 'complete transaction',
+            orderDesc: ''
 
         }],
         orders: []
@@ -21,7 +22,7 @@ class MyOrder extends Component {
         const { orders, orderList } = this.state;
 
         console.log(orders);
-        if (orders.length == 0) {
+        if (orders.length != 0) {
             return (
                 <div className='row orderrow'>
                     <div className='col-xs-12 col-md-4'>
@@ -35,37 +36,20 @@ class MyOrder extends Component {
             );
         } else {
             return (
-                <div className='row'>
+                <div>
+                    <div className='panel panel-default' style={{border:'none'}}>
 
-
-                    <div className='table-responsive'>
-                        <table className='table'>
-                            <tr>
-                                <th>Goods</th>
-                                <th>Price</th>
-                                <th>Number</th>
-                                <th>Commodity Operate</th>
-                                <th>TotalPrice</th>
-                                <th>Status</th>
-                                <th>Trade Operation</th>
-                            </tr>
-                            {
-                                orderList.map((item, index) => (
-                                    
-                                    <tr>
-                                        <td>{orderList.picUrl}</td>
-                                        <td>{orderList.price}</td>
-                                        <td>{orderList.num}</td>
-                                        <td><span>Cancel Order</span></td>
-                                        <td>{orderList.totalPrice}</td>
-                                        <td>{orderList.status}</td>
-                                        <td><span>Add Comment</span></td>
-                                    </tr>
-
-                                ))
-                            }
-                        </table>
+                        <div className='col-md-4 panel-heading'>Order Detail</div>
+                        <div className='col-md-3 panel-heading'>Order Status</div>
+                        <div className='col-md-3 panel-heading'>Order Control</div>
                     </div>
+                    <div className='row'>
+                        <div className='col-md-4'>
+                            
+                        </div>
+                    </div>
+
+
                 </div>
             );
         }
