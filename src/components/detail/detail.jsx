@@ -46,9 +46,9 @@ class Detail extends Component {
         this.handleChange();
     }
     buyBook = () => {
-        let bookNum = this.state.bookNum;
-        let bookId = this.state.bookId;
-        let data = { bookNum, bookId };
+        let bookNum = parseInt(this.state.bookNum);
+        let bookId = this.state.bookMes.bookId;
+        let data = { num: bookNum, bookId: bookId };
         let url = "https://web.tootz.cn/api/order/create";
         axios.post(url, data).then(res => {
             console.log(res);
