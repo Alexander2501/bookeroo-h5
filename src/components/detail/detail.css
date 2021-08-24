@@ -1,6 +1,6 @@
 .thumbnail img{
     height: 360px;
-    width: 300px;
+    /* width: 300px; */
 }
 .bookdesc p{
     color:black;
@@ -10,7 +10,7 @@
     flex-wrap: wrap;
 }
 .infoitem{
-    flex:0 1 30%;
+    flex:0 1 50%;
 }
 .infoitem>span:nth-child(1){
     color: gray;

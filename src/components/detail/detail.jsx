@@ -51,7 +51,9 @@ class Detail extends Component {
         let data = { num: bookNum, bookId: bookId };
         let url = "https://web.tootz.cn/api/order/create";
         axios.post(url, data).then(res => {
-            console.log(res);
+            if (res.code = "1000000") {
+                this.props.history.push(res.data);
+            }
         }).catch(err => {
             console.log(err);
         });
@@ -63,13 +65,13 @@ class Detail extends Component {
         let { bookName, bookId, picUrl, bookDesc, price, publishingHouse, publishingTime, author } = this.state.bookMes;
         return (
 
-            <div className="row">
-                <div className="col-xs-12 col-md-3">
+            <div className="row" style={{ marginLeft: '0', marginRight: '0' }}>
+                <div className="col-xs-12 col-md-4">
                     <div className="thumbnail">
                         <img src={picUrl} alt="..." />
                     </div>
                 </div>
-                <div className="col-xs-12 col-md-5">
+                <div className="col-xs-12 col-md-6">
                     <div className="head">
                         <div className='bookname'>
                             <h2>{bookName}</h2>
