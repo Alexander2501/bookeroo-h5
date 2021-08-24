@@ -37,8 +37,7 @@ class MyOrder extends Component {
         } else {
             return (
                 <div>
-                    <div className='panel panel-default' style={{border:'none'}}>
-
+                    <div className='panel panel-default orderheader' style={{border:'none'}}>
                         <div className='col-md-4 panel-heading'>Order Detail</div>
                         <div className='col-md-3 panel-heading'>Order Status</div>
                         <div className='col-md-3 panel-heading'>Order Control</div>

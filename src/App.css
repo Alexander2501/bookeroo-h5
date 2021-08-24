@@ -30,3 +30,16 @@
     transform: rotate(360deg);
   }
 }
+.funitem{
+  overflow-y: hidden;
+}
+.funitem>li{
+width: 100px;
+}
+.funitem::-webkit-sxrollbar {
+  display: none;
+}
+.nav > li > a {
+
+  padding: none;
+}

@@ -9,6 +9,8 @@ import BookList from '../components/booklist';
 import Detail from '../components/detail/detail';
 import MyOrder from '../components/myorder/myorder';
 import SwipperBoot from '../components/swipperboot';
+import PaySuccess from './paysuccess';
+import PayCancel from './paycancel';
 
 class Home extends Component {
 
@@ -45,7 +47,7 @@ class Home extends Component {
                 {/* function area */}
                 <div className='row' style={{ padding: '10px 0' }}>
                     <div className='col-xs-12 col-md-8 col-md-offset-2'>
-                        <ul className="nav nav-tabs">
+                        <ul className="nav nav-tabs funitem" style={{ display: 'flex', flexWrap: 'nowrap' }}>
                             <li role="presentation" className="dropdown">
                                 <a className="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                                     All <span className="caret"></span>
@@ -59,10 +61,10 @@ class Home extends Component {
                                 </ul>
                             </li>
 
-                            <li role="presentation" className=""><a href="#">My Bookeroo</a></li>
-                            <li role="presentation"><a href="#">My Comments</a></li>
+                            <li role="presentation" className=""><a href="#">Bookeroo</a></li>
+                            <li role="presentation"><a href="#">Comments</a></li>
 
-                            <li role="presentation"><Link to='/orders'>My Orders</Link></li>
+                            <li role="presentation"><Link to='/orders'>Orders</Link></li>
                             <li role="presentation" style={{ display: linkShow }}>
                                 <NavLink to='/user'>UserManage</NavLink>
                             </li>
@@ -81,7 +83,7 @@ class Home extends Component {
                 </div> */}
                 {/* main content */}
                 <div className="row">
-         
+
                     <div className="col-xs-12 col-md-10 col-md-offset-2">
 
                         {/*可切换的路由组件*/}
@@ -91,7 +93,10 @@ class Home extends Component {
                             <Route path='/user' component={UserList} />
                             <Route path='/detail' component={Detail} />
                             <Route path='/orders' component={MyOrder}></Route>
-                            
+
+                            <Route path='/paysuccess' component={PaySuccess}></Route>
+                            <Route path='/paycancel' component={PayCancel}></Route>
+
                             <Route path='/'>
                                 <Redirect to='/booklist'></Redirect>
                             </Route>
