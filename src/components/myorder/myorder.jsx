@@ -36,27 +36,36 @@ class MyOrder extends Component {
         } else {
             return (
                 <div className='row'>
-                    <table>
-                        <tr>
-                            <th>Goods</th>
-                            <th>Price</th>
-                            <th>Number</th>
-                            <th>Commodity Operate</th>
-                            <th>TotalPrice</th>
-                            <th>Status</th>
-                            <th>Trade Operation</th>
-                        </tr>
-                        {
-                            orderList.map((item, index) => (
-                                <div>
-                                    <tr></tr>
+
+
+                    <div className='table-responsive'>
+                        <table className='table'>
+                            <tr>
+                                <th>Goods</th>
+                                <th>Price</th>
+                                <th>Number</th>
+                                <th>Commodity Operate</th>
+                                <th>TotalPrice</th>
+                                <th>Status</th>
+                                <th>Trade Operation</th>
+                            </tr>
+                            {
+                                orderList.map((item, index) => (
+                                    
                                     <tr>
-                                        <td></td>
+                                        <td>{orderList.picUrl}</td>
+                                        <td>{orderList.price}</td>
+                                        <td>{orderList.num}</td>
+                                        <td><span>Cancel Order</span></td>
+                                        <td>{orderList.totalPrice}</td>
+                                        <td>{orderList.status}</td>
+                                        <td><span>Add Comment</span></td>
                                     </tr>
-                                </div>
-                            ))
-                        }
-                    </table>
+
+                                ))
+                            }
+                        </table>
+                    </div>
                 </div>
             );
         }
