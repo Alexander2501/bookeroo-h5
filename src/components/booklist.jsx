@@ -1,7 +1,7 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import BookItem from "./bookitem";
 import axios from "axios";
-import {Link, Route} from "react-router-dom";
+import { Link, Route } from "react-router-dom";
 import Detail from "./detail/detail";
 
 
@@ -97,14 +97,31 @@ class BookList extends Component {
         });
 
     }
+    //clear add modal
+    handleAddOpen = () => {
+        this.setState({
+            picUrl: '',
+            pageNum: '',
+            pageSize: '',
+            bookName: '',
+            bookDesc: '',
+            author: '',
+            price: '',
+            isbn: '',
+            publishingHouse: '',
+            publishingTime: '',
+            language: '',
+            stock: '',
+            status: '',
+            bookUrl: ""
+        });
+    }
 
     addBook = (book) => {
-        const {books} = this.state;
+        const { books } = this.state;
         books.unshift(book);
-        this.setState({books});
-
+        this.setState({ books });
         let addNBookUrl = "https://web.tootz.cn/api/book/addNew";
-
         let bookName = this.bookName.value.toString();
         let bookDesc = this.bookDesc.value.toString();
         let picUrl = this.state.picUrl;
@@ -129,7 +146,7 @@ class BookList extends Component {
             language,
             stock,
             status,
-            uploadflag:false
+            uploadflag: false
         }
 
         axios.post(addNBookUrl, data).then(res => {
@@ -143,7 +160,7 @@ class BookList extends Component {
         }).catch(err => {
             console.log(err);
             this.setState({
-                uploadflag:true
+                uploadflag: true
             });
 
         });
@@ -152,15 +169,15 @@ class BookList extends Component {
     }
     deleteBook = (index) => {
         console.log(index);
-        const {books} = this.state;
+        const { books } = this.state;
 
         let bookId = books[index].bookId;
         if (window.confirm("Confirm Delete?")) {
             let delBookUrl = "https://web.tootz.cn/api/book/delete";
-            axios.post(delBookUrl, {bookId}).then(res => {
+            axios.post(delBookUrl, { bookId }).then(res => {
                 if (res.data.code == "1000000") {
                     books.splice(index, 1);
-                    this.setState({books});
+                    this.setState({ books });
                     alert("删除成功");
                 }
             }).catch();
@@ -169,6 +186,8 @@ class BookList extends Component {
 
 
     }
+
+
 
     openEditModal = (index) => {
         console.log(this.state.books);
@@ -254,7 +273,7 @@ class BookList extends Component {
         }
     }
     editBook = () => {
-        const {bookId, bookName, bookDesc, picUrl, author, price, isbn, publishingHouse, publishingTime, language, stock, status} = this.state;
+        const { bookId, bookName, bookDesc, picUrl, author, price, isbn, publishingHouse, publishingTime, language, stock, status } = this.state;
         let data = {
             bookId: bookId,
             bookName: bookName,
@@ -290,7 +309,7 @@ class BookList extends Component {
 
     render() {
 
-        let textShow = this.state.uploadflag?'block':'none';
+        let textShow = this.state.uploadflag ? 'block' : 'none';
         let userType = localStorage.getItem("type");
         console.log('userType', userType);
         if (userType == 1 || userType == null) {
@@ -299,9 +318,9 @@ class BookList extends Component {
                     <div className="row">
                         {
                             this.state.books.map((item, index) => (
-                                    <BookItem bookInfo={item} key={index} index={index}
-                                              handleToDetail={this.handleToDetail}/>
-                                )
+                                <BookItem bookInfo={item} key={index} index={index}
+                                    handleToDetail={this.handleToDetail} />
+                            )
                             )
                         }
                     </div>
@@ -312,10 +331,11 @@ class BookList extends Component {
             return (
                 <div className="container-fluid">
                     <div>
-                        <h2 style={{display:'inline-block',margin:'0'}}>Book At Bookeroo</h2>
+                        <h2 style={{ display: 'inline-block', margin: '0' }}>Book At Bookeroo</h2>
                         <button type="button" className="btn btn-primary" data-toggle="modal"
-                                data-target="#bookAddModal"
-                                style={{float:"right"}}>
+                            data-target="#bookAddModal"
+                            style={{ float: "right" }}
+                            onClick={this.handleAddOpen}>
                             Add
                         </button>
                     </div>
@@ -323,62 +343,62 @@ class BookList extends Component {
                     <div className="table-responsive">
                         <table className="table">
                             <tbody>
-                            <tr>
-                                <th>Index</th>
-                                <th>Image</th>
-                                <th>BookName</th>
-                                <th>BookDesc</th>
-                                <th>Author</th>
-                                <th>Price</th>
-                                <th>ISBN</th>
-                                <th>PublishHouse</th>
-                                <th>PublishTime</th>
-                                <th>Language</th>
-                                <th>Stock</th>
-                                <th>Status</th>
-                                <th width="15%">Control</th>
-                            </tr>
-                            {
-                                this.state.books.map((item, index) => (
-                                    <tr key={index}>
-                                        <td>{index + 1}</td>
-                                        <td><img src={item.picUrl} alt="" style={{width: '50px', height: '30px'}}/></td>
-                                        <td>{item.bookName}</td>
-                                        <td>{item.bookDesc}</td>
-                                        <td>{item.author}</td>
-                                        <td>{item.price}</td>
+                                <tr>
+                                    <th>Index</th>
+                                    <th>Image</th>
+                                    <th>BookName</th>
+                                    <th>BookDesc</th>
+                                    <th>Author</th>
+                                    <th>Price</th>
+                                    <th>ISBN</th>
+                                    <th>PublishHouse</th>
+                                    <th>PublishTime</th>
+                                    <th>Language</th>
+                                    <th>Stock</th>
+                                    <th>Status</th>
+                                    <th width="15%">Control</th>
+                                </tr>
+                                {
+                                    this.state.books.map((item, index) => (
+                                        <tr key={index}>
+                                            <td>{index + 1}</td>
+                                            <td><img src={item.picUrl} alt="" style={{ width: '50px', height: '30px' }} /></td>
+                                            <td>{item.bookName}</td>
+                                            <td>{item.bookDesc}</td>
+                                            <td>{item.author}</td>
+                                            <td>{item.price}</td>
 
-                                        <td>{item.isbn}</td>
-                                        <td>{item.publishingHouse}</td>
-                                        <td>{item.publishingTime}</td>
-                                        <td>{item.language}</td>
-                                        <td>{item.stock}</td>
-                                        <td>{item.status}</td>
-                                        <td width="15%">
-                                            <button
-                                                className="btn btn-primary"
-                                                data-toggle="modal"
-                                                data-target="#bookEditModal"
-                                                onClick={() => {
-                                                    this.openEditModal(index)
-                                                }}
-                                            >
-                                                Edit
-                                            </button>
-                                            <button
-                                                className="btn btn btn-danger"
-                                                onClick={() => {
-                                                    this.deleteBook(index);
-                                                }}
-                                                style={{marginLeft: "5px"}}
-                                            >
-                                                Delete
-                                            </button>
-                                        </td>
-                                    </tr>
+                                            <td>{item.isbn}</td>
+                                            <td>{item.publishingHouse}</td>
+                                            <td>{item.publishingTime}</td>
+                                            <td>{item.language}</td>
+                                            <td>{item.stock}</td>
+                                            <td>{item.status}</td>
+                                            <td width="15%">
+                                                <button
+                                                    className="btn btn-primary"
+                                                    data-toggle="modal"
+                                                    data-target="#bookEditModal"
+                                                    onClick={() => {
+                                                        this.openEditModal(index)
+                                                    }}
+                                                >
+                                                    Edit
+                                                </button>
+                                                <button
+                                                    className="btn btn btn-danger"
+                                                    onClick={() => {
+                                                        this.deleteBook(index);
+                                                    }}
+                                                    style={{ marginLeft: "5px" }}
+                                                >
+                                                    Delete
+                                                </button>
+                                            </td>
+                                        </tr>
 
-                                ))
-                            }
+                                    ))
+                                }
                             </tbody>
                         </table>
 
@@ -386,7 +406,7 @@ class BookList extends Component {
 
                     {/* Add Book Modal*/}
                     <div className="modal fade" id="bookAddModal" role="dialog" aria-labelledby="myModalLabel"
-                         style={{display: this.state.isShow}}>
+                        style={{ display: this.state.isShow }}>
                         <div className="modal-dialog" role="document">
                             <div className="modal-content">
                                 <div className="modal-header">
@@ -399,80 +419,80 @@ class BookList extends Component {
                                             <label className=" col-sm-3 control-label">BookName</label>
                                             <div className="col-sm-6">
                                                 <input type="text" className="form-control"
-                                                       ref={value => this.bookName = value} placeholder="BookName"/>
+                                                    ref={value => this.bookName = value} placeholder="BookName" />
                                             </div>
                                         </div>
                                         <div className="form-group">
                                             <label className=" col-sm-3 control-label">BookDesc</label>
                                             <div className="col-sm-6">
                                                 <input type="text" className="form-control"
-                                                       ref={value => this.bookDesc = value} placeholder="BookDesc"/>
+                                                    ref={value => this.bookDesc = value} placeholder="BookDesc" />
                                             </div>
                                         </div>
                                         <div className="form-group">
                                             <label className=" col-sm-3 control-label">PicUrl</label>
                                             <div className="col-sm-6">
                                                 <label>File input</label>
-                                                <input type="file" id="file" accept="image/*" onChange={this.changPic}/>
-                                                <img src={this.state.picUrl} id="show" width="200"/>
+                                                <input type="file" id="file" accept="image/*" onChange={this.changPic} />
+                                                <img src={this.state.picUrl} id="show" width="200" />
                                             </div>
                                         </div>
                                         <div className="form-group">
                                             <label className=" col-sm-3 control-label">Author</label>
                                             <div className="col-sm-6">
                                                 <input type="text" className="form-control"
-                                                       ref={value => this.author = value} placeholder="Author"/>
+                                                    ref={value => this.author = value} placeholder="Author" />
                                             </div>
                                         </div>
                                         <div className="form-group">
                                             <label className=" col-sm-3 control-label">Price</label>
                                             <div className="col-sm-6">
                                                 <input type="text" className="form-control"
-                                                       ref={value => this.price = value} placeholder="Price"/>
+                                                    ref={value => this.price = value} placeholder="Price" />
                                             </div>
                                         </div>
                                         <div className="form-group">
                                             <label className=" col-sm-3 control-label">ISBN</label>
                                             <div className="col-sm-6">
                                                 <input type="text" className="form-control"
-                                                       ref={value => this.isbn = value} placeholder="ISBN"/>
+                                                    ref={value => this.isbn = value} placeholder="ISBN" />
                                             </div>
                                         </div>
                                         <div className="form-group">
                                             <label className=" col-sm-3 control-label">PublishingHouse</label>
                                             <div className="col-sm-6">
                                                 <input type="text" className="form-control"
-                                                       ref={value => this.publishingHouse = value}
-                                                       placeholder="PublishingHouse"/>
+                                                    ref={value => this.publishingHouse = value}
+                                                    placeholder="PublishingHouse" />
                                             </div>
                                         </div>
                                         <div className="form-group">
                                             <label className=" col-sm-3 control-label">PublishingTime</label>
                                             <div className="col-sm-6">
                                                 <input type="date" className="form-control"
-                                                       ref={value => this.publishingTime = value}
-                                                       placeholder="PublishingTime"/>
+                                                    ref={value => this.publishingTime = value}
+                                                    placeholder="PublishingTime" />
                                             </div>
                                         </div>
                                         <div className="form-group">
                                             <label className=" col-sm-3 control-label">Language</label>
                                             <div className="col-sm-6">
                                                 <input type="text" className="form-control"
-                                                       ref={value => this.language = value} placeholder="Language"/>
+                                                    ref={value => this.language = value} placeholder="Language" />
                                             </div>
                                         </div>
                                         <div className="form-group">
                                             <label className=" col-sm-3 control-label">Stock</label>
                                             <div className="col-sm-6">
                                                 <input type="number" className="form-control"
-                                                       ref={value => this.stock = value} placeholder="Stock"/>
+                                                    ref={value => this.stock = value} placeholder="Stock" />
                                             </div>
                                         </div>
                                         <div className="form-group">
                                             <label className=" col-sm-3 control-label">Status</label>
                                             <div className="col-sm-6">
                                                 <input type="number" min="10" max="1" className="form-control"
-                                                       ref={value => this.status = value} placeholder="Status"/>
+                                                    ref={value => this.status = value} placeholder="Status" />
                                             </div>
                                         </div>
 
@@ -482,7 +502,7 @@ class BookList extends Component {
                                     <button type="button" className="btn btn-default" data-dismiss="modal">Close
                                     </button>
                                     <button type="button" className="btn btn-primary" data-dismiss="modal"
-                                            onClick={this.addBook}>Add
+                                        onClick={this.addBook}>Add
                                     </button>
                                 </div>
                             </div>
@@ -491,7 +511,7 @@ class BookList extends Component {
 
                     {/* Edit Book Modal */}
                     <div className="modal fade" id="bookEditModal" role="dialog" aria-labelledby="myModalLabel"
-                         style={{display: this.state.isShow}}>
+                        style={{ display: this.state.isShow }}>
                         <div className="modal-dialog" role="document">
                             <div className="modal-content">
                                 <div className="modal-header">
@@ -504,89 +524,89 @@ class BookList extends Component {
                                             <label className=" col-sm-3 control-label">BookName</label>
                                             <div className="col-sm-6">
                                                 <input type="text" className="form-control" name="bookName"
-                                                       value={this.state.bookName} onChange={this.editInputChange}
-                                                       placeholder="BookName"/>
+                                                    value={this.state.bookName} onChange={this.editInputChange}
+                                                    placeholder="BookName" />
                                             </div>
                                         </div>
                                         <div className="form-group">
                                             <label className=" col-sm-3 control-label">BookDesc</label>
                                             <div className="col-sm-6">
                                                 <input type="text" className="form-control" name="bookDesc"
-                                                       value={this.state.bookDesc} onChange={this.editInputChange}
-                                                       placeholder="BookDesc"/>
+                                                    value={this.state.bookDesc} onChange={this.editInputChange}
+                                                    placeholder="BookDesc" />
                                             </div>
                                         </div>
                                         <div className="form-group">
                                             <label className=" col-sm-3 control-label">PicUrl</label>
                                             <div className="col-sm-6">
                                                 <label>File input</label>
-                                                <input type="file" id="file" accept="image/*" onChange={this.changPic}/>
-                                                <img src={this.state.picUrl} id="show" width="200"/>
-                                                <span style={{display:this.state.uploadflag,color:'red'}}>Please choose image less than 1M in size </span>
+                                                <input type="file" id="file" accept="image/*" onChange={this.changPic} />
+                                                <img src={this.state.picUrl} id="show" width="200" />
+                                                <span style={{ display: this.state.uploadflag, color: 'red' }}>Please choose image less than 1M in size </span>
                                             </div>
                                         </div>
                                         <div className="form-group">
                                             <label className=" col-sm-3 control-label">Author</label>
                                             <div className="col-sm-6">
                                                 <input type="text" className="form-control" name="author"
-                                                       value={this.state.author} onChange={this.editInputChange}
-                                                       placeholder="Author"/>
+                                                    value={this.state.author} onChange={this.editInputChange}
+                                                    placeholder="Author" />
                                             </div>
                                         </div>
                                         <div className="form-group">
                                             <label className=" col-sm-3 control-label">Price</label>
                                             <div className="col-sm-6">
                                                 <input type="text" className="form-control" name="price"
-                                                       value={this.state.price} onChange={this.editInputChange}
-                                                       placeholder="Price"/>
+                                                    value={this.state.price} onChange={this.editInputChange}
+                                                    placeholder="Price" />
                                             </div>
                                         </div>
                                         <div className="form-group">
                                             <label className=" col-sm-3 control-label">ISBN</label>
                                             <div className="col-sm-6">
                                                 <input type="text" className="form-control" name="isbn"
-                                                       value={this.state.isbn} onChange={this.editInputChange}
-                                                       placeholder="ISBN"/>
+                                                    value={this.state.isbn} onChange={this.editInputChange}
+                                                    placeholder="ISBN" />
                                             </div>
                                         </div>
                                         <div className="form-group">
                                             <label className=" col-sm-3 control-label">PublishingHouse</label>
                                             <div className="col-sm-6">
                                                 <input type="text" className="form-control" name="publishingHouse"
-                                                       value={this.state.publishingHouse}
-                                                       onChange={this.editInputChange} placeholder="PublishingHouse"/>
+                                                    value={this.state.publishingHouse}
+                                                    onChange={this.editInputChange} placeholder="PublishingHouse" />
                                             </div>
                                         </div>
                                         <div className="form-group">
                                             <label className=" col-sm-3 control-label">PublishingTime</label>
                                             <div className="col-sm-6">
                                                 <input type="date" className="form-control" name="publishingTime"
-                                                       value={this.state.publishingTime} onChange={this.editInputChange}
-                                                       placeholder="PublishingTime"/>
+                                                    value={this.state.publishingTime} onChange={this.editInputChange}
+                                                    placeholder="PublishingTime" />
                                             </div>
                                         </div>
                                         <div className="form-group">
                                             <label className=" col-sm-3 control-label">Language</label>
                                             <div className="col-sm-6">
                                                 <input type="text" className="form-control" name="language"
-                                                       value={this.state.language} onChange={this.editInputChange}
-                                                       placeholder="Language"/>
+                                                    value={this.state.language} onChange={this.editInputChange}
+                                                    placeholder="Language" />
                                             </div>
                                         </div>
                                         <div className="form-group">
                                             <label className=" col-sm-3 control-label">Stock</label>
                                             <div className="col-sm-6">
                                                 <input type="number" className="form-control" name="stock"
-                                                       value={this.state.stock} onChange={this.editInputChange}
-                                                       placeholder="Stock"/>
+                                                    value={this.state.stock} onChange={this.editInputChange}
+                                                    placeholder="Stock" />
                                             </div>
                                         </div>
                                         <div className="form-group">
                                             <label className=" col-sm-3 control-label">Status</label>
                                             <div className="col-sm-6">
                                                 <input type="number" min="10" max="1" className="form-control"
-                                                       name="status" value={this.state.status}
-                                                       onChange={this.editInputChange} placeholder="Status"/>
+                                                    name="status" value={this.state.status}
+                                                    onChange={this.editInputChange} placeholder="Status" />
                                             </div>
                                         </div>
 
@@ -596,7 +616,7 @@ class BookList extends Component {
                                     <button type="button" className="btn btn-default" data-dismiss="modal">Close
                                     </button>
                                     <button type="button" className="btn btn-primary" data-dismiss="modal"
-                                            onClick={this.editBook}>Edit
+                                        onClick={this.editBook}>Edit
                                     </button>
                                 </div>
                             </div>
