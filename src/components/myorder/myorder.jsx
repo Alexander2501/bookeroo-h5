@@ -25,7 +25,9 @@ class MyOrder extends Component {
             time: '2021-08-22'
 
         }],
-        orders: []
+        orders: [],
+        orderListUrl: '',
+        orderUrl: ''
     }
     componentDidMount() {
         let userId = localStorage.getItem("userId");
@@ -33,14 +35,37 @@ class MyOrder extends Component {
         //设置请求头
         axios.defaults.headers.common["token"] = token;
         axios.defaults.headers.common["userId"] = userId;
-
-
+        let userType = localStorage.getItem('type');
+        if (userType == 3) {//Admin
+            this.state.orderListUrl = "https://web.tootz.cn/api/order/globalList";
+        } else if (userType == 2) {
+            this.state.orderListUrl = "https://web.tootz.cn/api/order/sellList";
+        } else {
+            this.state.orderListUrl = "https://web.tootz.cn/api/order/buyList";
+        }
+        this.getOrdlerList();
     }
+
+    getOrdlerList = () => {
+        let url = this.state.orderListUrl;
+        let data = { pageSize: 10, pageNum: 1 }
+        axios.post(url, data).then(res => {
+            console.log(res);
+            if (res.data.code == "1000000") {
+                this.setState({
+                    orderList: res.data.data.entity
+                })
+            }
+        }).catch(err => {
+            console.log(err);
+        });
+    }
+
+
     render() {
         const { orders, orderList } = this.state;
 
-        console.log(orders);
-        if (orders.length != 0) {
+        if (orderList.length == 0) {
             return (
                 <div className='row orderrow'>
                     <div className='col-xs-12 col-md-4'>
@@ -62,21 +87,32 @@ class MyOrder extends Component {
                     </div>
                     {
                         this.state.orderList.map((item, index) => (
+
                             <div key={index}>
                                 <div className='panel panel-default'>
                                     <div className='col-md-12 panel-heading' style={{ backgroundColor: '#eaf8ff' }}>
-                                        <span style={{ fontWeight: 'bold' }}>{item.time}</span>
+                                        <span style={{ fontWeight: 'bold' }}>CreateTime:{item.createTime}</span>
                                         <span style={{ marginLeft: '10px' }}>OrderId:{item.orderId}</span>
-                                        <span className="pull-right text-danger" style={{cursor:'pointer'}} >Delete Order</span>
+                                        <span className="pull-right text-danger" style={{ cursor: 'pointer' }} >Delete Order</span>
                                     </div>
                                 </div>
                                 <div className='row' style={{ display: 'flex', alignItems: 'center' }}>
                                     <div className='col-md-6'>
                                         <div className='col-md-3'><img src={item.picUrl} style={{ height: '100px' }} /></div>
-                                        <div className='col-md-9'>{item.orderDesc}</div>
+                                        <div className='col-md-9'>
+                                            BookName:<h4>{item.bookName}</h4>
+                                            <div style={{ display: 'flex', justifyContent: 'space-evenly' }}>
+                                                <h5>Price:{item.price}</h5>
+                                                <h5> Number:{item.num}</h5><br />
+                                                <h5>Total:{item.price * item.num}</h5>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div className='col-md-3'>
-                                        {item.status}
+                                        {item.orderStatus == 0 ? <h4 className='text-primary'>Waiting For Pay</h4> : ''}
+                                        {item.orderStatus == 1 ? <h4 className='text-success'>Success</h4> : ''}
+                                        {item.orderStatus == 2 ? <h4 className='text-danger'>Failed</h4> : ''}
+                                        {item.orderStatus == 3 ? <h4 className='text-info'>Refund</h4> : ''}
                                     </div>
                                     <div className='col-md-3 ordercontrol'>
                                         <p className="bg-success">Confirm Order</p>

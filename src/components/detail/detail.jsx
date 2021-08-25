@@ -129,7 +129,7 @@ class Detail extends Component {
                                 </span>
                             </div>
                             <p>
-                                <button type="button" className="btn btn-primary">AddToCart</button>
+                                {/* <button type="button" className="btn btn-primary">AddToCart</button> */}
                                 <button type="button" className="btn btn-default" onClick={this.buyBook}>Parchase</button>
                             </p>
                         </div>
