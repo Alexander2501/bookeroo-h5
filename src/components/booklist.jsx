@@ -47,7 +47,6 @@ class BookList extends Component {
 
 
     getBookList = () => {
-
         //   const url = `https://api.github.com/search/users?q=js`
         let data = {
             pageNum: this.state.pageNum,
@@ -59,9 +58,9 @@ class BookList extends Component {
                 this.setState({
                     books: res.data.data.entity
                 });
-
             }
         ).catch(err => {
+            localStorage.clear();
             console.log(err);
         });
 
@@ -119,8 +118,8 @@ class BookList extends Component {
 
     addBook = (book) => {
         const { books } = this.state;
-        books.unshift(book);
-        this.setState({ books });
+        // books.unshift(book);
+        // this.setState({ books });
         let addNBookUrl = "https://web.tootz.cn/api/book/addNew";
         let bookName = this.bookName.value.toString();
         let bookDesc = this.bookDesc.value.toString();
