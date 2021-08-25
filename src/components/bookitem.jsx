@@ -29,12 +29,12 @@ class BookItem extends Component {
     const { picUrl, bookName, bookDesc, price, author } = this.props.bookInfo;
 
     return (
-      <div className="col-sm-4 col-md-3" onClick={this.handleBuy}>
+      <div className="col-sm-4 col-md-4" onClick={this.handleBuy}>
         <div className="thumbnail">
           <img src={picUrl} alt="" style={{ width: '150px', height: '200px' }} />
           <div className="caption">
-            <h3>{bookName}</h3>
-            <p>{bookDesc}</p>
+            <h3 style={{height:'50px'}}>{bookName}</h3>
+            <p style={{height:'50px',overflow:'hidden',textOverflow:'ellipsis'}}>{bookDesc}</p>
             <p> <button
               className="btn btn-default"
               data-toggle="modal"

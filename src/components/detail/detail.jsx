@@ -4,7 +4,7 @@ import './detail.css'
 class Detail extends Component {
 
     state = {
-        bookId: '',
+
         bookName: '',
         bookNum: 0,
         bookId: '',
@@ -52,7 +52,7 @@ class Detail extends Component {
         let url = "https://web.tootz.cn/api/order/create";
         axios.post(url, data).then(res => {
             if (res.code = "1000000") {
-                localStorage
+
 
                 window.location.href = res.data.data;
             }
@@ -64,7 +64,7 @@ class Detail extends Component {
 
     render() {
 
-        let { bookName, bookId, picUrl, bookDesc, price, publishingHouse, publishingTime, author } = this.state.bookMes;
+        let { bookName, picUrl, bookDesc, price, publishingHouse, publishingTime, author } = this.state.bookMes;
         return (
 
             <div className="row" style={{ marginLeft: '0', marginRight: '0' }}>

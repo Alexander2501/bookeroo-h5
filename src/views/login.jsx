@@ -42,7 +42,7 @@ export default class Login extends Component {
             localStorage.setItem("userId", result.userId);
             localStorage.setItem("token", result.token);
             localStorage.setItem("type", result.type);
-            this.props.history.push("/");
+            this.props.history.push("/booklist");
           } else {
             alert(res.data.message);
           }

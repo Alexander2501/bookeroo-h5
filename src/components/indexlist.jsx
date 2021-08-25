@@ -33,23 +33,19 @@ class IndexList extends Component {
     //设置请求头
     axios.defaults.headers.common["token"] = token;
     axios.defaults.headers.common["userId"] = userId;
-    this.getBookList();
-
-
-  }
-
-
-  getBookList = () => {
     let userType = localStorage.getItem("type");
     if (userType == 3) {//Admin
       this.state.bookUrl = "https://web.tootz.cn/api/book/globalList";
     } else if (userType == 2) {
       this.state.bookUrl = "https://web.tootz.cn/api/book/personalList";
-
     } else {
       this.state.bookUrl = "https://web.tootz.cn/api/book/publicList";
-
     }
+    this.getBookList();
+  }
+
+  getBookList = () => {
+
     //   const url = `https://api.github.com/search/users?q=js`
     let data = {
       pageNum: this.state.pageNum,
@@ -86,9 +82,6 @@ class IndexList extends Component {
 
 
   render() {
-
-    let userType = localStorage.getItem("type");
-    console.log('userType', userType);
     return (
       <div className="row">
         {
