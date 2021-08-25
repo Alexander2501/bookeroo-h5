@@ -27,7 +27,7 @@ class BookList extends Component {
     };
 
     componentDidMount() {
-       
+
         let userId = localStorage.getItem("userId");
         let token = localStorage.getItem("token");
         //设置请求头
@@ -311,10 +311,11 @@ class BookList extends Component {
         } else {
             return (
                 <div className="container-fluid">
-                    <div className="page-header text-center">
-                        <h2>Book At Bookeroo</h2>
+                    <div>
+                        <h2 style={{display:'inline-block',margin:'0'}}>Book At Bookeroo</h2>
                         <button type="button" className="btn btn-primary" data-toggle="modal"
-                                data-target="#bookAddModal">
+                                data-target="#bookAddModal"
+                                style={{float:"right"}}>
                             Add
                         </button>
                     </div>
