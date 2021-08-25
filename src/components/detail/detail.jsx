@@ -52,8 +52,7 @@ class Detail extends Component {
         let url = "https://web.tootz.cn/api/order/create";
         axios.post(url, data).then(res => {
             if (res.code = "1000000") {
-
-
+                
                 window.location.href = res.data.data;
             }
         }).catch(err => {

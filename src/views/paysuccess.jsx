@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 class PaySuccess extends Component {
 
@@ -24,7 +25,8 @@ class PaySuccess extends Component {
     render() {
         return (
             <div>
-                <p>PaySuccess</p>
+                <p className='bg-success'>PaySuccess</p>
+                <Link to='/orders'>Leave For My Order Page ...</Link>
             </div>
         );
     }
