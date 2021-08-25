@@ -55,7 +55,7 @@ class MyOrder extends Component {
                     </div>
                     {
                         this.state.orderList.map((item, index) => (
-                            <div>
+                            <div key={index}>
                                 <div className='panel panel-default'>
                                     <div className='col-md-12 panel-heading' style={{ backgroundColor: '#eaf8ff' }}>
                                         <span style={{ fontWeight: 'bold' }}>{item.time}</span>

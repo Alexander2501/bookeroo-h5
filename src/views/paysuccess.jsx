@@ -3,10 +3,16 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 class PaySuccess extends Component {
+    state={
+        payId:''
+    }
 
     componentDidMount() {
-        let payId = this.props.location.search.split('=')[1];//?tokenId=xxx
+        let payId = this.props.location.search.split('=')[1].split('&')[0];//?tokenId=xxx
         console.log('payId', payId);
+        this.setState({
+            payId:payId
+        });
         console.log('location Search:', this.props.location.search);
         let userId = localStorage.getItem("userId");
         let token = localStorage.getItem("token");
@@ -23,10 +29,12 @@ class PaySuccess extends Component {
 
 
     render() {
+        let routeStr =`/orders/${this.state.payId}`
         return (
             <div>
-                <p className='bg-success'>PaySuccess</p>
-                <Link to='/orders'>Leave For My Order Page ...</Link>
+                <p className='bg-success' style={{textAlign:'center'}}>PaySuccess</p>
+                {/* <img src="./assets/paysuccess.jpg" alt="" /> */}
+                <Link to={routeStr}>Leave For My Order Page ...</Link>
             </div>
         );
     }
