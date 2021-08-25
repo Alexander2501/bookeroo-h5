@@ -21,15 +21,15 @@ class Header extends Component {
     return (
       <div className="container-fluid">
         <div className='row App-header' style={{}}>
-          <div className='col-xs-12 col-md-2'>
+          <div className='col-xs-6 col-md-2'>
             <div>
               <h2>Bookeroo</h2>
             </div>
           </div>
 
 
-          <div className='col-xs-12 col-md-6'>
-            <div className="input-group">
+          <div className='col-xs-0 col-md-6 hidden-md' >
+            {/* <div className="input-group">
               <div className="input-group-btn">
                 <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">All Department <span className="caret"></span></button>
                 <ul className="dropdown-menu">
@@ -42,12 +42,12 @@ class Header extends Component {
               <span className="input-group-btn">
                 <button className="btn btn-default" type="button">Search</button>
               </span>
-            </div>
+            </div> */}
           </div>
 
 
-          <div className='col-xs-12 col-md-4'>
-            <div className="btn-group pull-right" role="group" style={{ marginRight: '30px' }}>
+          <div className='col-xs-6 col-md-4'>
+            <div className="btn-group pull-right" role="group" style={{marginTop:'20px'}}>
 
               <button type="button" className="btn btn-default"><Link to='/orders'>My Order</Link></button>
 

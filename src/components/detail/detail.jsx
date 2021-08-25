@@ -16,6 +16,7 @@ class Detail extends Component {
         author: '',
         bookMes: {},
         tempNum: 0,
+        commentList: []
     }
 
     componentDidMount() {
@@ -29,7 +30,25 @@ class Detail extends Component {
             bookMes: JSON.parse(localStorage.getItem('bookMes'))
         });
 
+        this.getCommentList();
 
+
+    }
+
+    getCommentList = () => {
+        let commentUrl = 'https://web.tootz.cn/api/book/commentList';
+        let bookId = this.state.bookMes.bookId;
+        let data = { pageSize: 1, pageNum: 10, bookId: bookId }
+        axios.post(commentUrl, data).then(res => {
+            console.log(res);
+            if (res.code == "1000000") {
+                this.setState({
+                    commentList: res.entity
+                });
+            }
+        }).catch(err => {
+            console.log(err);
+        });
     }
 
     handleChange = () => {
@@ -52,7 +71,7 @@ class Detail extends Component {
         let url = "https://web.tootz.cn/api/order/create";
         axios.post(url, data).then(res => {
             if (res.code = "1000000") {
-                
+
                 window.location.href = res.data.data;
             }
         }).catch(err => {
@@ -62,35 +81,35 @@ class Detail extends Component {
 
 
     render() {
-
+        // console.log(this.state.bookMes);
         let { bookName, picUrl, bookDesc, price, publishingHouse, publishingTime, author } = this.state.bookMes;
         return (
-
-            <div className="row" style={{ marginLeft: '0', marginRight: '0' }}>
-                <div className="col-xs-12 col-md-4">
-                    <div className="thumbnail">
-                        <img src={picUrl} alt="..." />
-                    </div>
-                </div>
-                <div className="col-xs-12 col-md-6">
-                    <div className="head">
-                        <div className='bookname'>
-                            <h2>{bookName}</h2>
-                        </div>
-                        <div className='bookdesc'>
-                            <p>{bookDesc}
-                            </p>
+            <div>
+                <div className="row" style={{ marginLeft: '0', marginRight: '0' }}>
+                    <div className="col-xs-12 col-md-4">
+                        <div className="thumbnail">
+                            <img src={picUrl} alt="..." />
                         </div>
                     </div>
-                    <div className='bookinfo'>
-                        <div className='infoitem'><span>Author:</span><span>{author}</span></div>
-                        <div className='infoitem'><span>Publishing&nbsp;House:</span><span>{publishingHouse}</span></div>
-                        <div className='infoitem'><span>Publishing&nbsp;Time:</span><span>{publishingTime}</span></div>
-                    </div>
-                    <div className='bookprice'>
-                        <span>Price:</span><span>${price}</span>
-                    </div>
-                    {/* <div className="destination">
+                    <div className="col-xs-12 col-md-6">
+                        <div className="head">
+                            <div className='bookname'>
+                                <h2>{bookName}</h2>
+                            </div>
+                            <div className='bookdesc'>
+                                <p>{bookDesc}
+                                </p>
+                            </div>
+                        </div>
+                        <div className='bookinfo'>
+                            <div className='infoitem'><span>Author:</span><span>{author}</span></div>
+                            <div className='infoitem'><span>Publishing&nbsp;House:</span><span>{publishingHouse}</span></div>
+                            <div className='infoitem'><span>Publishing&nbsp;Time:</span><span>{publishingTime}</span></div>
+                        </div>
+                        <div className='bookprice'>
+                            <span>Price:</span><span>${price}</span>
+                        </div>
+                        {/* <div className="destination">
                         <form className="form-inline">
                             <div className="form-group">
                                 <label style={{ color: 'gray', fontWeight: 'normal' }}>Deliver To:</label>
@@ -99,22 +118,33 @@ class Detail extends Component {
 
                         </form>
                     </div> */}
-                    <div className='purchase'>
-                        <div className="input-group">
-                            <span className="input-group-btn">
-                                <button className="btn btn-default" type="button" onClick={this.reduceOrder}>-</button>
-                            </span>
-                            <input type="text" className="form-control" value={this.state.bookNum} onChange={this.handleChange} style={{ width: '50px' }} />
-                            <span className="input-group-btn">
-                                <button className="btn btn-default" type="button" onClick={this.addOrder}>+</button>
-                            </span>
+                        <div className='purchase'>
+                            <div className="input-group">
+                                <span className="input-group-btn">
+                                    <button className="btn btn-default" type="button" onClick={this.reduceOrder}>-</button>
+                                </span>
+                                <input type="text" className="form-control" value={this.state.bookNum} onChange={this.handleChange} style={{ width: '50px' }} />
+                                <span className="input-group-btn">
+                                    <button className="btn btn-default" type="button" onClick={this.addOrder}>+</button>
+                                </span>
+                            </div>
+                            <p>
+                                <button type="button" className="btn btn-primary">AddToCart</button>
+                                <button type="button" className="btn btn-default" onClick={this.buyBook}>Parchase</button>
+                            </p>
                         </div>
-                        <p>
-                            <button type="button" className="btn btn-primary">AddToCart</button>
-                            <button type="button" className="btn btn-default" onClick={this.buyBook}>Parchase</button>
-                        </p>
-                    </div>
 
+                    </div>
+                </div>
+
+                <div className='row'>
+                    <div className='col-md-12'>
+                        {
+                            this.state.commentList.map((item, index) => (
+                                <div>commingt{index}</div>
+                            ))
+                        }
+                    </div>
                 </div>
             </div>
 

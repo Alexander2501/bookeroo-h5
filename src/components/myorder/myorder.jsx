@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link, Route } from "react-router-dom";
+import axios from 'axios';
 import './myorder.css'
 class MyOrder extends Component {
     state = {
@@ -27,6 +28,12 @@ class MyOrder extends Component {
         orders: []
     }
     componentDidMount() {
+        let userId = localStorage.getItem("userId");
+        let token = localStorage.getItem("token");
+        //设置请求头
+        axios.defaults.headers.common["token"] = token;
+        axios.defaults.headers.common["userId"] = userId;
+
 
     }
     render() {

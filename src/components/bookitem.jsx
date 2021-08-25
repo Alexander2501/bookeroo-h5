@@ -26,25 +26,29 @@ class BookItem extends Component {
 
 
   render() {
-    const { picUrl, bookName, bookDesc, price, author } = this.props.bookInfo;
+    const { picUrl, bookName, bookDesc, price, author, stock } = this.props.bookInfo;
 
     return (
       <div className="col-sm-4 col-md-4" onClick={this.handleBuy}>
         <div className="thumbnail">
           <img src={picUrl} alt="" style={{ width: '150px', height: '200px' }} />
           <div className="caption">
-            <h3 style={{height:'50px'}}>{bookName}</h3>
-            <p style={{height:'50px',overflow:'hidden',textOverflow:'ellipsis'}}>{bookDesc}</p>
+            <h4 style={{ height: '40px' }}>{bookName}</h4>
+            <p style={{ height: '60px', overflow: 'hidden', textOverflow: 'ellipsis' }}>{bookDesc}</p>
+            <p style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <div style={{ color: "black", paddingLeft: '10px' }}><span>Price:</span><span style={{ fontWeight: 'bold', color: 'red' }}>${price}</span></div>
+              <div style={{ color: "black", paddingRight: '10px' }}><span>Stock:</span><span style={{ fontWeight: 'bold', color: 'red' }}>{stock}</span></div>
+            </p>
             <p className='clearfix'>
-               <button
-               style={{float:"right"}}
-              className="btn btn-default"
-              data-toggle="modal"
-              data-target="#bookEditModal"
-              onClick={this.handleBuy}
-            >
-              Buy
-            </button> </p>
+              <button
+                style={{ float: "right" }}
+                className="btn btn-default"
+                data-toggle="modal"
+                data-target="#bookEditModal"
+                onClick={this.handleBuy}
+              >
+                Buy
+              </button> </p>
           </div>
         </div>
       </div>
