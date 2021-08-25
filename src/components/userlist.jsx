@@ -95,8 +95,6 @@ export default class UserList extends Component {
   }
   //修改用户input值获取
   handleEditChange = (e) => {
-    // console.log(e.target.name);
-    // console.log(e.target.value);
     switch (e.target.name) {
       case 'mail':
         this.setState({

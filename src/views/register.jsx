@@ -4,42 +4,61 @@ import axios from "axios";
 
 export default class Register extends Component {
 
+    state = {
+        pwd: '',
+        password: ''
+    }
+    judgeSame = (e) => {
+       
+        this.setState({
+            pwd: e.target.value
+        })
+    }
+    judgeSame = (e) => {
+       
+        this.setState({
+            password: e.target.value
+        })
+    }
+
     componentDidMount() {
 
     }
 
-    handleRegister = ()=>{
-     let mail = this.mail.value.toString();
-     let password = this.password.value.toString();
-     let name = this.name.value.toString();
-     let nickName = this.nickName.value.toString();
-     let phoneNumber = this.phoneNumber.value.toString();
+    handleRegister = () => {
+        let mail = this.mail.value.toString();
+        // let password = this.password.value.toString();
+        let name = this.name.value.toString();
+        let nickName = this.nickName.value.toString();
+        let phoneNumber = this.phoneNumber.value.toString();
+        let clientId = this.clientId.toString();
+        let secret = this.secret.toString();
 
-    //   console.log(mail)
-
-      const url = "https://web.tootz.cn/api/open/user/register";
-      axios
-          .post(url, {
-            mail: mail,
-            password:password,
-            type: 1,
-            name: name,
-            nickName:nickName,
-            phoneNumber: phoneNumber,
-          })
-          .then((res) => {
-            console.log(res.data);
-            if(res.data.code="1000000"){
-                this.props.history.push('/');
-            }else{
-                alert(this.data.message);
-            }            
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-
+        const url = "https://web.tootz.cn/api/open/user/register";
+        axios
+            .post(url, {
+                mail: mail,
+                password: this.state.password,
+                type: 1,
+                name: name,
+                nickName: nickName,
+                phoneNumber: phoneNumber,
+                clientId: clientId,
+                secret: secret
+            })
+            .then((res) => {
+                console.log(res.data);
+                if (res.data.code = "1000000") {
+                    this.props.history.push('/');
+                } else {
+                    alert(this.data.message);
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     }
+    
 
     render() {
         return (
@@ -56,7 +75,7 @@ export default class Register extends Component {
                                                 type="text"
                                                 className="form-control"
                                                 placeholder="enter your name here"
-                                                ref={inputValue=>this.name=inputValue}
+                                                ref={inputValue => this.name = inputValue}
                                             />
                                         </div>
                                         <div className="form-group">
@@ -64,23 +83,44 @@ export default class Register extends Component {
                                                 type="text"
                                                 className="form-control"
                                                 placeholder="enter your nickname here"
-                                                ref={inputValue=>this.nickName=inputValue}
+                                                ref={inputValue => this.nickName = inputValue}
                                             />
                                         </div>
 
                                         <div className="form-group">
-                                            <input type="email" className="form-control" ref={value=>this.mail=value}
+                                            <input type="email" className="form-control"
+                                                   ref={value => this.mail = value}
                                                    placeholder="enter your email here"/>
                                         </div>
-                                      <div className="form-group">
-                                        <input type="email" className="form-control" ref={value=>this.phoneNumber=value}
-                                               placeholder="enter your phonenumber here"/>
-                                      </div>
+                                        <div className="form-group">
+                                            <input type="email" className="form-control"
+                                                   ref={value => this.phoneNumber = value}
+                                                   placeholder="enter your phonenumber here"/>
+                                        </div>
+
+                                        <div className="form-group">
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                ref={value => this.clientId = value}
+                                                placeholder="ClientId"
+                                            />
+                                        </div>
+                                        <div className="form-group">
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                ref={value => this.secret = value}
+                                                placeholder="Secret"
+                                            />
+                                        </div>
+
                                         <div className="form-group">
                                             <input
                                                 type="password"
                                                 className="form-control"
-                                               ref={value=>this.password=value}
+                                              
+                                                onChange={this.judgeSame2}
                                                 placeholder="Password"
                                             />
                                         </div>
@@ -88,10 +128,13 @@ export default class Register extends Component {
                                             <input
                                                 type="password"
                                                 className="form-control"
-                                                ref={value=>this.pwd=value}
+                                               
+                                                onChange={this.judgeSame}
                                                 placeholder="Retype Password"
                                             />
+                                            <span></span>
                                         </div>
+
                                     </form>
                                 </div>
                             </div>
