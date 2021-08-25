@@ -4,6 +4,8 @@ import axios from 'axios';
 import './myorder.css'
 class MyOrder extends Component {
     state = {
+        tabs: ['All', 'Not Paid', 'Purchased', 'Sold'],
+        currentIndex: 0,
         orderList: [{
             orderName: '',
             orderId: '1234532356',
@@ -43,14 +45,14 @@ class MyOrder extends Component {
         } else {
             this.state.orderListUrl = "https://web.tootz.cn/api/order/buyList";
         }
-        this.getOrdlerList();
+        this.getOrdlerList(this.state.orderListUrl);
     }
 
-    getOrdlerList = () => {
-        let url = this.state.orderListUrl;
+
+    getOrdlerList = (url) => {
         let data = { pageSize: 10, pageNum: 1 }
         axios.post(url, data).then(res => {
-            console.log(res);
+            // console.log(res);
             if (res.data.code == "1000000") {
                 this.setState({
                     orderList: res.data.data.entity
@@ -61,9 +63,40 @@ class MyOrder extends Component {
         });
     }
 
+    tabChoiced = (id) => {
+        this.setState({
+            currentIndex: id
+        });
+        if (id == 0) {//all
+            let url = "https://web.tootz.cn/api/order/globalList"
+            this.getOrdlerList(url);
+        } else if (id == 1) {//not paid0
+            let url = 'https://web.tootz.cn/api/order/globalList';
+            this.getOrdlerList(url);
+            let tempArr = this.state.orderList.filter(function (item) {
+                return item.orderStatus == 0
+            });
+            console.log(tempArr);
+            this.setState({
+                orderList: tempArr
+            });
+            // console.log(this.state.orderList);           
+        } else if (id == 2) {//success
+            let url = 'https://web.tootz.cn/api/order/buyList';
+            this.getOrdlerList(url);
+
+        } else {
+            console.log(id);
+            let url = 'https://web.tootz.cn/api/order/sellList';
+
+            this.getOrdlerList(url);
+        }
+
+    }
 
     render() {
         const { orders, orderList } = this.state;
+
 
         if (orderList.length == 0) {
             return (
@@ -79,7 +112,20 @@ class MyOrder extends Component {
             );
         } else {
             return (
+
                 <div>
+                    <ul style={{ display: 'flex', justifyContent: 'space-evenly' }}>
+                        {
+                            this.state.tabs.map((item, index) => {
+                                let tabStyle = index == this.state.currentIndex ? { backgroundColor: 'blue', padding: '5px 10px' } : {};
+
+                                return <li style={tabStyle} key={index} onClick={() => {
+                                    this.tabChoiced(index)
+                                }}>{item}</li>
+
+                            })
+                        }
+                    </ul>
                     <div className='panel panel-default orderheader' style={{ border: 'none' }}>
                         <div className='col-md-6 panel-heading'>Order Detail</div>
                         <div className='col-md-3 panel-heading'>Order Status</div>
