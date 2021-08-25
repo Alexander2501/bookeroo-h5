@@ -35,7 +35,9 @@ class BookItem extends Component {
           <div className="caption">
             <h3 style={{height:'50px'}}>{bookName}</h3>
             <p style={{height:'50px',overflow:'hidden',textOverflow:'ellipsis'}}>{bookDesc}</p>
-            <p> <button
+            <p className='clearfix'>
+               <button
+               style={{float:"right"}}
               className="btn btn-default"
               data-toggle="modal"
               data-target="#bookEditModal"

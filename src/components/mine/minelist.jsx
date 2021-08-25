@@ -1,13 +1,12 @@
 import React, { Component } from "react";
 import PropTypes from 'prop-types'
-import { withRouter } from 'react-router'
-import BookItem from "./bookitem";
+
+import BookItem from "../bookitem";
 import axios from "axios";
-import { Link, Route } from "react-router-dom";
-import Detail from "./detail/detail";
 
 
-class IndexList extends Component {
+
+class MineList extends Component {
   state = {
     picUrl: '',
     pageNum: 1,
@@ -25,7 +24,7 @@ class IndexList extends Component {
     language: '',
     stock: '',
     status: '',
-    bookUrl:  "https://web.tootz.cn/api/book/publicList"
+    bookUrl: "https://web.tootz.cn/api/book/personalList"
   };
   static propTypes = {
     match: PropTypes.object.isRequired,
@@ -33,24 +32,14 @@ class IndexList extends Component {
     history: PropTypes.object.isRequired
   }
 
-  componentDidMount() {
-    // this.props.history.listen(() => {
-    //    console.log(this.props.history.pathname);
-    // })
+  componentDidMount() {   
    
     let userId = localStorage.getItem("userId");
     let token = localStorage.getItem("token");
     //设置请求头
     axios.defaults.headers.common["token"] = token;
     axios.defaults.headers.common["userId"] = userId;
-    let userType = localStorage.getItem("type");
-    // if (userType == 3) {//Admin
-    //   this.state.bookUrl = "https://web.tootz.cn/api/book/globalList";
-    // } else if (userType == 2) {
-    //   this.state.bookUrl = "https://web.tootz.cn/api/book/personalList";
-    // } else {
-    //   this.state.bookUrl = "https://web.tootz.cn/api/book/publicList";
-    // }
+    
     this.getBookList();
   }
 
@@ -109,4 +98,4 @@ class IndexList extends Component {
 }
 
 
-export default  withRouter(IndexList);
+export default  MineList;

@@ -3,6 +3,7 @@ import { Switch, Route, NavLink, Redirect, Link } from 'react-router-dom';
 import axios from 'axios';
 
 import IndexList from '../components/indexlist';
+import MineList from '../components/mine/minelist';
 import Header from "../components/header"
 import UserList from '../components/userlist';
 import BookList from '../components/booklist';
@@ -31,6 +32,7 @@ class Home extends Component {
         localStorage.clear();
     }
 
+    
     render() {
         let linkShow = this.state.type == 3 ? 'block' : 'none';
         let topShow = localStorage.getItem('token') ? "block" : "none";
@@ -49,7 +51,7 @@ class Home extends Component {
                     <div className='col-xs-12 col-md-8 col-md-offset-2'>
                         <ul className="nav nav-tabs funitem" style={{ display: 'flex', flexWrap: 'nowrap', overflow: 'scroll' }}>
                             <li role="presentation" className=""><NavLink to='/booklist'>All</NavLink></li>
-                            <li role="presentation" className=""><a href="#">Bookeroo</a></li>
+                            <li role="presentation" className=""><NavLink to='/mine'>Mine</NavLink></li>
                             <li role="presentation"><a href="#">Comments</a></li>
                             <li role="presentation"><Link to='/orders'>Orders</Link></li>
                             <li role="presentation" style={{ display: linkShow }}>
@@ -76,6 +78,7 @@ class Home extends Component {
                         {/*可切换的路由组件*/}
                         <Switch>
                             <Route path='/booklist' component={IndexList} />
+                            <Route path='/mine' component={MineList} />
                             <Route path='/book' component={BookList} />
                             <Route path='/user' component={UserList} />
                             <Route path='/detail' component={Detail} />

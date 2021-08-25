@@ -23,10 +23,11 @@ class BookList extends Component {
         language: '',
         stock: '',
         status: '',
-        bookUrl: ""
+        bookUrl: "https://web.tootz.cn/api/book/publicList"
     };
 
     componentDidMount() {
+       
         let userId = localStorage.getItem("userId");
         let token = localStorage.getItem("token");
         //设置请求头
@@ -40,7 +41,6 @@ class BookList extends Component {
 
         } else {
             this.state.bookUrl = "https://web.tootz.cn/api/book/publicList";
-            console.log(1112222333)
         }
         this.getBookList();
     }
@@ -128,7 +128,8 @@ class BookList extends Component {
             publishingTime,
             language,
             stock,
-            status
+            status,
+            uploadflag:false
         }
 
         axios.post(addNBookUrl, data).then(res => {
@@ -141,6 +142,9 @@ class BookList extends Component {
             }
         }).catch(err => {
             console.log(err);
+            this.setState({
+                uploadflag:true
+            });
 
         });
 
@@ -286,6 +290,7 @@ class BookList extends Component {
 
     render() {
 
+        let textShow = this.state.uploadflag?'block':'none';
         let userType = localStorage.getItem("type");
         console.log('userType', userType);
         if (userType == 1 || userType == null) {
@@ -516,6 +521,7 @@ class BookList extends Component {
                                                 <label>File input</label>
                                                 <input type="file" id="file" accept="image/*" onChange={this.changPic}/>
                                                 <img src={this.state.picUrl} id="show" width="200"/>
+                                                <span style={{display:this.state.uploadflag,color:'red'}}>Please choose image less than 1M in size </span>
                                             </div>
                                         </div>
                                         <div className="form-group">
