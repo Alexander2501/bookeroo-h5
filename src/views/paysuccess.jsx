@@ -29,7 +29,7 @@ class PaySuccess extends Component {
 
 
     render() {
-        let routeStr =`/orders/${this.state.payId}`
+        let routeStr =`/orders?payId=${this.state.payId}`
         return (
             <div>
                 <p className='bg-success' style={{textAlign:'center'}}>PaySuccess</p>
