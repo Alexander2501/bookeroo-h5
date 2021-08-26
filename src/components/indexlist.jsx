@@ -71,10 +71,10 @@ class IndexList extends Component {
           alert(res.data.message);
         }
 
-
       }
     ).catch(err => {
-      alert(err)
+      alert(err);
+      this.props.history.push('/login');
       console.log(err);
     });
 

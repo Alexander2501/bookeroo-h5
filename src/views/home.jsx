@@ -54,7 +54,7 @@ componentDidMount(){
                         <ul className="nav nav-tabs funitem" style={{ display: 'flex', flexWrap: 'nowrap', overflow: 'scroll' }}>
                             <li role="presentation" className=""><NavLink to='/booklist'>All</NavLink></li>
                             <li role="presentation" className=""><NavLink to='/mine'>Mine</NavLink></li>
-                            <li role="presentation"><a href="#">Comments</a></li>
+                            {/* <li role="presentation"><a href="#">Comments</a></li> */}
                             <li role="presentation"><Link to='/orders'>Orders</Link></li>
                             <li role="presentation" style={{ display: linkShow }}>
                                 <NavLink to='/user'>UserManage</NavLink>
