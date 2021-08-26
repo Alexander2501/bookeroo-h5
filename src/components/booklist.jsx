@@ -70,9 +70,11 @@ class BookList extends Component {
 
         let reads = new FileReader();
         let f = document.getElementById('file').files[0];
+        let fileSize = f.size;
+        console.log(fileSize);
         let param = new FormData()  // 创建form对象
         param.append('file', f)  // 通过append向form对象添加数据
-
+        let upImgUrl = "https://web.tootz.cn/api/open/upload";
         // reads.readAsDataURL(f);
 
         // reads.onload = function (e) {
@@ -82,19 +84,20 @@ class BookList extends Component {
         //     picUrl: this.result
         //   });
         // };
-
-        let upImgUrl = "https://web.tootz.cn/api/open/upload";
-        axios.post(upImgUrl, param).then(res => {
-            if (res.data.code == "1000000") {
-                let imgUrl = res.data.data;
-                this.setState({
-                    picUrl: imgUrl
-                });
-            }
-        }).catch(err => {
-            console.log(err);
-        });
-
+        if (fileSize >= 1024*1024) {
+            alert('The picture can not be larger than 1M');
+        } else {
+            axios.post(upImgUrl, param).then(res => {
+                if (res.data.code == "1000000") {
+                    let imgUrl = res.data.data;
+                    this.setState({
+                        picUrl: imgUrl
+                    });
+                }
+            }).catch(err => {
+                console.log(err);
+            });
+        }
     }
     //clear add modal
     handleAddOpen = () => {
@@ -310,7 +313,7 @@ class BookList extends Component {
 
         let textShow = this.state.uploadflag ? 'block' : 'none';
         let userType = localStorage.getItem("type");
-        console.log('userType', userType);
+        // console.log('userType', userType);
         if (userType == 1 || userType == null) {
             return (
                 <div className="container-fluid">
@@ -329,7 +332,7 @@ class BookList extends Component {
         } else {
             return (
                 <div className="container-fluid">
-                    <div  style={{backgroundColor:'#f5f5f5',padding:'10px 0'}}>
+                    <div style={{ backgroundColor: '#f5f5f5', padding: '10px 0' }}>
                         <h2 style={{ display: 'inline-block', margin: '0' }}>Book At Bookeroo</h2>
                         <button type="button" className="btn btn-primary" data-toggle="modal"
                             data-target="#bookAddModal"
