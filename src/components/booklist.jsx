@@ -22,7 +22,7 @@ class BookList extends Component {
         publishingTime: '',
         language: '',
         stock: '',
-        status: '',
+        status: 0,
         bookUrl: "https://web.tootz.cn/api/book/publicList"
     };
 
@@ -67,11 +67,10 @@ class BookList extends Component {
     }
 
     changPic = () => {
-
         let reads = new FileReader();
         let f = document.getElementById('file').files[0];
         let fileSize = f.size;
-        console.log(fileSize);
+        // console.log(fileSize);
         let param = new FormData()  // 创建form对象
         param.append('file', f)  // 通过append向form对象添加数据
         let upImgUrl = "https://web.tootz.cn/api/open/upload";
@@ -84,7 +83,7 @@ class BookList extends Component {
         //     picUrl: this.result
         //   });
         // };
-        if (fileSize >= 1024*1024) {
+        if (fileSize >= 1024 * 1024) {
             alert('The picture can not be larger than 1M');
         } else {
             axios.post(upImgUrl, param).then(res => {
@@ -119,6 +118,20 @@ class BookList extends Component {
         });
     }
 
+    getBookStatus = (e) => {
+        let statusVal = e.target.value;
+        if (statusVal == 'offline') {
+            this.setState({
+                status: 0
+            });
+            if (statusVal == 'online') {
+                this.setState({
+                    status: 1
+                });
+            }
+        }
+    }
+
     addBook = (book) => {
         const { books } = this.state;
         // books.unshift(book);
@@ -134,7 +147,7 @@ class BookList extends Component {
         let publishingTime = this.publishingTime.value.toString();
         let language = this.language.value.toString();
         let stock = this.stock.value;
-        let status = this.status.value;
+        let status = this.state.status;
 
         let data = {
             bookName,
@@ -147,13 +160,13 @@ class BookList extends Component {
             publishingTime,
             language,
             stock,
-            status,
-            uploadflag: false
+            status
+
         }
 
         axios.post(addNBookUrl, data).then(res => {
-            console.log(res.data);
-            if (res.data.code = "1000000") {
+            console.log(res);
+            if (res.code = "1000000") {
                 this.getBookList();
                 alert("图书添加成功");
             } else {
@@ -188,8 +201,6 @@ class BookList extends Component {
 
 
     }
-
-
 
     openEditModal = (index) => {
         console.log(this.state.books);
@@ -299,7 +310,7 @@ class BookList extends Component {
         });
     }
     handleToDetail = (index) => {
-        console.log(index);
+        // console.log(index);
         let userId = localStorage.getItem("userId");
         let token = localStorage.getItem("token");
         if (userId != null && token != null) {
@@ -310,7 +321,6 @@ class BookList extends Component {
     }
 
     render() {
-
         let textShow = this.state.uploadflag ? 'block' : 'none';
         let userType = localStorage.getItem("type");
         // console.log('userType', userType);
@@ -493,8 +503,10 @@ class BookList extends Component {
                                         <div className="form-group">
                                             <label className=" col-sm-3 control-label">Status</label>
                                             <div className="col-sm-6">
-                                                <input type="number" min="10" max="1" className="form-control"
-                                                    ref={value => this.status = value} placeholder="Status" />
+                                                <select className="form-control" onChange={(e) => { this.getBookStatus(e) }}>
+                                                    <option value="offline">Offline</option>
+                                                    <option value="online">Online</option>
+                                                </select>
                                             </div>
                                         </div>
 
@@ -558,7 +570,7 @@ class BookList extends Component {
                                         <div className="form-group">
                                             <label className=" col-sm-3 control-label">Price</label>
                                             <div className="col-sm-6">
-                                                <input type="text" className="form-control" name="price"
+                                                <input type="number" className="form-control" name="price"
                                                     value={this.state.price} onChange={this.editInputChange}
                                                     placeholder="Price" />
                                             </div>
