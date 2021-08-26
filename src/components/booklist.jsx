@@ -9,7 +9,7 @@ class BookList extends Component {
     state = {
         picUrl: '',
         pageNum: 1,
-        pageSize: 10,
+        pageSize: 1000,
         isShow: true,
         books: [],
         editBookMes: {},
@@ -120,15 +120,16 @@ class BookList extends Component {
 
     getBookStatus = (e) => {
         let statusVal = e.target.value;
+        console.log(statusVal);
         if (statusVal == 'offline') {
             this.setState({
                 status: 0
             });
-            if (statusVal == 'online') {
-                this.setState({
-                    status: 1
-                });
-            }
+        }
+        if (statusVal == 'online') {
+            this.setState({
+                status: 1
+            });
         }
     }
 
@@ -136,6 +137,8 @@ class BookList extends Component {
         const { books } = this.state;
         // books.unshift(book);
         // this.setState({ books });
+        // console.log(this.state.status);
+        debugger
         let addNBookUrl = "https://web.tootz.cn/api/book/addNew";
         let bookName = this.bookName.value.toString();
         let bookDesc = this.bookDesc.value.toString();
@@ -163,17 +166,19 @@ class BookList extends Component {
             status
 
         }
+        debugger
 
         axios.post(addNBookUrl, data).then(res => {
-            console.log(res);
-            if (res.code = "1000000") {
-                this.getBookList();
+            // console.log(res);
+            // console.log(data);
+            if (res.data.code = "1000000") {
                 alert("图书添加成功");
+                this.getBookList();
             } else {
                 alert(res.message);
             }
         }).catch(err => {
-            console.log(err);
+            // console.log(err);
             this.setState({
                 uploadflag: true
             });
