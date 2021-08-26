@@ -20,7 +20,7 @@ class Home extends Component {
         type: localStorage.getItem("type")
     }
 componentDidMount(){
-    this.props.history.push('/booklist');
+    // this.props.history.push('/booklist');
 }
 
     logout = () => {

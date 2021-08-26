@@ -185,7 +185,7 @@ class MyOrder extends Component {
                                     <div className='col-md-6'>
                                         <div className='col-md-3'><img src={item.picUrl} style={{ height: '100px' }} /></div>
                                         <div className='col-md-9'>
-                                            BookName:<h4>{item.bookName}</h4>
+                                            BookName:<h4 style={{display:'inline-block'}}>{item.bookName}</h4>
                                             <div style={{ display: 'flex', justifyContent: 'space-evenly' }}>
                                                 <h5>Price:{item.price}</h5>
                                                 <h5> Number:{item.num}</h5><br />
