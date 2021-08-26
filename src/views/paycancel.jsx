@@ -15,16 +15,16 @@ class PayCancel extends Component {
         let url = 'https://web.tootz.cn/api/order/payCancel';
         axios.post(url, { payId }).then(res => {
             console.log(res);
-           
+
         }).catch(err => {
             console.log(err);
         });
     }
     render() {
-        let routeStr =`/orders?payId=${this.state.payId}`
+        let routeStr = `/orders?payId=${this.state.payId}`
         return (
-            <div>                
-                <p className='bg-danger' style={{textAlign:'center'}}>Paycancel</p>
+            <div>
+                <p className='bg-danger' style={{ textAlign: 'center' }}>Paycancel</p>
                 {/* <img src="./assets/paysuccess.jpg" alt="" /> */}
                 <Link to={routeStr}>Leave For My Order Page ...</Link>
             </div>

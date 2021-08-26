@@ -158,7 +158,7 @@ class Detail extends Component {
                         <h2 style={{ display: isShow }}>No Comments</h2>
                         {
                             this.state.commentList.map((item, index) => (
-                                <div className="panel panel-default">
+                                <div className="panel panel-default" key={index}>
 
                                     <div className="panel-heading" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                                         <div><span>Comment{index}</span></div>

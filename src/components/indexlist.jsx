@@ -25,7 +25,7 @@ class IndexList extends Component {
     language: '',
     stock: '',
     status: '',
-    bookUrl:  "https://web.tootz.cn/api/book/publicList"
+    bookUrl: "https://web.tootz.cn/api/book/publicList"
   };
   static propTypes = {
     match: PropTypes.object.isRequired,
@@ -37,7 +37,7 @@ class IndexList extends Component {
     // this.props.history.listen(() => {
     //    console.log(this.props.history.pathname);
     // })
-   
+
     let userId = localStorage.getItem("userId");
     let token = localStorage.getItem("token");
     //设置请求头
@@ -63,12 +63,18 @@ class IndexList extends Component {
     axios.post(this.state.bookUrl, data).then(
       res => {
         console.log(res.data.data.entity);
-        this.setState({
-          books: res.data.data.entity
-        });
+        if (res.data.code == '1000000') {
+          this.setState({
+            books: res.data.data.entity
+          });
+        } else {
+          alert(res.data.message);
+        }
+
 
       }
     ).catch(err => {
+      alert(err)
       console.log(err);
     });
 
@@ -109,4 +115,4 @@ class IndexList extends Component {
 }
 
 
-export default  withRouter(IndexList);
+export default withRouter(IndexList);
