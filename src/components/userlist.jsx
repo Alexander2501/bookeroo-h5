@@ -5,13 +5,16 @@ export default class UserList extends Component {
   state = {
     userList: [],
     mail: '',
-    type: 1,
+    type: 3,
     name: '',
     nickName: '',
     phoneNumber: '',
-    status: '',
+    status: 1,
     userId: '',
-    modalField: ['mail', "type", 'name', 'nickName', 'phoneNumber', 'status']
+    modalField: ['mail', "type", 'name', 'nickName', 'phoneNumber', 'status'],
+    typeArr: ['Administrator', 'Merchant', 'Consumer'],
+    typeName: 'Administrator',
+    statusArr: ['Approved', 'Blocked']
   };
 
   componentDidMount() {
@@ -42,13 +45,56 @@ export default class UserList extends Component {
         console.log(err);
       });
   }
+  getTypeValue = (event) => {
+    //获取被选中的值
+    // console.log(event.target.value);
+    let selectValue = event.target.value;
+    if (selectValue == 'Administrator') {
+      this.setState({
+        type: 3
+      });
+    }
+    if (selectValue == 'Merchant') {
+      this.setState({
+        type: 2
+      });
+    }
+    if (selectValue == 'Consumer') {
+      this.setState({
+        type: 1
+      });
+    }
+    console.log(this.state.type);
+
+    // this.setState({
+    //   type:event.target.value
+    // });   
+  }
+  getStatusValue = (event) => {
+    let selectValue = event.target.value;
+    if (selectValue == "Approved") {
+      this.setState({
+        status: 1
+      });
+    }
+    if (selectValue == "Blocked") {
+      this.setState({
+        status: 2
+      })
+    }
+    console.log(this.state.status);
+  }
+
   addUser = () => {
+    // console.log('type',this.state.type);
+    // console.log('status',this.state.status);
+    // debugger
     let mail = this.addMail.value.toString();
-    let type = parseInt(this.addType.value);
+    let type = this.state.type;
     let name = this.addName.value.toString();
     let nickName = this.addNickName.value.toString();
     let phoneNumber = this.addPhoneNum.value.toString();
-    let status = parseInt(this.addStatus.value);
+    let status = this.state.status;
     const url = "https://web.tootz.cn/api/open/user/set";
     let data = {
       mail,
@@ -61,7 +107,12 @@ export default class UserList extends Component {
     axios.post(url, data).then(
       res => {
         console.log(res);
-        this.getUserList();
+        if (res.data.code = '1000000') {
+          this.getUserList();
+          alert(res.data.message);
+        } else {
+          alert(res.data.message);
+        }
       }
     ).catch(err => {
       console.log(err);
@@ -178,11 +229,11 @@ export default class UserList extends Component {
     const { userList } = this.state;
     return (
       <div className="container-fluid">
-        <div className="clearfix" style={{backgroundColor:'#f5f5f5',padding:'10px 0'}}>
-          <h2 style={{margin:'0',display:'inline-block',textAlign:"center"}}>User Management</h2>
-          <button className="btn btn-primary pull-right" data-toggle="modal" data-target="#addModal" onClick={this.addUser}>
-              Add
-            </button>
+        <div className="clearfix" style={{ backgroundColor: '#f5f5f5', padding: '10px 0' }}>
+          <h2 style={{ margin: '0', display: 'inline-block', textAlign: "center" }}>User Management</h2>
+          <button className="btn btn-primary pull-right" data-toggle="modal" data-target="#addModal">
+            Add
+          </button>
         </div>
 
         <div className='row'>
@@ -413,13 +464,14 @@ export default class UserList extends Component {
                   </div>
                   <div className="form-group">
                     <label>Type</label>
-                    <input
-                      type="text"
-                      name="type"
-                      className="form-control"
-                      placeholder="Type"
-                      ref={value => this.addType = value}
-                    />
+                    <select onChange={(e) => this.getTypeValue(e)} className="form-control">
+                      {
+                        this.state.typeArr.map((item, index) => (
+                          <option value={item} key={index}>{item}</option>
+                        ))
+                      }
+                    </select>
+
                   </div>
                   <div className="form-group">
                     <label>name</label>
@@ -427,7 +479,6 @@ export default class UserList extends Component {
                       type="text"
                       name="name"
                       className="form-control"
-
                       placeholder="Name"
                       ref={value => this.addName = value}
                     />
@@ -438,7 +489,6 @@ export default class UserList extends Component {
                       type="text"
                       name="nickname"
                       className="form-control"
-
                       placeholder="NickName"
                       ref={value => this.addNickName = value}
                     />
@@ -448,7 +498,6 @@ export default class UserList extends Component {
                     <input
                       type="text"
                       name="pwd"
-
                       className="form-control"
                       id="exampleInputPassword1"
                       placeholder="PhoneNumber"
@@ -457,13 +506,10 @@ export default class UserList extends Component {
                   </div>
                   <div className="form-group">
                     <label>Status</label>
-                    <input
-                      type="text"
-                      name="status"
-                      className="form-control"
-                      placeholder="Status"
-                      ref={value => this.addStatus = value}
-                    />
+                    <select name="" id="" onChange={(e) => this.getStatusValue(e)} className="form-control"   >
+                      <option value="Approved">Approved</option>
+                      <option value="Blocked">Blocked</option>
+                    </select>
                   </div>
 
                 </form>

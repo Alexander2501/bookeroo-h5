@@ -5,6 +5,7 @@ import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import Login from './views/login';
 import Home from './views/home';
 import Register from './views/register'
+import BookList from './components/booklist';
 
 export default class App extends Component {
   render() {
