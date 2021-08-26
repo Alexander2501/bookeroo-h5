@@ -174,10 +174,10 @@ class MyOrder extends Component {
         } else {
             return (
                 <div>
-                    <ul style={{ display: 'flex', justifyContent: 'space-evenly' }}>
-                        <li style={tabShow} onClick={() => { this.tabChoiced(0) }}>All</li>
-                        <li onClick={() => { this.tabChoiced(1) }}>Buy</li>
-                        <li onClick={() => { this.tabChoiced(2) }}>Sold</li>
+                    <ul style={{ display: 'flex', justifyContent: 'space-evenly' }} className="list-group">
+                        <li style={tabShow} onClick={() => { this.tabChoiced(0) }} className="list-group-item">All</li>
+                        <li onClick={() => { this.tabChoiced(1) }} className="list-group-item">Buy</li>
+                        <li onClick={() => { this.tabChoiced(2) }} className="list-group-item">Sold</li>
                     </ul>
                     <div className='panel panel-default orderheader' style={{ border: 'none' }}>
                         <div className='col-md-6 panel-heading'>Order Detail</div>
