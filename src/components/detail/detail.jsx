@@ -30,6 +30,7 @@ class Detail extends Component {
             bookMes: JSON.parse(localStorage.getItem('bookMes'))
         });
 
+
         this.getCommentList();
 
 
@@ -37,13 +38,14 @@ class Detail extends Component {
 
     getCommentList = () => {
         let commentUrl = 'https://web.tootz.cn/api/book/commentList';
-        let bookId = this.state.bookMes.bookId;
-        let data = { pageSize: 1, pageNum: 10, bookId: bookId }
+        let bookId = JSON.parse(localStorage.getItem('bookMes')).bookId;
+
+        let data = { pageSize: 10, pageNum: 1, bookId: bookId }
         axios.post(commentUrl, data).then(res => {
             console.log(res);
             if (res.code == "1000000") {
                 this.setState({
-                    commentList: res.entity
+                    commentList: res.data.data.entity
                 });
             }
         }).catch(err => {
@@ -65,10 +67,10 @@ class Detail extends Component {
         this.handleChange();
     }
     buyBook = (e) => {
-        
+
         let bookNum = parseInt(this.state.bookNum);
         let bookId = this.state.bookMes.bookId;
-        if(bookNum>0){
+        if (bookNum > 0) {
             let data = { num: bookNum, bookId: bookId };
             let url = "https://web.tootz.cn/api/order/create";
             axios.post(url, data).then(res => {
@@ -86,11 +88,11 @@ class Detail extends Component {
                 alert(err);
                 console.log(err);
             });
-        }else{
+        } else {
             alert('Order quantity can not less than zero')
         }
-        
-        
+
+
     }
 
 
