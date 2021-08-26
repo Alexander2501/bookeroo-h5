@@ -39,11 +39,11 @@ class Detail extends Component {
     getCommentList = () => {
         let commentUrl = 'https://web.tootz.cn/api/book/commentList';
         let bookId = JSON.parse(localStorage.getItem('bookMes')).bookId;
-
-        let data = { pageSize: 10, pageNum: 1, bookId: bookId }
+        console.log(bookId);
+        let data = { pageSize: 1000, pageNum: 1, bookId: bookId }
         axios.post(commentUrl, data).then(res => {
             console.log(res);
-            if (res.code == "1000000") {
+            if (res.data.code == "1000000") {
                 this.setState({
                     commentList: res.data.data.entity
                 });
@@ -75,14 +75,14 @@ class Detail extends Component {
             let url = "https://web.tootz.cn/api/order/create";
             axios.post(url, data).then(res => {
                 console.log(res);
-                debugger
+
                 if (res.code = "1000000") {
                     window.location.href = res.data.data;
-                    debugger
+
                 } else {
                     console.log(res.data.message);
                     alert(res.data.message)
-                    debugger
+
                 }
             }).catch(err => {
                 alert(err);
@@ -98,6 +98,7 @@ class Detail extends Component {
 
     render() {
         // console.log(this.state.bookMes);
+        let isShow = this.state.commentList.length == 0 ? 'block' : 'none';
         let { bookName, picUrl, bookDesc, price, publishingHouse, publishingTime, author } = this.state.bookMes;
         return (
             <div>
@@ -154,9 +155,19 @@ class Detail extends Component {
 
                 <div className='row'>
                     <div className='col-md-12'>
+                        <h2 style={{ display: isShow }}>No Comments</h2>
                         {
                             this.state.commentList.map((item, index) => (
-                                <div>commingt{index}</div>
+                                <div className="panel panel-default">
+
+                                    <div className="panel-heading" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                        <div><span>Comment{index}</span></div>
+                                        <div> <p>{item.updateTime}</p></div>
+                                    </div>
+                                    <div className="panel-body">
+                                        {item.comment}
+                                    </div>
+                                </div>
                             ))
                         }
                     </div>

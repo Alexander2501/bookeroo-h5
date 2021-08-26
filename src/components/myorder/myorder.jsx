@@ -33,7 +33,9 @@ class MyOrder extends Component {
         orderListUrl: '',
         orderUrl: '',
         orderId: '',
-        selStyle: {}
+        selStyle0: {},
+        selStyle1: {},
+        selStyle2: {}
     }
     componentDidMount() {
         let userId = localStorage.getItem("userId");
@@ -134,6 +136,23 @@ class MyOrder extends Component {
     }
     addComment = () => {
         console.log(this.state.orderId);
+        console.log(this.myComment.value);
+        console.log(this.myStar.value);
+        let orderId = this.state.orderId;
+        let comment = this.myComment.value;
+        let star = parseInt(this.myStar.value);
+        let url = 'https://web.tootz.cn/api/order/comment';
+        let data = { orderId, comment, star }
+        axios.post(url, data).then(res => {
+            console.log(res);
+            if (res.data.code = "1000000") {
+                alert('Successfully Added');
+            } else {
+                alert(res.data.message)
+            }
+        }).catch(err => {
+            console.log(err);
+        });
     }
 
     render() {
@@ -210,7 +229,10 @@ class MyOrder extends Component {
                                     <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                     <h4 className="modal-title" id="myModalLabel">Add Comment</h4>
                                 </div>
-                                <div className="modal-body">在这里添加一些文本</div>
+                                <div className="modal-body">
+                                    <textarea type="text" className="form-control" placeholder='Please input your comment' ref={value => this.myComment = value} />
+                                    <input type="number" className="form-control" placeholder='Please input number less than five' ref={value => this.myStar = value} />
+                                </div>
                                 <div className="modal-footer">
                                     <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
                                     <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.addComment}>Commit</button>
