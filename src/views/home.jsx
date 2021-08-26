@@ -19,7 +19,9 @@ class Home extends Component {
         bookClasses: ["All", "", "", ""],
         type: localStorage.getItem("type")
     }
-
+componentDidMount(){
+    this.props.history.push('/booklist');
+}
 
     logout = () => {
         const url = "https://web.tootz.cn/api/open/user/logout";

@@ -329,7 +329,7 @@ class BookList extends Component {
         } else {
             return (
                 <div className="container-fluid">
-                    <div>
+                    <div  style={{backgroundColor:'#f5f5f5',padding:'10px 0'}}>
                         <h2 style={{ display: 'inline-block', margin: '0' }}>Book At Bookeroo</h2>
                         <button type="button" className="btn btn-primary" data-toggle="modal"
                             data-target="#bookAddModal"

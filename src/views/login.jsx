@@ -42,11 +42,10 @@ export default class Login extends Component {
             localStorage.setItem("userId", result.userId);
             localStorage.setItem("token", result.token);
             localStorage.setItem("type", result.type);
-            this.props.history.push("/booklist");
+            this.props.history.push("/home");
           } else {
             alert(res.data.message);
           }
-
         }
       })
       .catch((err) => {

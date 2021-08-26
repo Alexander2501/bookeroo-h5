@@ -178,19 +178,22 @@ export default class UserList extends Component {
     const { userList } = this.state;
     return (
       <div className="container-fluid">
-        <div className="page-header text-center">
-          <h2>User Management</h2>
+        <div className="clearfix" style={{backgroundColor:'#f5f5f5',padding:'10px 0'}}>
+          <h2 style={{margin:'0',display:'inline-block',textAlign:"center"}}>User Management</h2>
+          <button className="btn btn-primary pull-right" data-toggle="modal" data-target="#addModal" onClick={this.addUser}>
+              Add
+            </button>
         </div>
 
         <div className='row'>
           <div className='col-xs-8'>
-            <button className="btn btn-primary" data-toggle="modal" data-target="#addModal" onClick={this.addUser}>
+            {/* <button className="btn btn-primary" data-toggle="modal" data-target="#addModal" onClick={this.addUser}>
               Add
-            </button>
+            </button> */}
 
           </div>
           <div className='col-xs-4'>
-            <form className="form-inline">
+            {/* <form className="form-inline">
               <div className="form-group">
                 <input
                   type="text"
@@ -201,7 +204,7 @@ export default class UserList extends Component {
               <button type="submit" className="btn btn-default">
                 Search
               </button>
-            </form>
+            </form> */}
           </div>
 
         </div>

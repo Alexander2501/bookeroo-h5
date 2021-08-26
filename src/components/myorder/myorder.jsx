@@ -6,30 +6,33 @@ class MyOrder extends Component {
     state = {
         tabs: ['All', 'Not Paid', 'Purchased', 'Sold'],
         currentIndex: 0,
-        orderList: [{
-            orderName: '',
-            orderId: '1234532356',
-            picUrl: 'https://i.loli.net/2021/08/22/7r1uPlpTyMhDBk5.png',
-            price: '12',
-            num: '1',
-            status: 'complete transaction',
-            orderDesc: '',
-            time: '2021-08-22'
+        orderList: [
+        //     {
+        //     orderName: '',
+        //     orderId: '1234532356',
+        //     picUrl: 'https://i.loli.net/2021/08/22/7r1uPlpTyMhDBk5.png',
+        //     price: '12',
+        //     num: '1',
+        //     status: 'complete transaction',
+        //     orderDesc: '',
+        //     time: '2021-08-22'
 
-        }, {
-            orderName: '',
-            orderId: '1234532356',
-            picUrl: 'https://i.loli.net/2021/08/22/7r1uPlpTyMhDBk5.png',
-            price: '12',
-            num: '1',
-            status: 'complete transaction',
-            orderDesc: '',
-            time: '2021-08-22'
+        // }, {
+        //     orderName: '',
+        //     orderId: '1234532356',
+        //     picUrl: 'https://i.loli.net/2021/08/22/7r1uPlpTyMhDBk5.png',
+        //     price: '12',
+        //     num: '1',
+        //     status: 'complete transaction',
+        //     orderDesc: '',
+        //     time: '2021-08-22'
 
-        }],
+        // }
+    ],
         orders: [],
         orderListUrl: '',
-        orderUrl: ''
+        orderUrl: '',
+        orderId:''
     }
     componentDidMount() {
         let userId = localStorage.getItem("userId");
@@ -52,7 +55,7 @@ class MyOrder extends Component {
     getOrdlerList = (url) => {
         let data = { pageSize: 10, pageNum: 1 }
         axios.post(url, data).then(res => {
-            // console.log(res);
+            console.log(res);
             if (res.data.code == "1000000") {
                 this.setState({
                     orderList: res.data.data.entity
@@ -93,11 +96,47 @@ class MyOrder extends Component {
         }
 
     }
+    deleteOrder = (index) => {
+        let orderId = this.state.orderList[index].orderId;
+        let url = "https://web.tootz.cn/api/order/delete"
+        axios.post(url, { orderId }).then(res => {
+            if (res.code == '1000000') {
+                alert(res.message);
+            }
+        }).catch(err => {
+            alert(err.message);
+        });
+
+    }
+
+    confirmOrder=(index)=>{
+        let orderId = this.state.orderList[index].orderId;
+    }
+
+    cancelOrder = (index) => {
+        let orderId = this.state.orderList[index].orderId;
+        let url = "https://web.tootz.cn/api/order/refund"
+        axios.post(url, { orderId }).then(res => {
+            if (res.code == '1000000') {
+                alert(res.message);
+            }
+        }).catch(err => {
+            alert(err.message);
+        });
+    }
+
+    handleAddComment=(index)=>{
+        let orderId = this.state.orderList[index].orderId;
+        this.setState({
+            orderId
+        });
+    }
+    addComment=()=>{
+        console.log(this.state.orderId);
+    }
 
     render() {
         const { orders, orderList } = this.state;
-
-
         if (orderList.length == 0) {
             return (
                 <div className='row orderrow'>
@@ -117,7 +156,7 @@ class MyOrder extends Component {
                     <ul style={{ display: 'flex', justifyContent: 'space-evenly' }}>
                         {
                             this.state.tabs.map((item, index) => {
-                                let tabStyle = index == this.state.currentIndex ? { backgroundColor: 'blue', padding: '5px 10px' } : {};
+                                let tabStyle = index == this.state.currentIndex ? { backgroundColor: '#337ab7', padding: '5px 50px' } : {};
 
                                 return <li style={tabStyle} key={index} onClick={() => {
                                     this.tabChoiced(index)
@@ -139,7 +178,7 @@ class MyOrder extends Component {
                                     <div className='col-md-12 panel-heading' style={{ backgroundColor: '#eaf8ff' }}>
                                         <span style={{ fontWeight: 'bold' }}>CreateTime:{item.createTime}</span>
                                         <span style={{ marginLeft: '10px' }}>OrderId:{item.orderId}</span>
-                                        <span className="pull-right text-danger" style={{ cursor: 'pointer' }} >Delete Order</span>
+                                        <span className="pull-right text-danger" style={{ cursor: 'pointer' }} onClick={() => { this.deleteOrder(index) }}>Delete Order</span>
                                     </div>
                                 </div>
                                 <div className='row' style={{ display: 'flex', alignItems: 'center' }}>
@@ -161,9 +200,9 @@ class MyOrder extends Component {
                                         {item.orderStatus == 3 ? <h4 className='text-info'>Refund</h4> : ''}
                                     </div>
                                     <div className='col-md-3 ordercontrol'>
-                                        <p className="bg-success">Confirm Order</p>
-                                        <p className="bg-danger">Cancel Order</p>
-                                        <p className="bg-primary">Add Comment</p>
+                                        <p className="bg-success" onClick={()=>{this.confirmOrder(index)}}>Confirm Order</p>
+                                        <p className="bg-danger" onClick={() => { this.cancelOrder(index) }}>Cancel Order</p>
+                                        <p className="bg-primary" data-toggle="modal" data-target="#myModal" onClick={()=>{this.handleAddComment(index)}}>Add Comment</p>
                                     </div>
                                 </div>
                             </div>
@@ -171,6 +210,21 @@ class MyOrder extends Component {
                         ))
                     }
 
+                    <div className="modal fade" id="myModal" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div className="modal-dialog">
+                            <div className="modal-content">
+                                <div className="modal-header">
+                                    <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h4 className="modal-title" id="myModalLabel">Add Comment</h4>
+                                </div>
+                                <div className="modal-body">在这里添加一些文本</div>
+                                <div className="modal-footer">
+                                    <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.addComment}>Commit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
             );
