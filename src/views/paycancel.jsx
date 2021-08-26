@@ -23,8 +23,7 @@ class PayCancel extends Component {
     render() {
         let routeStr =`/orders?payId=${this.state.payId}`
         return (
-            <div>
-                
+            <div>                
                 <p className='bg-danger' style={{textAlign:'center'}}>Paycancel</p>
                 {/* <img src="./assets/paysuccess.jpg" alt="" /> */}
                 <Link to={routeStr}>Leave For My Order Page ...</Link>
@@ -33,5 +32,4 @@ class PayCancel extends Component {
     }
 }
 
-export default PayCancel
-    ;
+export default PayCancel;

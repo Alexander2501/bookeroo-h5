@@ -64,19 +64,32 @@ class Detail extends Component {
         this.state.tempNum -= 1;
         this.handleChange();
     }
-    buyBook = () => {
+    buyBook = (e) => {
+        
         let bookNum = parseInt(this.state.bookNum);
         let bookId = this.state.bookMes.bookId;
-        let data = { num: bookNum, bookId: bookId };
-        let url = "https://web.tootz.cn/api/order/create";
-        axios.post(url, data).then(res => {
-            if (res.code = "1000000") {
-
-                window.location.href = res.data.data;
-            }
-        }).catch(err => {
-            console.log(err);
-        });
+        if(bookNum>0){
+            let data = { num: bookNum, bookId: bookId };
+            let url = "https://web.tootz.cn/api/order/create";
+            axios.post(url, data).then(res => {
+                console.log(res);
+                if (res.code = "1000000") {
+                    window.location.href = res.data.data;
+                    debugger
+                } else {
+                    console.log(res.data.message);
+                    alert(res.data.message)
+                    debugger
+                }
+            }).catch(err => {
+                alert(err);
+                console.log(err);
+            });
+        }else{
+            alert('Order quantity can not less than zero')
+        }
+        
+        
     }
 
 
@@ -97,8 +110,7 @@ class Detail extends Component {
                                 <h2>{bookName}</h2>
                             </div>
                             <div className='bookdesc'>
-                                <p>{bookDesc}
-                                </p>
+                                <p>{bookDesc}</p>
                             </div>
                         </div>
                         <div className='bookinfo'>
@@ -128,10 +140,10 @@ class Detail extends Component {
                                     <button className="btn btn-default" type="button" onClick={this.addOrder}>+</button>
                                 </span>
                             </div>
-                            <p>
+                            <div>
                                 {/* <button type="button" className="btn btn-primary">AddToCart</button> */}
                                 <button type="button" className="btn btn-default" onClick={this.buyBook}>Parchase</button>
-                            </p>
+                            </div>
                         </div>
 
                     </div>

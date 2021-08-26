@@ -35,10 +35,10 @@ class BookItem extends Component {
           <div className="caption">
             <h4 style={{ height: '40px' }}>{bookName}</h4>
             <p style={{ height: '60px', overflow: 'hidden', textOverflow: 'ellipsis' }}>{bookDesc}</p>
-            <p style={{ display: 'flex', justifyContent: 'space-between' }}>
-              <div style={{ color: "black", paddingLeft: '10px' }}><span>Price:</span><span style={{ fontWeight: 'bold', color: 'red' }}>${price}</span></div>
-              <div style={{ color: "black", paddingRight: '10px' }}><span>Stock:</span><span style={{ fontWeight: 'bold', color: 'red' }}>{stock}</span></div>
-            </p>
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <p style={{ color: "black", paddingLeft: '10px' }}><span>Price:</span><span style={{ fontWeight: 'bold', color: 'red' }}>${price}</span></p>
+              <p style={{ color: "black", paddingRight: '10px' }}><span>Stock:</span><span>{stock}</span></p>
+            </div>
             <p className='clearfix'>
               <button
                 style={{ float: "right" }}
