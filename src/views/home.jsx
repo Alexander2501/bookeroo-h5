@@ -26,18 +26,23 @@ class Home extends Component {
         //设置请求头
         axios.defaults.headers.common["token"] = token;
         axios.defaults.headers.common["userId"] = userId;
-     let url = "https://web.tootz.cn/api/book/publicList";
+        let url = "https://web.tootz.cn/api/book/publicList";
         let data = {
             pageNum: 1,
             pageSize: 1
         }
         axios.post(url, data).then(
             res => {
-            //    console.log(res);
-               if(res.data.code=='1000001'){
-                localStorage.clear();
-                   this.props.history.push('/login');
-               }      
+                //    console.log(res);
+                if (res.data.code == '1000000') {
+
+                } else {
+                    alert(res.data.message);
+                }
+                if (res.data.code == '1000001') {
+                    localStorage.clear();
+                    this.props.history.push('/login');
+                }
             }
         ).catch(err => {
             localStorage.clear();

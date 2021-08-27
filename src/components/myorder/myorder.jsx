@@ -55,13 +55,16 @@ class MyOrder extends Component {
     getOrdlerList = (url) => {
         let data = { pageSize: 1000, pageNum: 1 }
         axios.post(url, data).then(res => {
-            console.log(res);
+            // console.log(res);
             if (res.data.code == "1000000") {
                 this.setState({
                     orderList: res.data.data.entity
                 })
             }else{
                 alert(res.data.message);
+            }
+            if(res.data.code=='1000001'){
+                // alert(res.data.message);
                 this.props.history.push('/login');
             }
         }).catch(err => {

@@ -43,6 +43,9 @@ export default class UserList extends Component {
           });
         }else{
           alert(res.data.message);
+        }
+        if(res.data.code=='1000001'){
+          // alert(res.data.message);
           this.props.history.push('/login');
         }
        
