@@ -162,7 +162,7 @@ class MyOrder extends Component {
         let data = { orderId, comment, star }
         axios.post(url, data).then(res => {
             console.log(res);
-            if (res.data.code = "1000000") {
+            if (res.data.code == "1000000") {
                 alert('Successfully Added');
             } else {
                 alert(res.data.message)
@@ -178,11 +178,11 @@ class MyOrder extends Component {
             pageSize: 1000,
             pageNum: 1
         }
-        axios.post(url, data,{responseType: 'arraybuffer'}).then(res => {
+        axios.post(url, data, { responseType: 'arraybuffer' }).then(res => {
             console.log(res);
-            let fileName = new Date().toLocaleDateString()+'-OrderList';
+            let fileName = new Date().toLocaleDateString() + '-OrderList';
             if (res.status == '200') {
-                this.downloadFile(res.data,fileName)
+                this.downloadFile(res.data, fileName)
 
             } else {
                 alert(res.data.message);
@@ -192,11 +192,11 @@ class MyOrder extends Component {
         });
     }
     /*
-*封装函数 downLoadFile.js
-*params:  
-*data:二进制文件
-*name:自定义文件名称
-*/
+        *封装函数 downLoadFile.js
+        *params:  
+        *data:二进制文件
+        *name:自定义文件名称
+    */
     downloadFile = (data, name) => {
         if (!data) {
             this.$message.error('下载失败，解析数据为空！')
@@ -218,7 +218,7 @@ class MyOrder extends Component {
 
     render() {
         const { orders, orderList } = this.state;
-        let delShow = this.state.currentIndex == 2 ? { display: 'none' } : { display: 'block' };
+        let delShow = this.state.currentIndex == 2 || this.state.currentIndex == 0 ? { display: 'none' } : { display: 'block' };
         let tabShow = localStorage.getItem('type') == 3 ? { display: 'block', cursor: 'pointer' } : { display: 'none' }
         if (orderList.length == 0) {
             return (
@@ -287,8 +287,8 @@ class MyOrder extends Component {
                                         {item.orderStatus == 4 ? <h4 className='text-info'>Refund</h4> : ''}
                                     </div>
                                     <div className='col-md-3 ordercontrol' style={delShow}>
-                                        {item.orderStatus == '4' ? <button className='btn btn-info btn-sm' onClick={() => { this.refundOrder(index) }}>Refund</button> : <button type="button" className="btn btn-danger  btn-sm" onClick={() => { this.cancelOrder(index) }}>Cancel</button>}
-                                        {/* <button type="button" disabled={item.refundButton == 0 ? true : false} className="btn btn-danger  btn-sm" onClick={() => { this.cancelOrder(index) }}>Cancel</button> */}
+                                        {/* {item.orderStatus == '4' ? <button className='btn btn-info btn-sm' onClick={() => { this.refundOrder(index) }}>Refund</button> : <button type="button" className="btn btn-danger  btn-sm" onClick={() => { this.cancelOrder(index) }}>Cancel</button>} */}
+                                        <button type="button" disabled={item.refundButton == 0 ? true : false} className="btn btn-danger  btn-sm" onClick={() => { this.refundOrder(index) }}>Refund</button>
                                         <button type="button" className="btn btn-primary  btn-sm" data-toggle="modal" data-target="#myModal" onClick={() => { this.handleAddComment(index) }}>Comment</button>
                                     </div>
                                 </div>

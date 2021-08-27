@@ -4,7 +4,7 @@ import './detail.css'
 class Detail extends Component {
 
     state = {
-        stock:"",
+        stock: "",
         bookName: '',
         bookNum: 0,
         bookId: '',
@@ -45,10 +45,10 @@ class Detail extends Component {
                 this.setState({
                     commentList: res.data.data.entity
                 });
-            }else{
+            } else {
                 alert(res.data.message);
             }
-            if(res.data.code=='1000001'){
+            if (res.data.code == '1000001') {
                 this.props.history.push('/login');
             }
         }).catch(err => {
@@ -71,7 +71,7 @@ class Detail extends Component {
     }
     buyBook = (e) => {
 
-        if(this.state.stock==0){
+        if (this.state.stock == 0) {
             alert('Oh!The book is currently out of stock');
             return;
         }
@@ -82,7 +82,7 @@ class Detail extends Component {
             let url = "https://web.tootz.cn/api/order/create";
             axios.post(url, data).then(res => {
                 // console.log(res);
-                if (res.code = "1000000") {
+                if (res.code == "1000000") {
                     window.location.href = res.data.data;
                 } else {
                     console.log(res.data.message);
@@ -104,7 +104,7 @@ class Detail extends Component {
     render() {
         // console.log(this.state.bookMes);
         let isShow = this.state.commentList.length == 0 ? 'block' : 'none';
-        let { bookName, picUrl, bookDesc, price, publishingHouse, publishingTime, author,stock } = this.state.bookMes;
+        let { bookName, picUrl, bookDesc, price, publishingHouse, publishingTime, author, stock } = this.state.bookMes;
         return (
             <div>
                 <div className="row" style={{ marginLeft: '0', marginRight: '0' }}>
