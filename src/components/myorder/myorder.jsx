@@ -33,9 +33,7 @@ class MyOrder extends Component {
         orderListUrl: '',
         orderUrl: '',
         orderId: '',
-        selStyle0: {},
-        selStyle1: {},
-        selStyle2: {}
+
     }
     componentDidMount() {
         let userId = localStorage.getItem("userId");
@@ -46,12 +44,10 @@ class MyOrder extends Component {
         let userType = localStorage.getItem('type');
         if (userType == 3) {//Admin
             this.state.orderListUrl = "https://web.tootz.cn/api/order/globalList";
-        } else if (userType == 2) {
-            this.state.orderListUrl = "https://web.tootz.cn/api/order/sellList";
         } else {
             this.state.orderListUrl = "https://web.tootz.cn/api/order/buyList";
         }
-        console.log(this.state.orderListUrl);
+        // console.log(this.state.orderListUrl);
         this.getOrdlerList(this.state.orderListUrl);
     }
 
@@ -59,7 +55,7 @@ class MyOrder extends Component {
     getOrdlerList = (url) => {
         let data = { pageSize: 1000, pageNum: 1 }
         axios.post(url, data).then(res => {
-            console.log(res);
+            // console.log(res);
             if (res.data.code == "1000000") {
                 this.setState({
                     orderList: res.data.data.entity
@@ -71,7 +67,7 @@ class MyOrder extends Component {
     }
 
     tabChoiced = (id) => {
-        console.log(id);
+        // console.log(id);
         this.setState({
             currentIndex: id
         });
@@ -80,35 +76,31 @@ class MyOrder extends Component {
             selStyle: tabStyle
         });
         if (id == 0) {//all
-            let url = "https://web.tootz.cn/api/order/globalList"
+            let url = "https://web.tootz.cn/api/order/globalList";
             this.getOrdlerList(url);
-
         }
         if (id == 1) {//buy
             let url = 'https://web.tootz.cn/api/order/buyList';
             this.getOrdlerList(url);
-
-
         }
         if (id == 2) {//sell
             let url = 'https://web.tootz.cn/api/order/sellList';
             this.getOrdlerList(url);
         }
-
     }
     deleteOrder = (index) => {
         let orderId = this.state.orderList[index].orderId;
         let url = "https://web.tootz.cn/api/order/delete"
         axios.post(url, { orderId }).then(res => {
-            if (res.code == '1000000') {
+            console.log(res);
+            if (res.data.code == '1000000') {
                 alert(res.message);
             } else {
-                alert(res.message);
+                alert(res.data.message);
             }
         }).catch(err => {
             alert(err.message);
         });
-
     }
 
     confirmOrder = (index) => {
@@ -135,9 +127,9 @@ class MyOrder extends Component {
         });
     }
     addComment = () => {
-        console.log(this.state.orderId);
-        console.log(this.myComment.value);
-        console.log(this.myStar.value);
+        // console.log(this.state.orderId);
+        // console.log(this.myComment.value);
+        // console.log(this.myStar.value);
         let orderId = this.state.orderId;
         let comment = this.myComment.value;
         let star = parseInt(this.myStar.value);
@@ -157,8 +149,8 @@ class MyOrder extends Component {
 
     render() {
         const { orders, orderList } = this.state;
-
-        let tabShow = localStorage.getItem('type') == 3 ? { display: 'block' } : { display: 'none' }
+        let delShow = this.state.currentIndex == 2 ? { display: 'none' } : { display: 'block' };
+        let tabShow = localStorage.getItem('type') == 3 ? { display: 'block', cursor: 'pointer' } : { display: 'none' }
         if (orderList.length == 0) {
             return (
                 <div className='row orderrow'>
@@ -176,8 +168,8 @@ class MyOrder extends Component {
                 <div>
                     <ul style={{ display: 'flex', justifyContent: 'space-evenly' }} className="list-group">
                         <li style={tabShow} onClick={() => { this.tabChoiced(0) }} className="list-group-item">All</li>
-                        <li onClick={() => { this.tabChoiced(1) }} className="list-group-item">Buy</li>
-                        <li onClick={() => { this.tabChoiced(2) }} className="list-group-item">Sold</li>
+                        <li onClick={() => { this.tabChoiced(1) }} className="list-group-item" style={{ cursor: 'pointer' }}>Buy</li>
+                        <li onClick={() => { this.tabChoiced(2) }} className="list-group-item" style={{ cursor: 'pointer' }}>Sold</li>
                     </ul>
                     <div className='panel panel-default orderheader' style={{ border: 'none' }}>
                         <div className='col-md-6 panel-heading'>Order Detail</div>
@@ -187,12 +179,12 @@ class MyOrder extends Component {
                     {
                         this.state.orderList.map((item, index) => {
                             let isAbled = item.refundButton == 0 ? true : false;
-                            return <div key={index}>
+                            return <div key={index} style={{marginTop:'10px'}}>
                                 <div className='panel panel-default'>
                                     <div className='col-md-12 panel-heading' style={{ backgroundColor: '#eaf8ff' }}>
                                         <span style={{ fontWeight: 'bold' }}>CreateTime:{item.createTime}</span>
                                         <span style={{ marginLeft: '10px' }}>OrderId:{item.orderId}</span>
-                                        <span className="pull-right text-danger" style={{ cursor: 'pointer' }} onClick={() => { this.deleteOrder(index) }}>Delete Order</span>
+                                        <span className="pull-right text-danger" style={{cursor: 'pointer'}, delShow} onClick={() => { this.deleteOrder(index) }}>Delete Order</span>
                                     </div>
                                 </div>
                                 <div className='row' style={{ display: 'flex', alignItems: 'center' }}>
@@ -213,8 +205,8 @@ class MyOrder extends Component {
                                         {item.orderStatus == 2 ? <h4 className='text-danger'>Failed</h4> : ''}
                                         {item.orderStatus == 3 ? <h4 className='text-info'>Refund</h4> : ''}
                                     </div>
-                                    <div className='col-md-3 ordercontrol'>
-                                        <button type="button" disabled={isAbled} className="btn btn-danger  btn-sm" disabled={true} onClick={() => { this.cancelOrder(index) }}>Cancel</button>
+                                    <div className='col-md-3 ordercontrol' style={delShow}>
+                                        <button type="button" disabled={item.refundButton==0?true:false} className="btn btn-danger  btn-sm" onClick={() => { this.cancelOrder(index) }}>Cancel</button>
                                         <button type="button" className="btn btn-primary  btn-sm" data-toggle="modal" data-target="#myModal" onClick={() => { this.handleAddComment(index) }}>Comment</button>
                                     </div>
                                 </div>

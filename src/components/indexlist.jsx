@@ -11,7 +11,7 @@ class IndexList extends Component {
   state = {
     picUrl: '',
     pageNum: 1,
-    pageSize: 10,
+    pageSize: 1000,
     isShow: true,
     books: [],
     editBookMes: {},
