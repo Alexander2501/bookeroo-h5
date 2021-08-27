@@ -1,5 +1,5 @@
-import React, {Component} from "react";
-import {Link} from "react-router-dom";
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 export default class Register extends Component {
@@ -9,13 +9,13 @@ export default class Register extends Component {
         password: ''
     }
     judgeSame = (e) => {
-       
+
         this.setState({
             pwd: e.target.value
         })
     }
     judgeSame = (e) => {
-       
+
         this.setState({
             password: e.target.value
         })
@@ -31,8 +31,12 @@ export default class Register extends Component {
         let name = this.name.value.toString();
         let nickName = this.nickName.value.toString();
         let phoneNumber = this.phoneNumber.value.toString();
-        let clientId = this.clientId.toString();
-        let secret = this.secret.toString();
+        let clientId = this.clientId.value.toString();
+        let secret = this.secret.value.toString();
+        if (mail == '' || name == '' || nickName == '' || phoneNumber == '') {
+            alert('Fields can not be null');
+            return
+        }
 
         const url = "https://web.tootz.cn/api/open/user/register";
         axios
@@ -47,18 +51,19 @@ export default class Register extends Component {
                 secret: secret
             })
             .then((res) => {
-                console.log(res.data);
-                if (res.data.code = "1000000") {
-                    this.props.history.push('/');
+                console.log(res);
+                if (res.data.code == "1000000") {
+                    alert(res.data.message);
+                    this.props.history.push('/login');
                 } else {
-                    alert(this.data.message);
+                    alert(res.data.message);
                 }
             })
             .catch((err) => {
                 console.log(err);
             });
     }
-    
+
 
     render() {
         return (
@@ -89,13 +94,13 @@ export default class Register extends Component {
 
                                         <div className="form-group">
                                             <input type="email" className="form-control"
-                                                   ref={value => this.mail = value}
-                                                   placeholder="enter your email here"/>
+                                                ref={value => this.mail = value}
+                                                placeholder="enter your email here" />
                                         </div>
                                         <div className="form-group">
                                             <input type="email" className="form-control"
-                                                   ref={value => this.phoneNumber = value}
-                                                   placeholder="enter your phonenumber here"/>
+                                                ref={value => this.phoneNumber = value}
+                                                placeholder="enter your phonenumber here" />
                                         </div>
 
                                         <div className="form-group">
@@ -119,7 +124,7 @@ export default class Register extends Component {
                                             <input
                                                 type="password"
                                                 className="form-control"
-                                              
+
                                                 onChange={this.judgeSame2}
                                                 placeholder="Password"
                                             />
@@ -128,7 +133,7 @@ export default class Register extends Component {
                                             <input
                                                 type="password"
                                                 className="form-control"
-                                               
+
                                                 onChange={this.judgeSame}
                                                 placeholder="Retype Password"
                                             />

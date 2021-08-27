@@ -37,18 +37,18 @@ export default class UserList extends Component {
       })
       .then((res) => {
         let result = res.data.data;
-        if(res.data.code=='1000000'){
+        if (res.data.code == '1000000') {
           this.setState({
             userList: result.entity
           });
-        }else{
+        } else {
           alert(res.data.message);
         }
-        if(res.data.code=='1000001'){
+        if (res.data.code == '1000001') {
           // alert(res.data.message);
           this.props.history.push('/login');
         }
-       
+
       })
       .catch((err) => {
         console.log(err);
@@ -390,18 +390,17 @@ export default class UserList extends Component {
                       onChange={this.handleEditChange}
                     />
                   </div>
-                  {/* <div className="form-group">
+                  <div className="form-group">
                     <label>PhoneNumber</label>
                     <input
                       type="text"
-                      name="pwd"
+                      name="phoneNumber"
                       value={this.state.phoneNumber}
                       className="form-control"
-                      id="exampleInputPassword1"
-                      placeholder="Password"
+                      placeholder="PhoneNumber"
                       onChange={this.handleEditChange}
                     />
-                  </div> */}
+                  </div>
                   <div className="form-group">
                     <label>Status</label>
                     <input
