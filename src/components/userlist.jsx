@@ -37,9 +37,15 @@ export default class UserList extends Component {
       })
       .then((res) => {
         let result = res.data.data;
-        this.setState({
-          userList: result.entity
-        });
+        if(res.data.code=='1000000'){
+          this.setState({
+            userList: result.entity
+          });
+        }else{
+          alert(res.data.message);
+          this.props.history.push('/login');
+        }
+       
       })
       .catch((err) => {
         console.log(err);

@@ -29,8 +29,6 @@ class Detail extends Component {
         this.setState({
             bookMes: JSON.parse(localStorage.getItem('bookMes'))
         });
-
-
         this.getCommentList();
 
 
@@ -47,6 +45,11 @@ class Detail extends Component {
                 this.setState({
                     commentList: res.data.data.entity
                 });
+            }else{
+                alert(res.data.message);
+            }
+            if(res.data.code=='1000001'){
+                this.props.history.push('/login');
             }
         }).catch(err => {
             console.log(err);

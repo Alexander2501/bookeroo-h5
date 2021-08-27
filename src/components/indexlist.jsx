@@ -62,14 +62,19 @@ class IndexList extends Component {
     }
     axios.post(this.state.bookUrl, data).then(
       res => {
-        console.log(res.data.data.entity);
+        // console.log(res.data.data.entity);
         if (res.data.code == '1000000') {
           this.setState({
             books: res.data.data.entity
           });
-        } else {
+        } else{
           alert(res.data.message);
         }
+        if(res.data.code=='1000001') {
+          // alert(res.data.message);
+          this.props.history.push('/login');
+        }
+        
 
       }
     ).catch(err => {
