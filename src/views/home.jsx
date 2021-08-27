@@ -111,9 +111,9 @@ class Home extends Component {
                             <Route path='/paysuccess' component={PaySuccess}></Route>
                             <Route path='/paycancel' component={PayCancel}></Route>
 
-                            {/* <Route path='/'>
+                            <Route path='/'>
                                 <Redirect to='/booklist'></Redirect>
-                            </Route> */}
+                            </Route>
                         </Switch>
                     </div>
                 </div>
