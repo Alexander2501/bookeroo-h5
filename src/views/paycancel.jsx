@@ -15,8 +15,13 @@ class PayCancel extends Component {
         let url = 'https://web.tootz.cn/api/order/payCancel';
         axios.post(url, { payId }).then(res => {
             console.log(res);
-
+            if(res.data.code='1000000'){
+                alert(res.data.message);
+            }else{
+                alert(res.data.message);
+            }
         }).catch(err => {
+            alert(err);
             console.log(err);
         });
     }
