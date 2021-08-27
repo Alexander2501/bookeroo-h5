@@ -27,7 +27,6 @@ class PayCancel extends Component {
         });
     }
     render() {
-        // let routeStr = `/orders?payId=${this.state.payId}`
         return (
             <div>
                 <p className='bg-danger' style={{ textAlign: 'center' }}>Paycancel</p>
