@@ -94,7 +94,8 @@ class MyOrder extends Component {
         axios.post(url, { orderId }).then(res => {
             console.log(res);
             if (res.data.code == '1000000') {
-                alert(res.message);
+                alert(res.data.message);
+                this.getOrdlerList();
             } else {
                 alert(res.data.message);
             }
@@ -153,13 +154,23 @@ class MyOrder extends Component {
         let tabShow = localStorage.getItem('type') == 3 ? { display: 'block', cursor: 'pointer' } : { display: 'none' }
         if (orderList.length == 0) {
             return (
+
                 <div className='row orderrow'>
-                    <div className='col-xs-12 col-md-4'>
-                        <div className='emptyImg'></div>
+                    <div className='row'>
+                        <ul style={{ display: 'flex', justifyContent: 'space-evenly' }} className="list-group">
+                            <li style={tabShow} onClick={() => { this.tabChoiced(0) }} className="list-group-item">All</li>
+                            <li onClick={() => { this.tabChoiced(1) }} className="list-group-item" style={{ cursor: 'pointer' }}>Buy</li>
+                            <li onClick={() => { this.tabChoiced(2) }} className="list-group-item" style={{ cursor: 'pointer' }}>Sold</li>
+                        </ul>
                     </div>
-                    <div className='col-xs-12 col-md-4'>
-                        <p>Your Cart is Empty,You can:</p>
-                        <button className='btn btn-default'><Link to='/booklist'>Shopping</Link></button>
+                    <div className='row'>
+                        <div className='col-xs-12 col-md-4'>
+                            <div className='emptyImg'></div>
+                        </div>
+                        <div className='col-xs-12 col-md-4'>
+                            <p>Your Cart is Empty,You can:</p>
+                            <button className='btn btn-default'><Link to='/booklist'>Shopping</Link></button>
+                        </div>
                     </div>
                 </div>
             );
@@ -179,12 +190,12 @@ class MyOrder extends Component {
                     {
                         this.state.orderList.map((item, index) => {
                             let isAbled = item.refundButton == 0 ? true : false;
-                            return <div key={index} style={{marginTop:'10px'}}>
+                            return <div key={index} style={{ marginTop: '10px' }}>
                                 <div className='panel panel-default'>
                                     <div className='col-md-12 panel-heading' style={{ backgroundColor: '#eaf8ff' }}>
                                         <span style={{ fontWeight: 'bold' }}>CreateTime:{item.createTime}</span>
                                         <span style={{ marginLeft: '10px' }}>OrderId:{item.orderId}</span>
-                                        <span className="pull-right text-danger" style={{cursor: 'pointer'}, delShow} onClick={() => { this.deleteOrder(index) }}>Delete Order</span>
+                                        <span className="pull-right text-danger" style={{ cursor: 'pointer' }, delShow} onClick={() => { this.deleteOrder(index) }}>Delete Order</span>
                                     </div>
                                 </div>
                                 <div className='row' style={{ display: 'flex', alignItems: 'center' }}>
@@ -206,7 +217,7 @@ class MyOrder extends Component {
                                         {item.orderStatus == 3 ? <h4 className='text-info'>Refund</h4> : ''}
                                     </div>
                                     <div className='col-md-3 ordercontrol' style={delShow}>
-                                        <button type="button" disabled={item.refundButton==0?true:false} className="btn btn-danger  btn-sm" onClick={() => { this.cancelOrder(index) }}>Cancel</button>
+                                        <button type="button" disabled={item.refundButton == 0 ? true : false} className="btn btn-danger  btn-sm" onClick={() => { this.cancelOrder(index) }}>Cancel</button>
                                         <button type="button" className="btn btn-primary  btn-sm" data-toggle="modal" data-target="#myModal" onClick={() => { this.handleAddComment(index) }}>Comment</button>
                                     </div>
                                 </div>
