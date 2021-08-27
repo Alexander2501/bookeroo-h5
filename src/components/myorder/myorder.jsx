@@ -279,7 +279,7 @@ class MyOrder extends Component {
                                         </div>
                                     </div>
                                     <div className='col-md-3'>
-                                        {item.orderStatus}
+                                        {/* {item.orderStatus} */}
                                         {item.orderStatus == 0 ? <h4 className='text-primary'>Waiting For Pay</h4> : ''}
                                         {item.orderStatus == 1 ? <h4 className='text-success'>Success</h4> : ''}
                                         {item.orderStatus == 2 ? <h4 className='text-danger'>Failed</h4> : ''}
