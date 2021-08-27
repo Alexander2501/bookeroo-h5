@@ -60,10 +60,10 @@ class MyOrder extends Component {
                 this.setState({
                     orderList: res.data.data.entity
                 })
-            }else{
+            } else {
                 alert(res.data.message);
             }
-            if(res.data.code=='1000001'){
+            if (res.data.code == '1000001') {
                 // alert(res.data.message);
                 this.props.history.push('/login');
             }
@@ -122,7 +122,7 @@ class MyOrder extends Component {
             console.log(res);
             if (res.data.code == '1000000') {
                 alert(res.data.message);
-            }else{
+            } else {
                 alert(res.data.message)
             }
         }).catch(err => {
@@ -130,14 +130,14 @@ class MyOrder extends Component {
         });
     }
 
-    refundOrder=(index)=>{
+    refundOrder = (index) => {
         let orderId = this.state.orderList[index].orderId;
         let url = 'https://web.tootz.cn/api/order/refund';
-        console.log('refund',index);
+        console.log('refund', index);
         axios.post(url, { orderId }).then(res => {
             if (res.data.code == '1000000') {
                 alert(res.data.message);
-            }else{
+            } else {
                 alert(res.data.message);
             }
         }).catch(err => {
@@ -171,6 +171,50 @@ class MyOrder extends Component {
             console.log(err);
         });
     }
+
+    exportOrderList = () => {
+        let url = 'https://web.tootz.cn/api/order/export';
+        let data = {
+            pageSize: 1000,
+            pageNum: 1
+        }
+        axios.post(url, data,{responseType: 'arraybuffer'}).then(res => {
+            console.log(res);
+            let fileName = new Date().toLocaleDateString()+'-OrderList';
+            if (res.status == '200') {
+                this.downloadFile(res.data,fileName)
+
+            } else {
+                alert(res.data.message);
+            }
+        }).catch(err => {
+            console.log(err);
+        });
+    }
+    /*
+*封装函数 downLoadFile.js
+*params:  
+*data:二进制文件
+*name:自定义文件名称
+*/
+    downloadFile = (data, name) => {
+        if (!data) {
+            this.$message.error('下载失败，解析数据为空！')
+            return
+        }
+        // 创建一个新的url，此url指向新建的Blob对象
+        let url = window.URL.createObjectURL(new Blob([data]))
+        // 创建a标签，并隐藏改a标签
+        let link = document.createElement('a')
+        link.style.display = 'none'
+        // a标签的href属性指定下载链接
+        link.href = url
+        //setAttribute() 方法添加指定的属性，并为其赋指定的值。
+        link.setAttribute('download', name + '.csv')
+        document.body.appendChild(link)
+        link.click()
+    }
+
 
     render() {
         const { orders, orderList } = this.state;
@@ -235,7 +279,7 @@ class MyOrder extends Component {
                                         </div>
                                     </div>
                                     <div className='col-md-3'>
-                                        {item.orderStatus}
+                                        {/* {item.orderStatus} */}
                                         {item.orderStatus == 0 ? <h4 className='text-primary'>Waiting For Pay</h4> : ''}
                                         {item.orderStatus == 1 ? <h4 className='text-success'>Success</h4> : ''}
                                         {item.orderStatus == 2 ? <h4 className='text-danger'>Failed</h4> : ''}
@@ -243,7 +287,7 @@ class MyOrder extends Component {
                                         {item.orderStatus == 4 ? <h4 className='text-info'>Refund</h4> : ''}
                                     </div>
                                     <div className='col-md-3 ordercontrol' style={delShow}>
-                                        {item.orderStatus=='4'?<button className='btn btn-info btn-sm' onClick={()=>{this.refundOrder(index)}}>Refund</button>:<button type="button" className="btn btn-danger  btn-sm" onClick={() => { this.cancelOrder(index) }}>Cancel</button>}
+                                        {item.orderStatus == '4' ? <button className='btn btn-info btn-sm' onClick={() => { this.refundOrder(index) }}>Refund</button> : <button type="button" className="btn btn-danger  btn-sm" onClick={() => { this.cancelOrder(index) }}>Cancel</button>}
                                         {/* <button type="button" disabled={item.refundButton == 0 ? true : false} className="btn btn-danger  btn-sm" onClick={() => { this.cancelOrder(index) }}>Cancel</button> */}
                                         <button type="button" className="btn btn-primary  btn-sm" data-toggle="modal" data-target="#myModal" onClick={() => { this.handleAddComment(index) }}>Comment</button>
                                     </div>
@@ -251,6 +295,10 @@ class MyOrder extends Component {
                             </div>
                         })
                     }
+
+                    <div style={{ position: 'fixed', bottom: '10px', right: '10px' }} onClick={this.exportOrderList}>
+                        <button className='btn btn-primary'>Export</button>
+                    </div>
 
                     <div className="modal fade" id="myModal" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                         <div className="modal-dialog">
