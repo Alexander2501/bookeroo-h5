@@ -111,10 +111,13 @@ class MyOrder extends Component {
     cancelOrder = (index) => {
         console.log(index);
         let orderId = this.state.orderList[index].orderId;
-        let url = "https://web.tootz.cn/api/order/refund"
+        let url = "https://web.tootz.cn/api/order/delete"
         axios.post(url, { orderId }).then(res => {
-            if (res.code == '1000000') {
-                alert(res.message);
+            console.log(res);
+            if (res.data.code == '1000000') {
+                alert(res.data.message);
+            }else{
+                alert(res.data.message)
             }
         }).catch(err => {
             alert(err.message);
@@ -122,7 +125,18 @@ class MyOrder extends Component {
     }
 
     refundOrder=(index)=>{
+        let orderId = this.state.orderList[index].orderId;
+        let url = 'https://web.tootz.cn/api/order/refund';
         console.log('refund',index);
+        axios.post(url, { orderId }).then(res => {
+            if (res.data.code == '1000000') {
+                alert(res.data.message);
+            }else{
+                alert(res.data.message);
+            }
+        }).catch(err => {
+            alert(err.message);
+        });
     }
 
     handleAddComment = (index) => {

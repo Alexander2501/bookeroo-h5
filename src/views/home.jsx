@@ -19,9 +19,31 @@ class Home extends Component {
         bookClasses: ["All", "", "", ""],
         type: localStorage.getItem("type")
     }
-componentDidMount(){
-    // this.props.history.push('/booklist');
-}
+    componentDidMount() {
+        // this.props.history.push('/booklist');
+        let userId = localStorage.getItem("userId");
+        let token = localStorage.getItem("token");
+        //设置请求头
+        axios.defaults.headers.common["token"] = token;
+        axios.defaults.headers.common["userId"] = userId;
+     let url = "https://web.tootz.cn/api/book/publicList";
+        let data = {
+            pageNum: 1,
+            pageSize: 1
+        }
+        axios.post(url, data).then(
+            res => {
+            //    console.log(res);
+               if(res.data.code=='1000001'){
+                localStorage.clear();
+                   this.props.history.push('/login');
+               }      
+            }
+        ).catch(err => {
+            localStorage.clear();
+            console.log(err);
+        });
+    }
 
     logout = () => {
         const url = "https://web.tootz.cn/api/open/user/logout";
@@ -34,7 +56,7 @@ componentDidMount(){
         localStorage.clear();
     }
 
-    
+
     render() {
         let linkShow = this.state.type == 3 ? 'block' : 'none';
         let topShow = localStorage.getItem('token') ? "block" : "none";
