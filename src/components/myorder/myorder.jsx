@@ -121,6 +121,10 @@ class MyOrder extends Component {
         });
     }
 
+    refundOrder=(index)=>{
+        console.log('refund',index);
+    }
+
     handleAddComment = (index) => {
         let orderId = this.state.orderList[index].orderId;
         this.setState({
@@ -211,13 +215,16 @@ class MyOrder extends Component {
                                         </div>
                                     </div>
                                     <div className='col-md-3'>
+                                        {item.orderStatus}
                                         {item.orderStatus == 0 ? <h4 className='text-primary'>Waiting For Pay</h4> : ''}
                                         {item.orderStatus == 1 ? <h4 className='text-success'>Success</h4> : ''}
                                         {item.orderStatus == 2 ? <h4 className='text-danger'>Failed</h4> : ''}
-                                        {item.orderStatus == 3 ? <h4 className='text-info'>Refund</h4> : ''}
+                                        {item.orderStatus == 3 ? <h4 className='text-info'>Cancel</h4> : ''}
+                                        {item.orderStatus == 4 ? <h4 className='text-info'>Refund</h4> : ''}
                                     </div>
                                     <div className='col-md-3 ordercontrol' style={delShow}>
-                                        <button type="button" disabled={item.refundButton == 0 ? true : false} className="btn btn-danger  btn-sm" onClick={() => { this.cancelOrder(index) }}>Cancel</button>
+                                        {item.orderStatus=='4'?<button className='btn btn-info btn-sm' onClick={()=>{this.refundOrder(index)}}>Refund</button>:<button type="button" className="btn btn-danger  btn-sm" onClick={() => { this.cancelOrder(index) }}>Cancel</button>}
+                                        {/* <button type="button" disabled={item.refundButton == 0 ? true : false} className="btn btn-danger  btn-sm" onClick={() => { this.cancelOrder(index) }}>Cancel</button> */}
                                         <button type="button" className="btn btn-primary  btn-sm" data-toggle="modal" data-target="#myModal" onClick={() => { this.handleAddComment(index) }}>Comment</button>
                                     </div>
                                 </div>
