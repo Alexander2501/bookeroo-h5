@@ -34,18 +34,16 @@ export default class Login extends Component {
         password: this.state.password,
       })
       .then((res) => {
-        // console.log(res);
+        console.log(res);
         let result = res.data.data;
         // console.log(res.data);
-        if ((res.code == "1000000")) {
-          if (res.data.code == '1000000') {
-            localStorage.setItem("userId", result.userId);
-            localStorage.setItem("token", result.token);
-            localStorage.setItem("type", result.type);
-            this.props.history.push("/home");
-          } else {
-            alert(res.data.message);
-          }
+        if (res.data.code == '1000000') {
+          localStorage.setItem("userId", result.userId);
+          localStorage.setItem("token", result.token);
+          localStorage.setItem("type", result.type);
+          this.props.history.push("/home");
+        } else {
+          alert(res.data.message);
         }
       })
       .catch((err) => {
