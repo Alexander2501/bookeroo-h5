@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class SwipperBoot extends Component {
     render() {
         return (
-            <div>
+            <div style={{height:'100px'}}>
                 <div id="carousel-example-generic" className="carousel slide" data-ride="carousel">
 
                     <ol className="carousel-indicators">
@@ -15,13 +15,13 @@ class SwipperBoot extends Component {
 
                     <div className="carousel-inner" role="listbox">
                         <div className="item active">
-                            <img src="..." alt="..." />
+                            <img src="./img/swiper1.webp.jpg" alt="..." />
                             <div className="carousel-caption">
                                 ...
                             </div>
                         </div>
                         <div className="item">
-                            <img src="..." alt="..." />
+                            <img src="./img/swiper2.jfif" alt="..." />
                             <div className="carousel-caption">
                                 ...
                             </div>

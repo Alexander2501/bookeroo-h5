@@ -9,7 +9,7 @@ import UserList from '../components/userlist';
 import BookList from '../components/booklist';
 import Detail from '../components/detail/detail';
 import MyOrder from '../components/myorder/myorder';
-import SwipperBoot from '../components/swipperboot';
+import SwipperBoot from '../components/bswipper/swipperboot';
 import PaySuccess from './paysuccess';
 import PayCancel from './paycancel';
 
@@ -94,11 +94,7 @@ class Home extends Component {
 
                 </div>
                 {/* Swipper area  */}
-                {/* <div className='row'>
-                    <div className='col-md-12'>
-                        <SwipperBoot></SwipperBoot>
-                    </div>
-                </div> */}
+                {/* <SwipperBoot></SwipperBoot> */}
                 {/* main content */}
                 <div className="row">
 
