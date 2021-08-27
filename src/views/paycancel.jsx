@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 class PayCancel extends Component {
     componentDidMount() {
+        console.log(this.props.location);
         let payId = this.props.location.search.split('=')[1];//?tokenId=xxx
         console.log('payId', payId);
         console.log('location Search:', this.props.location.search);
@@ -26,12 +27,13 @@ class PayCancel extends Component {
         });
     }
     render() {
-        let routeStr = `/orders?payId=${this.state.payId}`
+        // let routeStr = `/orders?payId=${this.state.payId}`
         return (
             <div>
                 <p className='bg-danger' style={{ textAlign: 'center' }}>Paycancel</p>
+                <Link to='/orders'>Leave For My Order Page ...</Link>
                 {/* <img src="./assets/paysuccess.jpg" alt="" /> */}
-                <Link to={routeStr}>Leave For My Order Page ...</Link>
+                {/* <Link to={routeStr}>Leave For My Order Page ...</Link> */}
             </div>
         );
     }
