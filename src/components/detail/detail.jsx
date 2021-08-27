@@ -37,10 +37,10 @@ class Detail extends Component {
     getCommentList = () => {
         let commentUrl = 'https://web.tootz.cn/api/book/commentList';
         let bookId = JSON.parse(localStorage.getItem('bookMes')).bookId;
-        console.log(bookId);
+        // console.log(bookId);
         let data = { pageSize: 1000, pageNum: 1, bookId: bookId }
         axios.post(commentUrl, data).then(res => {
-            console.log(res);
+            // console.log(res);
             if (res.data.code == "1000000") {
                 this.setState({
                     commentList: res.data.data.entity
@@ -70,8 +70,8 @@ class Detail extends Component {
         this.handleChange();
     }
     buyBook = (e) => {
-
-        if (this.state.stock == 0) {
+        // console.log(this.state.bookMes.stock);
+        if (this.state.bookMes.stock == 0) {
             alert('Oh!The book is currently out of stock');
             return;
         }
@@ -81,8 +81,8 @@ class Detail extends Component {
             let data = { num: bookNum, bookId: bookId };
             let url = "https://web.tootz.cn/api/order/create";
             axios.post(url, data).then(res => {
-                // console.log(res);
-                if (res.code == "1000000") {
+                console.log(res);
+                if (res.data.code == "1000000") {
                     window.location.href = res.data.data;
                 } else {
                     console.log(res.data.message);
