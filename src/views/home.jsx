@@ -12,6 +12,8 @@ import MyOrder from '../components/myorder/myorder';
 import SwipperBoot from '../components/bswipper/swipperboot';
 import PaySuccess from './paysuccess';
 import PayCancel from './paycancel';
+import AboutUs from '../components/aboutus/aboutus';
+import ContactUS from '../components/contactus/contactus';
 
 class Home extends Component {
 
@@ -89,6 +91,12 @@ class Home extends Component {
                             <li role="presentation" style={{ display: linkShow }}>
                                 <NavLink to='/book'>BookManage</NavLink>
                             </li>
+                            <li role="presentation">
+                                <NavLink to='/aboutus'>AboutUs</NavLink>
+                            </li>
+                            <li role="presentation">
+                                <NavLink to='/contactus'>ContactUS</NavLink>
+                            </li>
                         </ul>
                     </div>
 
@@ -108,6 +116,8 @@ class Home extends Component {
                             <Route path='/user' component={UserList} />
                             <Route path='/detail' component={Detail} />
                             <Route path='/orders' component={MyOrder}></Route>
+                            <Route path='/aboutus' component={AboutUs}></Route>
+                            <Route path='/contactus' component={ContactUS}></Route>
 
                             <Route path='/paysuccess' component={PaySuccess}></Route>
                             <Route path='/paycancel' component={PayCancel}></Route>

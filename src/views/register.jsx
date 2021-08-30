@@ -124,7 +124,6 @@ export default class Register extends Component {
                                             <input
                                                 type="password"
                                                 className="form-control"
-
                                                 onChange={this.judgeSame2}
                                                 placeholder="Password"
                                             />
@@ -133,7 +132,6 @@ export default class Register extends Component {
                                             <input
                                                 type="password"
                                                 className="form-control"
-
                                                 onChange={this.judgeSame}
                                                 placeholder="Retype Password"
                                             />
