@@ -121,7 +121,7 @@ class BookList extends Component {
             publishingTime: '',
             language: '',
             stock: '',
-            status: '',
+            status: 0,
             bookUrl: ""
         });
     }

@@ -21,8 +21,19 @@ export default class Register extends Component {
         })
     }
 
-    componentDidMount() {
-
+    selectUserType = (e)=>{
+        console.log(e.target.value);
+        let userType = e.target.value;
+        if(userType=='business'){
+            this.setState({
+                type:2
+            });
+        }
+        if(userType=='customer '){
+            this.setState({
+                type:1
+            });
+        }
     }
 
     handleRegister = () => {
@@ -37,13 +48,12 @@ export default class Register extends Component {
             alert('Fields can not be null');
             return
         }
-
         const url = "https://web.tootz.cn/api/open/user/register";
         axios
             .post(url, {
                 mail: mail,
                 password: this.state.password,
-                type: 1,
+                type: this.state.type,
                 name: name,
                 nickName: nickName,
                 phoneNumber: phoneNumber,
@@ -75,6 +85,7 @@ export default class Register extends Component {
                             <div className="col-sm-12">
                                 <div className="signin-form">
                                     <form action="signin.html">
+
                                         <div className="form-group">
                                             <input
                                                 type="text"
@@ -83,6 +94,7 @@ export default class Register extends Component {
                                                 ref={inputValue => this.name = inputValue}
                                             />
                                         </div>
+
                                         <div className="form-group">
                                             <input
                                                 type="text"
@@ -97,6 +109,15 @@ export default class Register extends Component {
                                                 ref={value => this.mail = value}
                                                 placeholder="enter your email here" />
                                         </div>
+
+                                        <div className="form-group">
+                                            <select className="form-control" onChange={(e)=>{this.selectUserType(e)}} style={{padding:'0 18px',color:'#a69999'}}>
+                                            <option disabled selected style={{display:'none'}}>Please Choose User Type</option>  
+                                                <option value="customer ">Customer</option>
+                                                <option value="business">Business</option>
+                                            </select>
+                                        </div>
+
                                         <div className="form-group">
                                             <input type="email" className="form-control"
                                                 ref={value => this.phoneNumber = value}
@@ -108,15 +129,16 @@ export default class Register extends Component {
                                                 type="text"
                                                 className="form-control"
                                                 ref={value => this.clientId = value}
-                                                placeholder="ClientId"
+                                                placeholder="enter your PayPal clientId"
                                             />
                                         </div>
+
                                         <div className="form-group">
                                             <input
                                                 type="text"
                                                 className="form-control"
                                                 ref={value => this.secret = value}
-                                                placeholder="Secret"
+                                                placeholder="enter your PayPal secret"
                                             />
                                         </div>
 
@@ -128,6 +150,7 @@ export default class Register extends Component {
                                                 placeholder="Password"
                                             />
                                         </div>
+
                                         <div className="form-group">
                                             <input
                                                 type="password"
@@ -135,9 +158,7 @@ export default class Register extends Component {
                                                 onChange={this.judgeSame}
                                                 placeholder="Retype Password"
                                             />
-                                            <span></span>
                                         </div>
-
                                     </form>
                                 </div>
                             </div>

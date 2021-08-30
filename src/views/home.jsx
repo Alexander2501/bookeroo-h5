@@ -71,7 +71,7 @@ class Home extends Component {
         return (
             <div className="container-fluid">
                 <div className='hidden-xs' style={{ textAlign: 'right', fontWeight: '10px', paddingRight: '30px' }}>
-                    <span style={{ display: topShow, fontWeight: 'bold' }}>Welcom!</span>
+                    <span style={{ display: topShow, fontWeight: 'bold' }}>Welcome!</span>
                     <h4 style={{ display: topHide, fontWeight: 'bold' }}><Link to='/login'>Please Login</Link></h4>
                 </div>
 
@@ -88,7 +88,7 @@ class Home extends Component {
                             <li role="presentation" style={{ display: linkShow }}>
                                 <NavLink to='/user'>UserManage</NavLink>
                             </li>
-                            <li role="presentation" style={{ display: linkShow }}>
+                            <li role="presentation">
                                 <NavLink to='/book'>BookManage</NavLink>
                             </li>
                             <li role="presentation">

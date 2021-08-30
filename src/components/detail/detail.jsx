@@ -11,6 +11,7 @@ class Detail extends Component {
         picUrl: '',
         bookDesc: '',
         price: 0,
+        stock:0,
         publishingHouse: '',
         publishingTime: '',
         author: '',
@@ -102,7 +103,7 @@ class Detail extends Component {
 
 
     render() {
-        // console.log(this.state.bookMes);
+        console.log(this.state.bookMes);
         let isShow = this.state.commentList.length == 0 ? 'block' : 'none';
         let { bookName, picUrl, bookDesc, price, publishingHouse, publishingTime, author, stock } = this.state.bookMes;
         return (
@@ -128,7 +129,8 @@ class Detail extends Component {
                             <div className='infoitem'><span>Publishing&nbsp;Time:</span><span>{publishingTime}</span></div>
                         </div>
                         <div className='bookprice'>
-                            <span>Price:</span><span>${price}</span>
+                           <div> <span>Price:</span><span>${price}</span></div>
+                            <div><span>Stock:</span><span>{stock}</span></div>
                         </div>
                         {/* <div className="destination">
                         <form className="form-inline">

@@ -22,11 +22,12 @@
     padding: 20px 0px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
 }
 .bookprice>span:nth-child(1){
     color: gray;
 }
-.bookprice>span:nth-child(2){
+.bookprice>div>span:nth-child(2){
     font-weight: bold;
     color:red;
     font-size: 26px;
