@@ -23,7 +23,8 @@ class BookList extends Component {
         language: '',
         stock: '',
         status: 0,
-        bookUrl: "https://web.tootz.cn/api/book/publicList"
+        bookUrl: "https://web.tootz.cn/api/book/publicList",
+        newOld: false
     };
 
     componentDidMount() {
@@ -55,17 +56,17 @@ class BookList extends Component {
         axios.post(this.state.bookUrl, data).then(
             res => {
                 console.log(res);
-               if(res.data.code=='1000000'){
-                this.setState({
-                    books: res.data.data.entity
-                });
-               }else{
-                   alert(res.data.message);
-               }
-               if(res.data.code=='1000001'){
-                //    alert(res.data.message);
-                   this.props.history.push('/login');
-               }
+                if (res.data.code == '1000000') {
+                    this.setState({
+                        books: res.data.data.entity
+                    });
+                } else {
+                    alert(res.data.message);
+                }
+                if (res.data.code == '1000001') {
+                    //    alert(res.data.message);
+                    this.props.history.push('/login');
+                }
             }
         ).catch(err => {
             localStorage.clear();
@@ -137,6 +138,20 @@ class BookList extends Component {
         if (statusVal == 'online') {
             this.setState({
                 status: 1
+            });
+        }
+    }
+
+    selectNewOld = (e) => {
+        let newOldStr = e.target.value;
+        if (newOldStr == "new") {
+            this.setState({
+                newOld: false
+            });
+        }
+        if (newOldStr == "old") {
+            this.setState({
+                newOld: true
             });
         }
     }
@@ -335,6 +350,7 @@ class BookList extends Component {
 
     render() {
         let textShow = this.state.uploadflag ? 'block' : 'none';
+        let newOldShow = this.state.newOld?'block':'none';
         let userType = localStorage.getItem("type");
         // console.log('userType', userType);
         if (userType == 1 || userType == null) {
@@ -472,7 +488,7 @@ class BookList extends Component {
                                         <div className="form-group">
                                             <label className=" col-sm-3 control-label">Price</label>
                                             <div className="col-sm-6">
-                                                <input type="text" className="form-control"
+                                                <input type="number" className="form-control"
                                                     ref={value => this.price = value} placeholder="Price" />
                                             </div>
                                         </div>
@@ -522,6 +538,25 @@ class BookList extends Component {
                                                 </select>
                                             </div>
                                         </div>
+
+                                        <div className="form-group">
+                                            <label className=" col-sm-3 control-label">NewOrOld</label>
+                                            <div className="col-sm-6">
+                                                <select onChange={(e) => { this.selectNewOld(e) }}>
+                                                    <option value="new">NewBook</option>
+                                                    <option value="old">OldBook</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div className="form-group" style={{display:newOldShow}}>
+                                            <label className=" col-sm-3 control-label">Percent</label>
+                                            <div className="col-sm-6">
+                                                <input type="number" className="form-control" placeholder='1-99'
+                                                    ref={value => this.percent = value} />
+                                            </div>
+                                        </div>
+
 
                                     </form>
                                 </div>

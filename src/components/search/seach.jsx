@@ -6,7 +6,7 @@ import axios from "axios";
 
 
 
-class MineList extends Component {
+class SeachResult extends Component {
   state = {
     picUrl: '',
     pageNum: 1,
@@ -230,122 +230,7 @@ class MineList extends Component {
         </div>
 
 
-        {/* Add Book Modal*/}
-        <div className="modal fade" id="bookAddModal" role="dialog" aria-labelledby="myModalLabel"
-          style={{ display: this.state.isShow }}>
-          <div className="modal-dialog" role="document">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h4 className="modal-title" id="myModalLabel">Add Book</h4>
-              </div>
-              <div className="modal-body">
-
-                <form className="form-horizontal">
-                  <div className="form-group">
-                    <label className=" col-sm-3 control-label">BookName</label>
-                    <div className="col-sm-6">
-                      <input type="text" className="form-control"
-                        ref={value => this.bookName = value} placeholder="BookName" />
-                    </div>
-                  </div>
-                  <div className="form-group">
-                    <label className=" col-sm-3 control-label">BookDesc</label>
-                    <div className="col-sm-6">
-                      <input type="text" className="form-control"
-                        ref={value => this.bookDesc = value} placeholder="BookDesc" />
-                    </div>
-                  </div>
-                  <div className="form-group">
-                    <label className=" col-sm-3 control-label">PicUrl</label>
-                    <div className="col-sm-6">
-                      <label>File input</label>
-                      <input type="file" id="file" accept="image/*" onChange={this.changPic} />
-                      <img src={this.state.picUrl} id="show" width="200" />
-                    </div>
-                  </div>
-                  <div className="form-group">
-                    <label className=" col-sm-3 control-label">Author</label>
-                    <div className="col-sm-6">
-                      <input type="text" className="form-control"
-                        ref={value => this.author = value} placeholder="Author" />
-                    </div>
-                  </div>
-                  <div className="form-group">
-                    <label className=" col-sm-3 control-label">Price</label>
-                    <div className="col-sm-6">
-                      <input type="text" className="form-control"
-                        ref={value => this.price = value} placeholder="Price" />
-                    </div>
-                  </div>
-                  <div className="form-group">
-                    <label className=" col-sm-3 control-label">ISBN</label>
-                    <div className="col-sm-6">
-                      <input type="text" className="form-control"
-                        ref={value => this.isbn = value} placeholder="ISBN" />
-                    </div>
-                  </div>
-                  <div className="form-group">
-                    <label className=" col-sm-3 control-label">PublishingHouse</label>
-                    <div className="col-sm-6">
-                      <input type="text" className="form-control"
-                        ref={value => this.publishingHouse = value}
-                        placeholder="PublishingHouse" />
-                    </div>
-                  </div>
-                  <div className="form-group">
-                    <label className=" col-sm-3 control-label">PublishingTime</label>
-                    <div className="col-sm-6">
-                      <input type="date" className="form-control"
-                        ref={value => this.publishingTime = value}
-                        placeholder="PublishingTime" />
-                    </div>
-                  </div>
-                  <div className="form-group">
-                    <label className=" col-sm-3 control-label">Language</label>
-                    <div className="col-sm-6">
-                      <input type="text" className="form-control"
-                        ref={value => this.language = value} placeholder="Language" />
-                    </div>
-                  </div>
-                  <div className="form-group">
-                    <label className=" col-sm-3 control-label">Stock</label>
-                    <div className="col-sm-6">
-                      <input type="number" className="form-control"
-                        ref={value => this.stock = value} placeholder="Stock" />
-                    </div>
-                  </div>
-                 
-                  <div className="form-group">
-                    <label className=" col-sm-3 control-label">NewOrOld</label>
-                    <div className="col-sm-6">
-                      <select onChange={this.selectNewOld}>
-                        <option value="new">NewBook</option>
-                        <option value="old">OldBook</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div className="form-group">
-                    <label className=" col-sm-3 control-label">Percent</label>
-                    <div className="col-sm-6">
-                      <input type="number" className="form-control" placeholder='1-99'
-                        ref={value => this.percent = value} />
-                    </div>
-                  </div>
-                </form>
-              </div>
-              <div className="modal-footer">
-                <button type="button" className="btn btn-default" data-dismiss="modal">Close
-                </button>
-                <button type="button" className="btn btn-primary" data-dismiss="modal"
-                  onClick={this.addBook}>Add
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-
+       
       </div>
     )
 
@@ -355,4 +240,4 @@ class MineList extends Component {
 }
 
 
-export default MineList;
+export default SeachResult;
