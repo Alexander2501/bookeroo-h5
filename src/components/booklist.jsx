@@ -23,9 +23,11 @@ class BookList extends Component {
         language: '',
         stock: '',
         status: 0,
-        bookUrl: "https://web.tootz.cn/api/book/publicList",
+        bookUrl: "https://web.tootz.cn/api/book/globalList",
         newOld: false,
         searchTypeArr: ['Author', 'ISBN', 'Name'],
+        searchType:'name',
+        searchValue:'',
         searchData: {
             pageNum: 1,
             pageSize: 1000,
@@ -45,15 +47,11 @@ class BookList extends Component {
         let userType = localStorage.getItem("type");
         if (userType == 3) {//Admin
             this.state.bookUrl = "https://web.tootz.cn/api/book/globalList";
-        } else {
-            this.state.bookUrl = "https://web.tootz.cn/api/book/publicList";//未登录
-        }
+        } 
 
         if (userType == 1 || userType == 2) {//Custom or Seller
             this.state.bookUrl = "https://web.tootz.cn/api/book/personalList";
-        } else {
-            this.state.bookUrl = "https://web.tootz.cn/api/book/publicList";//未登录
-        }
+        } 
         this.getBookList();
     }
 
@@ -66,7 +64,7 @@ class BookList extends Component {
         }
         axios.post(this.state.bookUrl, data).then(
             res => {
-                // console.log(res);
+                console.log(res);
                 if (res.data.code == '1000000') {
                     this.setState({
                         books: res.data.data.entity
@@ -172,7 +170,7 @@ class BookList extends Component {
         // books.unshift(book);
         // this.setState({ books });
         // console.log(this.state.status);
-        debugger
+        // debugger
         let addNBookUrl = "https://web.tootz.cn/api/book/addNew";
         let bookName = this.bookName.value.toString();
         let bookDesc = this.bookDesc.value.toString();
@@ -200,12 +198,12 @@ class BookList extends Component {
             status
 
         }
-        debugger
+        // debugger?
 
         axios.post(addNBookUrl, data).then(res => {
-            // console.log(res);
+            console.log(res);
             // console.log(data);
-            if (res.data.code = "1000000") {
+            if (res.data.code == "1000000") {
                 alert("图书添加成功");
                 this.getBookList();
             } else {
@@ -359,44 +357,50 @@ class BookList extends Component {
         }
     }
 
-    selectType = (index) => {
-        console.log(index);
-        let searchType = this.state.searchTypeArr[index];
-        let searchValue = this.searchValue.value;
-       
-        if (searchType == 'name') {
+    selectType = (e) => {      
+       this.setState({
+           searchType:e.target.value
+       });      
+    }
+    inputSearchVal=(e)=>{
+    //    console.log(e.target.value);
+        this.setState({
+            searchValue:e.target.value
+        });
+    }
+    search = () => {
+        if (this.state.searchType == 'name') {
             let data = {
                 pageNum: 1,
                 pageSize: 1000,
-                bookName: searchValue               
+                bookName: this.state.searchValue
             }
             this.setState({
-                searchData:data
+                searchData: data
             });
         }
-        if (searchType == 'author') {
+        if (this.state.searchType == 'author') {
             let data = {
                 pageNum: 1,
-                pageSize: 1000,              
-                author: searchValue               
+                pageSize: 1000,
+                author: this.state.searchValue
             }
             this.setState({
-                searchData:data
+                searchData: data
             });
         }
-        if (searchType == 'isbn') {
-           
+        if (this.state.searchType == 'isbn') {
+
             let data = {
                 pageNum: 1,
-                pageSize: 1000,              
-                isbn: searchValue
+                pageSize: 1000,
+                isbn: this.state.searchValue
             }
             this.setState({
-                searchData:data
+                searchData: data
             });
-        }       
-    }
-    search=()=>{
+        }
+
         axios.post(this.state.bookUrl, this.state.searchData).then(
             res => {
                 console.log(res);
@@ -423,22 +427,23 @@ class BookList extends Component {
         let newOldShow = this.state.newOld ? 'block' : 'none';
         let userType = localStorage.getItem("type");
         // console.log('userType', userType);
-        if (userType == 1 || userType == null) {
-            return (
-                <div className="container-fluid">
-                    <div className="row">
-                        {
-                            this.state.books.map((item, index) => (
-                                <BookItem bookInfo={item} key={index} index={index}
-                                    handleToDetail={this.handleToDetail} />
-                            )
-                            )
-                        }
-                    </div>
-                </div>
+        // if (userType == 1 || userType == null) {
+        //     return (
+        //         <div className="container-fluid">
+        //             <div className="row">
+        //                 {
+        //                     this.state.books.map((item, index) => (
+        //                         <BookItem bookInfo={item} key={index} index={index}
+        //                             handleToDetail={this.handleToDetail} />
+        //                     )
+        //                     )
+        //                 }
+        //             </div>
+        //         </div>
 
-            )
-        } else {
+        //     )
+        // } 
+        // else {
             return (
                 <div className="container-fluid">
                     <div style={{ backgroundColor: '#f5f5f5', padding: '10px 0' }}>
@@ -447,23 +452,18 @@ class BookList extends Component {
                                 {/* <h2 style={{ display: 'inline-block', margin: '0' }}>Book At Bookeroo</h2> */}
                             </div>
                             <div className='col-md-6'>
-                                <div className="input-group">
-                                    <div className="input-group-btn">
-                                        <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action <span className="caret"></span></button>
-                                        <ul className="dropdown-menu">
-                                            {
-                                                this.state.searchTypeArr.map((item, index) => (
-                                                    <li key={index} onClick={() => { this.selectType(index) }} style={{ cursor: 'pointer' }}>{item}</li>
-                                                ))
-                                            }
-                                        </ul>
-                                    </div>
+                                <form className="form-inline">
+                                    <select className="form-control" style={{ width: '100px' }} onChange={(e)=>{this.selectType(e)}}>
+                                        <option value="Name">Name</option>
+                                        <option value="Author">Author</option>
+                                        <option value="ISBN">ISBN</option>
+                                    </select>
 
-                                    <input type="text" className="form-control" ref={value => { this.searchValue = value }} placeholder="Search for..." />
-                                    <span className="input-group-btn">
-                                        <button className="btn btn-default" type="button" onClick={this.search}>Search!</button>
-                                    </span>
-                                </div>
+                                    <input type="text" className="form-control" onChange={this.inputSearchVal} placeholder="Search for..." />
+
+                                    <button className="btn btn-default" type="button" onClick={this.search}>Search!</button>
+
+                                </form>
                             </div>
                             <div className='col-md-3'>
                                 <button type="button" className="btn btn-primary" data-toggle="modal"
@@ -474,11 +474,6 @@ class BookList extends Component {
                                 </button>
                             </div>
                         </div>
-
-
-
-
-
                     </div>
 
                     <div className="table-responsive">
@@ -656,8 +651,6 @@ class BookList extends Component {
                                                     ref={value => this.percent = value} />
                                             </div>
                                         </div>
-
-
                                     </form>
                                 </div>
                                 <div className="modal-footer">
@@ -788,7 +781,7 @@ class BookList extends Component {
 
                 </div>
             );
-        }
+        // }
 
     }
 }
