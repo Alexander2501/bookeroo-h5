@@ -65,7 +65,7 @@ class Header extends Component {
 
               {/* <button type="button" className="btn btn-default"><Link to='/orders'>My Order</Link></button> */}
 
-              <div className="btn-group" role="group" style={{ marginRight: '10px' }}>
+              <div className="btn-group" role="group" style={{ marginRight: '60px' }}>
                 <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Drop
                   <span className="caret"></span>
