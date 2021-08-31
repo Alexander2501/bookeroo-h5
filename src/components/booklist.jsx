@@ -24,7 +24,15 @@ class BookList extends Component {
         stock: '',
         status: 0,
         bookUrl: "https://web.tootz.cn/api/book/publicList",
-        newOld: false
+        newOld: false,
+        searchTypeArr: ['Author', 'ISBN', 'Name'],
+        searchData: {
+            pageNum: 1,
+            pageSize: 1000,
+            bookName: '',
+            author: '',
+            isbn: ''
+        }
     };
 
     componentDidMount() {
@@ -37,11 +45,14 @@ class BookList extends Component {
         let userType = localStorage.getItem("type");
         if (userType == 3) {//Admin
             this.state.bookUrl = "https://web.tootz.cn/api/book/globalList";
-        } else if (userType == 2) {
-            this.state.bookUrl = "https://web.tootz.cn/api/book/personalList";
-
         } else {
-            this.state.bookUrl = "https://web.tootz.cn/api/book/publicList";
+            this.state.bookUrl = "https://web.tootz.cn/api/book/publicList";//未登录
+        }
+
+        if (userType == 1 || userType == 2) {//Custom or Seller
+            this.state.bookUrl = "https://web.tootz.cn/api/book/personalList";
+        } else {
+            this.state.bookUrl = "https://web.tootz.cn/api/book/publicList";//未登录
         }
         this.getBookList();
     }
@@ -55,7 +66,7 @@ class BookList extends Component {
         }
         axios.post(this.state.bookUrl, data).then(
             res => {
-                console.log(res);
+                // console.log(res);
                 if (res.data.code == '1000000') {
                     this.setState({
                         books: res.data.data.entity
@@ -348,9 +359,68 @@ class BookList extends Component {
         }
     }
 
+    selectType = (index) => {
+        console.log(index);
+        let searchType = this.state.searchTypeArr[index];
+        let searchValue = this.searchValue.value;
+       
+        if (searchType == 'name') {
+            let data = {
+                pageNum: 1,
+                pageSize: 1000,
+                bookName: searchValue               
+            }
+            this.setState({
+                searchData:data
+            });
+        }
+        if (searchType == 'author') {
+            let data = {
+                pageNum: 1,
+                pageSize: 1000,              
+                author: searchValue               
+            }
+            this.setState({
+                searchData:data
+            });
+        }
+        if (searchType == 'isbn') {
+           
+            let data = {
+                pageNum: 1,
+                pageSize: 1000,              
+                isbn: searchValue
+            }
+            this.setState({
+                searchData:data
+            });
+        }       
+    }
+    search=()=>{
+        axios.post(this.state.bookUrl, this.state.searchData).then(
+            res => {
+                console.log(res);
+                if (res.data.code == '1000000') {
+                    this.setState({
+                        books: res.data.data.entity
+                    });
+                } else {
+                    alert(res.data.message);
+                }
+                if (res.data.code == '1000001') {
+                    //    alert(res.data.message);
+                    this.props.history.push('/login');
+                }
+            }
+        ).catch(err => {
+            localStorage.clear();
+            console.log(err);
+        });
+    }
+
     render() {
         let textShow = this.state.uploadflag ? 'block' : 'none';
-        let newOldShow = this.state.newOld?'block':'none';
+        let newOldShow = this.state.newOld ? 'block' : 'none';
         let userType = localStorage.getItem("type");
         // console.log('userType', userType);
         if (userType == 1 || userType == null) {
@@ -372,13 +442,43 @@ class BookList extends Component {
             return (
                 <div className="container-fluid">
                     <div style={{ backgroundColor: '#f5f5f5', padding: '10px 0' }}>
-                        <h2 style={{ display: 'inline-block', margin: '0' }}>Book At Bookeroo</h2>
-                        <button type="button" className="btn btn-primary" data-toggle="modal"
-                            data-target="#bookAddModal"
-                            style={{ float: "right" }}
-                            onClick={this.handleAddOpen}>
-                            Add
-                        </button>
+                        <div className='row'>
+                            <div className='col-md-3'>
+                                {/* <h2 style={{ display: 'inline-block', margin: '0' }}>Book At Bookeroo</h2> */}
+                            </div>
+                            <div className='col-md-6'>
+                                <div className="input-group">
+                                    <div className="input-group-btn">
+                                        <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action <span className="caret"></span></button>
+                                        <ul className="dropdown-menu">
+                                            {
+                                                this.state.searchTypeArr.map((item, index) => (
+                                                    <li key={index} onClick={() => { this.selectType(index) }} style={{ cursor: 'pointer' }}>{item}</li>
+                                                ))
+                                            }
+                                        </ul>
+                                    </div>
+
+                                    <input type="text" className="form-control" ref={value => { this.searchValue = value }} placeholder="Search for..." />
+                                    <span className="input-group-btn">
+                                        <button className="btn btn-default" type="button" onClick={this.search}>Search!</button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div className='col-md-3'>
+                                <button type="button" className="btn btn-primary" data-toggle="modal"
+                                    data-target="#bookAddModal"
+                                    style={{ float: "right" }}
+                                    onClick={this.handleAddOpen}>
+                                    Add
+                                </button>
+                            </div>
+                        </div>
+
+
+
+
+
                     </div>
 
                     <div className="table-responsive">
@@ -549,7 +649,7 @@ class BookList extends Component {
                                             </div>
                                         </div>
 
-                                        <div className="form-group" style={{display:newOldShow}}>
+                                        <div className="form-group" style={{ display: newOldShow }}>
                                             <label className=" col-sm-3 control-label">Percent</label>
                                             <div className="col-sm-6">
                                                 <input type="number" className="form-control" placeholder='1-99'

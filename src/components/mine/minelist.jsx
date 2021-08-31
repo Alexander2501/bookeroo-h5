@@ -315,16 +315,7 @@ class MineList extends Component {
                     </div>
                   </div>
                  
-                  <div className="form-group">
-                    <label className=" col-sm-3 control-label">NewOrOld</label>
-                    <div className="col-sm-6">
-                      <select onChange={this.selectNewOld}>
-                        <option value="new">NewBook</option>
-                        <option value="old">OldBook</option>
-                      </select>
-                    </div>
-                  </div>
-
+                 
                   <div className="form-group">
                     <label className=" col-sm-3 control-label">Percent</label>
                     <div className="col-sm-6">
