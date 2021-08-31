@@ -48,10 +48,10 @@ class BookList extends Component {
         if (userType == 3) {//Admin
             this.state.bookUrl = "https://web.tootz.cn/api/book/globalList";
         } 
-
         if (userType == 1 || userType == 2) {//Custom or Seller
             this.state.bookUrl = "https://web.tootz.cn/api/book/personalList";
         } 
+        
         this.getBookList();
     }
 
@@ -152,7 +152,9 @@ class BookList extends Component {
     }
 
     selectNewOld = (e) => {
+        console.log(e);
         let newOldStr = e.target.value;
+        // console.log(newOldStr);
         if (newOldStr == "new") {
             this.setState({
                 newOld: false
@@ -207,7 +209,7 @@ class BookList extends Component {
                 alert("图书添加成功");
                 this.getBookList();
             } else {
-                alert(res.message);
+                alert(res.data.message);
             }
         }).catch(err => {
             // console.log(err);
@@ -424,7 +426,7 @@ class BookList extends Component {
 
     render() {
         let textShow = this.state.uploadflag ? 'block' : 'none';
-        let newOldShow = this.state.newOld ? 'block' : 'none';
+        let newOldShow = this.state.newOld||localStorage.getItem('type')==1 ? 'block' : 'none';//
         let userType = localStorage.getItem("type");
         // console.log('userType', userType);
         // if (userType == 1 || userType == null) {
@@ -638,7 +640,7 @@ class BookList extends Component {
                                             <label className=" col-sm-3 control-label">NewOrOld</label>
                                             <div className="col-sm-6">
                                                 <select onChange={(e) => { this.selectNewOld(e) }}>
-                                                    <option value="new">NewBook</option>
+                                                    <option value="new" disabled={userType==1?true:false}>NewBook</option>
                                                     <option value="old">OldBook</option>
                                                 </select>
                                             </div>
