@@ -14,6 +14,7 @@ import PaySuccess from './paysuccess';
 import PayCancel from './paycancel';
 import AboutUs from '../components/aboutus/aboutus';
 import ContactUS from '../components/contactus/contactus';
+import SeachResult from '../components/search/seach';
 import Personal from '../components/personal/personal'
 class Home extends Component {
 
@@ -82,7 +83,7 @@ class Home extends Component {
                     <div className='col-xs-12 col-md-8 col-md-offset-2'>
                         <ul className="nav nav-tabs funitem" style={{ display: 'flex', flexWrap: 'nowrap', overflow: 'scroll' }}>
                             <li role="presentation" className=""><NavLink to='/booklist'>All</NavLink></li>
-                            <li role="presentation" className=""><NavLink to='/mine'>Mine</NavLink></li>
+                            {/* <li role="presentation" className=""><NavLink to='/mine'>Mine</NavLink></li> */}
                             {/* <li role="presentation"><a href="#">Comments</a></li> */}
                             <li role="presentation"><Link to='/orders'>Orders</Link></li>
                             <li role="presentation" style={{ display: linkShow }}>
@@ -111,13 +112,15 @@ class Home extends Component {
                         {/*可切换的路由组件*/}
                         <Switch>
                             <Route path='/booklist' component={IndexList} />
-                            <Route path='/mine' component={MineList} />
+                            {/* <Route path='/mine' component={MineList} /> */}
                             <Route path='/book' component={BookList} />
                             <Route path='/user' component={UserList} />
                             <Route path='/detail' component={Detail} />
                             <Route path='/orders' component={MyOrder}></Route>
                             <Route path='/aboutus' component={AboutUs}></Route>
                             <Route path='/contactus' component={ContactUS}></Route>
+
+                            <Route path='/search' component={SeachResult}></Route>
 
                             <Route path='/paysuccess' component={PaySuccess}></Route>
                             <Route path='/paycancel' component={PayCancel}></Route>

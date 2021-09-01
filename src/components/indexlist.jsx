@@ -46,10 +46,14 @@ class IndexList extends Component {
     let userType = localStorage.getItem("type");
     // if (userType == 3) {//Admin
     //   this.state.bookUrl = "https://web.tootz.cn/api/book/globalList";
-    // } else if (userType == 2) {
+    // } else {
+    //   this.state.bookUrl = "https://web.tootz.cn/api/book/publicList";//未登录
+    // }
+
+    // if (userType == 1 || userType == 2) {//Custom or Seller
     //   this.state.bookUrl = "https://web.tootz.cn/api/book/personalList";
     // } else {
-    //   this.state.bookUrl = "https://web.tootz.cn/api/book/publicList";
+    //   this.state.bookUrl = "https://web.tootz.cn/api/book/publicList";//未登录
     // }
     this.getBookList();
   }
@@ -67,14 +71,14 @@ class IndexList extends Component {
           this.setState({
             books: res.data.data.entity
           });
-        } else{
+        } else {
           alert(res.data.message);
         }
-        if(res.data.code=='1000001') {
+        if (res.data.code == '1000001') {
           // alert(res.data.message);
           this.props.history.push('/login');
         }
-        
+
 
       }
     ).catch(err => {

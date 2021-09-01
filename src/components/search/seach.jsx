@@ -24,7 +24,7 @@ class SeachResult extends Component {
     language: '',
     stock: '',
     status: '',
-    bookUrl: "https://web.tootz.cn/api/book/personalList"
+    bookUrl: "https://web.tootz.cn/api/book/publicList"
   };
   static propTypes = {
     match: PropTypes.object.isRequired,

@@ -13,17 +13,17 @@ axios.defaults.headers.common["userId"] = userId;
 class Header extends Component {
 
   state = {
-    searchType:['Name','Author','ISBN','UserId']
+    searchType: ['Name', 'Author', 'ISBN', 'UserId']
   }
 
-search=()=>{
-//Issue message
-let searchObj = {
-  searchType:this.state.searchType,
-  searchStr:this.searchStr.value
-}
-PubSub.publish('search',searchObj);
-}
+  search = () => {
+    //Issue message
+    let searchObj = {
+      searchType: this.state.searchType,
+      searchStr: this.searchStr.value
+    }
+    PubSub.publish('search', searchObj);
+  }
 
   logout = () => {
     this.props.handleLogout();
@@ -41,22 +41,22 @@ PubSub.publish('search',searchObj);
 
 
           <div className='col-xs-0 col-md-6 hidden-md' >
-            <div className="input-group">
+            {/* <div className="input-group">
               <div className="input-group-btn">
                 <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">All Department <span className="caret"></span></button>
-               <select onChange={(e)=>{this.selectSeaType(e)}}>
-                 {
-                   this.state.searchType.map((item,index)=>(
-                    <option value={item} key={index}>{item}</option>
-                  ))
-                 }
-               </select>
+                <select onChange={(e) => { this.selectSeaType(e) }}>
+                  {
+                    this.state.searchType.map((item, index) => (
+                      <option value={item} key={index}>{item}</option>
+                    ))
+                  }
+                </select>
               </div>
-              <input type="text" className="form-control" aria-label="..." ref={value=>{this.searchStr=value}}/>
+              <input type="text" className="form-control" aria-label="..." ref={value => { this.searchStr = value }} />
               <span className="input-group-btn">
                 <button className="btn btn-default" type="button" onClick={this.search}>Search</button>
               </span>
-            </div>
+            </div> */}
           </div>
 
 
