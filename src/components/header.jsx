@@ -71,7 +71,11 @@ PubSub.publish('search',searchObj);
                   <span className="caret"></span>
                 </button>
                 <ul className="dropdown-menu">
-                  <li><a href="#">Person Setting</a></li>
+                  <li>
+                    <Link to="/Personal">
+                      Person Setting
+                    </Link>
+                    </li>
                   <li onClick={this.logout}><a href="#">LogOut</a></li>
                 </ul>
               </div>

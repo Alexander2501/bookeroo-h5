@@ -14,7 +14,7 @@ import PaySuccess from './paysuccess';
 import PayCancel from './paycancel';
 import AboutUs from '../components/aboutus/aboutus';
 import ContactUS from '../components/contactus/contactus';
-
+import Personal from '../components/personal/personal'
 class Home extends Component {
 
     state = {
@@ -121,6 +121,8 @@ class Home extends Component {
 
                             <Route path='/paysuccess' component={PaySuccess}></Route>
                             <Route path='/paycancel' component={PayCancel}></Route>
+                            <Route path='/personal' component={Personal}></Route>
+
 
                             <Route path='/'>
                                 <Redirect to='/booklist'></Redirect>
