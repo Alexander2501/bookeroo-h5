@@ -38,15 +38,28 @@ export default class Register extends Component {
 
     handleRegister = () => {
         let mail = this.mail.value.toString();
+       
         // let password = this.password.value.toString();
         let name = this.name.value.toString();
+
         let nickName = this.nickName.value.toString();
         let phoneNumber = this.phoneNumber.value.toString();
+        
         let clientId = this.clientId.value.toString();
         let secret = this.secret.value.toString();
         if (mail == '' || name == '' || nickName == '' || phoneNumber == '') {
             alert('Fields can not be null');
             return
+        }
+        //validate mail
+        if(!(/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(mail))) {
+            alert("Please input correct email format");
+            return;
+        }
+         //validate phonenumber
+        if(!(/^((\+)?86|((\+)?86)?)0?1[3458]\d{9}$/.test(phoneNumber))) {
+            alert("Please input correct phone format");
+            return;
         }
         const url = "https://web.tootz.cn/api/open/user/register";
         axios
@@ -91,7 +104,8 @@ export default class Register extends Component {
                                                 type="text"
                                                 className="form-control"
                                                 placeholder="enter your name here"
-                                                ref={inputValue => this.name = inputValue}
+                                                ref={inputValue => this.name = inputValue
+                                                }
                                             />
                                         </div>
 
