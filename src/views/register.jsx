@@ -6,7 +6,8 @@ export default class Register extends Component {
 
     state = {
         pwd: '',
-        password: ''
+        password: '',
+        abnShow:false
     }
     judgeSame = (e) => {
 
@@ -26,12 +27,14 @@ export default class Register extends Component {
         let userType = e.target.value;
         if(userType=='business'){
             this.setState({
-                type:2
+                type:2,
+                abnShow:true
             });
         }
         if(userType=='customer '){
             this.setState({
-                type:1
+                type:1,
+                abnShow:false               
             });
         }
     }
@@ -47,9 +50,14 @@ export default class Register extends Component {
         
         let clientId = this.clientId.value.toString();
         let secret = this.secret.value.toString();
-        if (mail == '' || name == '' || nickName == '' || phoneNumber == '') {
+        let abn = this.abn.value.toString();
+
+        if (mail == '' || name == '' || nickName == '' || phoneNumber == ''||this.state.password=='') {
             alert('Fields can not be null');
             return
+        }
+        if(this.state.password!=this.state.pwd){
+            alert('THe two oasswords you typed do not match');
         }
         //validate mail
         if(!(/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(mail))) {
@@ -71,7 +79,8 @@ export default class Register extends Component {
                 nickName: nickName,
                 phoneNumber: phoneNumber,
                 clientId: clientId,
-                secret: secret
+                secret: secret,
+                abn:abn
             })
             .then((res) => {
                 console.log(res);
@@ -89,6 +98,7 @@ export default class Register extends Component {
 
 
     render() {
+        let abnShowHidden = this.state.abnShow?'block':'none';
         return (
             <div className="signin signup">
                 <div className="container">
@@ -130,6 +140,13 @@ export default class Register extends Component {
                                                 <option value="customer ">Customer</option>
                                                 <option value="business">Business</option>
                                             </select>
+                                        </div>
+
+                                        <div className="form-group">
+                                            <input type="abn" className="form-control"
+                                                ref={value => this.abn = value}
+                                                placeholder="enter your abn here"
+                                                style={{display:abnShowHidden}} />
                                         </div>
 
                                         <div className="form-group">
