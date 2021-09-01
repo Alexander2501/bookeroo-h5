@@ -15,7 +15,7 @@ export default class Register extends Component {
             pwd: e.target.value
         })
     }
-    judgeSame = (e) => {
+    judgeSame2 = (e) => {
 
         this.setState({
             password: e.target.value
@@ -56,9 +56,7 @@ export default class Register extends Component {
             alert('Fields can not be null');
             return
         }
-        if(this.state.password!=this.state.pwd){
-            alert('THe two oasswords you typed do not match');
-        }
+        
         //validate mail
         if(!(/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(mail))) {
             alert("Please input correct email format");
@@ -69,6 +67,12 @@ export default class Register extends Component {
             alert("Please input correct phone format");
             return;
         }
+        // console.log(this.state.password);
+        // console.log(this.state.pwd);
+        if(this.state.password!=this.state.pwd){
+            alert('THe two passwords you typed do not match');
+        }
+
         const url = "https://web.tootz.cn/api/open/user/register";
         axios
             .post(url, {
