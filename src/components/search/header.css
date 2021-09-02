@@ -1,6 +1,7 @@
 .topBar{
     display:flex;
-    align-items:flex-end;
+    align-items:center
+    /* margin-top:19px; */
 }
 .connectNav{
     font-size:17px;
@@ -13,5 +14,6 @@
 }
 .connectNav a{
     color:white;
-    text-decoration:none
+    text-decoration:none;
+    margin-top:15px;
 }
