@@ -941,7 +941,7 @@ class BookList extends Component {
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-default" data-dismiss="modal">Close
                                 </button>
-                                <button type="button" className="btn btn-primary" data-dismiss="modal"
+                                <button type="button" className="btn btn-primary"
                                     onClick={this.editBook}>Edit
                                 </button>
                             </div>
