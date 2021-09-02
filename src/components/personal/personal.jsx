@@ -16,7 +16,7 @@ class Personal extends Component {
                 <h3>{this.state.username}</h3>
                 <div className="col-sm-4 col-md-4 col-md-offset-4">
                     {Object.keys(this.state.userInfo).map((obj, idx) => (
-                        <div className="row">
+                        <div className="infoRow">
                             <div key={idx} className="listItemTitle">{obj} : </div> 
                             <div className="listItemValue">{this.state.userInfo[obj]}</div>  
                         </div>
