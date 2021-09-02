@@ -37,6 +37,7 @@ export default class UserList extends Component {
       })
       .then((res) => {
         let result = res.data.data;
+        // console.log(res);
         if (res.data.code == '1000000') {
           this.setState({
             userList: result.entity
@@ -239,12 +240,14 @@ export default class UserList extends Component {
     let userId = this.state.userList[index].userId;
     //status 1approved 2blocked
     let data ={
-      status:1
+      status:1,
+      userId: this.state.userList[index].userId
     }
     axios.post(url,data).then(res=>{
-      console.log(res);
+      // console.log(res);
       if(res.data.code=="1000000"){
         alert("Business Approved");
+        this.getUserList();
       }else{
         alert(res.data.message);
       }
