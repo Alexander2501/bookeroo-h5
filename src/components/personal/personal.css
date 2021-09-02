@@ -20,7 +20,7 @@
     height:40px;
     margin-left:10px;
 }
-.row{
+.infoRow{
     display: flex;
     align-items: center;
 }
