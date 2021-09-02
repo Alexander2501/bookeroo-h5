@@ -147,14 +147,14 @@ export default class Register extends Component {
                                         </div>
 
                                         <div className="form-group">
-                                            <input type="abn" className="form-control"
+                                            <input type="text" className="form-control"
                                                 ref={value => this.abn = value}
                                                 placeholder="enter your abn here"
                                                 style={{display:abnShowHidden}} />
                                         </div>
 
                                         <div className="form-group">
-                                            <input type="email" className="form-control"
+                                            <input type="number" className="form-control"
                                                 ref={value => this.phoneNumber = value}
                                                 placeholder="enter your phonenumber here" />
                                         </div>
@@ -164,7 +164,7 @@ export default class Register extends Component {
                                                 type="text"
                                                 className="form-control"
                                                 ref={value => this.clientId = value}
-                                                placeholder="enter your PayPal clientId"
+                                                placeholder="enter your PayPal clientId/Can be Null"
                                             />
                                         </div>
 
@@ -173,7 +173,7 @@ export default class Register extends Component {
                                                 type="text"
                                                 className="form-control"
                                                 ref={value => this.secret = value}
-                                                placeholder="enter your PayPal secret"
+                                                placeholder="enter your PayPal secret/Can be Null"
                                             />
                                         </div>
 
