@@ -9,9 +9,10 @@ class Detail extends Component {
         bookNum: 0,
         bookId: '',
         picUrl: '',
+        tocPicUrl: '',
         bookDesc: '',
         price: 0,
-        stock:0,
+        stock: 0,
         publishingHouse: '',
         publishingTime: '',
         author: '',
@@ -105,14 +106,54 @@ class Detail extends Component {
     render() {
         console.log(this.state.bookMes);
         let isShow = this.state.commentList.length == 0 ? 'block' : 'none';
-        let { bookName, picUrl, bookDesc, price, publishingHouse, publishingTime, author, stock } = this.state.bookMes;
+        let { bookName, picUrl, tocPicUrl, bookDesc, price, publishingHouse, publishingTime, author, stock } = this.state.bookMes;
+        let isPicShow = tocPicUrl?'none':'block';
+        let isSwipperShow = tocPicUrl?'block':'none';
         return (
             <div>
                 <div className="row" style={{ marginLeft: '0', marginRight: '0' }}>
                     <div className="col-xs-12 col-md-4">
-                        <div className="thumbnail">
+                      
+                        <div className="thumbnail" style={{display:isPicShow}}>
                             <img src={picUrl} alt="..." />
                         </div>
+                        <div id="carousel-example-generic" className="carousel slide" data-ride="carousel" style={{display:isSwipperShow}}>
+                            {/* <!-- Indicators --> */}
+                            <ol className="carousel-indicators">
+                                <li data-target="#carousel-example-generic" data-slide-to="0" className="active"></li>
+                                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                                {/* <li data-target="#carousel-example-generic" data-slide-to="2"></li> */}
+                            </ol>
+
+                            {/* <!-- Wrapper for slides --> */}
+                            <div className="carousel-inner" role="listbox">
+                                <div className="item active">
+                                    <img src={picUrl} alt="..." />
+                                    <div className="carousel-caption">
+                                        <h3>Cover</h3>
+                                    </div>
+                                </div>
+                                <div className="item">
+                                    <img src={tocPicUrl} alt="..." />
+                                    <div className="carousel-caption">
+                                        <h3>Catalog</h3>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            {/* <!-- Controls --> */}
+                            <a className="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                                <span className="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                                <span className="sr-only">Previous</span>
+                            </a>
+                            <a className="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                                <span className="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                                <span className="sr-only">Next</span>
+                            </a>
+                        </div>
+
+
                     </div>
                     <div className="col-xs-12 col-md-6">
                         <div className="head">
@@ -129,7 +170,7 @@ class Detail extends Component {
                             <div className='infoitem'><span>Publishing&nbsp;Time:</span><span>{publishingTime}</span></div>
                         </div>
                         <div className='bookprice'>
-                           <div> <span>Price:</span><span>${price}</span></div>
+                            <div> <span>Price:</span><span>${price}</span></div>
                             <div><span>Stock:</span><span>{stock}</span></div>
                         </div>
                         {/* <div className="destination">
@@ -159,6 +200,12 @@ class Detail extends Component {
 
                     </div>
                 </div>
+
+                {/* <div className='row'>
+                    <div className='col-md-12 booktoc'>
+                        <img src={tocPicUrl} alt="" />
+                    </div>
+                </div> */}
 
                 <div className='row'>
                     <div className='col-md-12'>
