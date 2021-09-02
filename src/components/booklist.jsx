@@ -57,6 +57,12 @@ class BookList extends Component {
             this.state.bookUrl = "https://web.tootz.cn/api/book/personalList";
         }
 
+        if(userType==1){
+            this.setState({
+                newOld: true
+            });
+        }
+
         this.getBookList();
     }
 
