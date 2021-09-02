@@ -25,7 +25,9 @@ class IndexList extends Component {
     language: '',
     stock: '',
     status: '',
-    bookUrl: "https://web.tootz.cn/api/book/publicList"
+    bookUrl: "https://web.tootz.cn/api/book/publicList",
+    searchType: 'name',
+    searchValue: ''
   };
   static propTypes = {
     match: PropTypes.object.isRequired,
@@ -102,20 +104,119 @@ class IndexList extends Component {
       this.props.history.push('/login');
     }
   }
+  selectType = (e) => {
+    // console.log(e.target.value);
+    this.setState({
+      searchType: e.target.value
+    });
+  }
+  inputSearchVal = (e) => {
+    // console.log(e.target.value);
+    this.setState({
+      searchValue: e.target.value
+    });
+  }
+  search = () => {
+    let data = null;
+    // console.log(this.state.searchType);
+    let tempArr;
+    if (this.state.searchType == 'name') {
+      let value = this.state.searchValue;
+      tempArr = this.state.books.filter(function (item) {
+        console.log(item);
+        return item.bookName == value
+      });
+      this.setState({
+        books: tempArr
+      });
+      console.log(tempArr);
+
+    }
+    if (this.state.searchType == 'author') {
+
+      let value = this.state.searchValue;
+      tempArr = this.state.books.filter(function (item) {
+        // console.log(item);                 
+        return item.author == value
+      });
+      this.setState({
+        books: tempArr
+      });
+      console.log(tempArr);
+
+    }
+    if (this.state.searchType == 'isbn') {
+      let value = this.state.searchValue;
+      tempArr = this.state.books.filter(function (item) {
+        return item.isbn == value
+      });
+      this.setState({
+        books: tempArr
+      });
+      console.log(tempArr);
+    }
+    if (this.state.searchType == 'category') {
+      let value = this.state.searchValue;
+      tempArr = this.state.books.filter(function (item) {
+        return item.category == value
+      });
+      this.setState({
+        books: tempArr
+      });
+      console.log(tempArr);
+    }
+
+    if (tempArr.length == 0) {
+      alert("The book you searched was not found!")
+      this.getBookList();
+    }
+
+  }
+  reset = () => {
+    this.getBookList();
+  }
 
 
 
   render() {
     return (
-      <div className="row">
-        {
-          this.state.books.map((item, index) => (
-            <BookItem bookInfo={item} key={index} index={index} handleToDetail={this.handleToDetail} />
-          )
+      <div>
+        <div className='row'>
+          <div className='col-md-6 col-md-offset-3'>
+            <form className="form-inline">
+              <select className="form-control" style={{ width: '100px' }} onChange={(e) => { this.selectType(e) }}>
+                <option value="name">Name</option>
+                <option value="author">Author</option>
+                <option value="isbn">ISBN</option>
+                <option value="category">Category</option>
+              </select>
 
-          )
-        }
+              <input type="text" className="form-control" onChange={this.inputSearchVal} placeholder="Search for..." />
+
+              <button className="btn btn-default" type="button" onClick={this.search}>Search!</button>
+
+            </form>
+          </div>
+          <div className='col-md-3'>
+            <button type="button" className="btn btn-success pull-right"
+
+              onClick={this.reset}>
+              Reset
+            </button>
+          </div>
+        </div>
+
+        <div className="row" style={{marginTop:'15px'}}>
+          {
+            this.state.books.map((item, index) => (
+              <BookItem bookInfo={item} key={index} index={index} handleToDetail={this.handleToDetail} />
+            )
+
+            )
+          }
+        </div>
       </div>
+
     )
 
 
