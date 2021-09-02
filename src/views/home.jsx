@@ -3,13 +3,13 @@ import { Switch, Route, NavLink, Redirect, Link } from 'react-router-dom';
 import axios from 'axios';
 
 import IndexList from '../components/indexlist';
-import MineList from '../components/mine/minelist';
+// import MineList from '../components/mine/minelist';
 import Header from "../components/header"
 import UserList from '../components/userlist';
 import BookList from '../components/booklist';
 import Detail from '../components/detail/detail';
 import MyOrder from '../components/myorder/myorder';
-import SwipperBoot from '../components/bswipper/swipperboot';
+// import SwipperBoot from '../components/bswipper/swipperboot';
 import PaySuccess from './paysuccess';
 import PayCancel from './paycancel';
 import AboutUs from '../components/aboutus/aboutus';
@@ -52,7 +52,6 @@ class Home extends Component {
             console.log(err);
         });
     }
-
     logout = () => {
         const url = "https://web.tootz.cn/api/open/user/logout";
         axios.post(url, {}).then(res => {
@@ -63,8 +62,6 @@ class Home extends Component {
         this.props.history.push('/login');
         localStorage.clear();
     }
-
-
     render() {
         let linkShow = this.state.type == 3 ? 'block' : 'none';
         let topShow = localStorage.getItem('token') ? "block" : "none";
