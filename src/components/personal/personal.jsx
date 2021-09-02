@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import './personal.css'
+import callPic from "../../assets/imgs/call.png"
+import addressPic from "../../assets/imgs/address.png";
+import nickName from "../../assets/imgs/nickname.png";
 class Personal extends Component {
     state={
         userInfo:{
@@ -14,14 +17,34 @@ class Personal extends Component {
             <div>
                 {/* 详情页面 */}
                 <h3>{this.state.username}</h3>
-                <div className="col-sm-4 col-md-4 col-md-offset-4">
-                    {Object.keys(this.state.userInfo).map((obj, idx) => (
+                <div>
+                        <div className="infoRow">
+                            <div className="listItemTitle">
+                                <img src={callPic} className="iconStyle"/>  
+                                <span>Mobile: </span></div> 
+                            <div className="listItemValue">{this.state.userInfo.mobile}</div>  
+                        </div>
+                        <div className="infoRow">
+                            <div className="listItemTitle">
+                                <img src={addressPic} className="iconStyle"/>
+                                <span>Address: </span>
+                            </div> 
+                            <div className="listItemValue">{this.state.userInfo.address}</div>  
+                        </div>
+                        <div className="infoRow">
+                            <div className="listItemTitle">
+                                <img src={nickName} className="iconStyle"/>
+                                <span>Nickname: </span>
+                            </div> 
+                            <div className="listItemValue">{this.state.userInfo.nickName}</div>  
+                        </div>
+                    {/* {Object.keys(this.state.userInfo).map((obj, idx) => (
                         <div className="infoRow">
                             <div key={idx} className="listItemTitle">{obj} : </div> 
                             <div className="listItemValue">{this.state.userInfo[obj]}</div>  
                         </div>
                               
-                    ))}
+                    ))} */}
                     <div>
                         
                     </div>

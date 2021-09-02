@@ -11,7 +11,8 @@ export default class ContactUS extends Component {
             <div>
                 <h1>Contact</h1>
                 <h4 className="hrefStyle"><Link to="/booklist">Home</Link></h4>
-                <p className="descStyle">If you would like to contact CBD,you can either contact to us directly or complete the form below.Please be assured that as soon as possible.</p>
+                <p className="descStyle">
+                    If you would like to contact CBD,you can either contact to us directly or complete the form below.Please be assured that as soon as possible.</p>
                 <table class="table table-bordered" className="tableStyle">
                 <tr className="trStyle">
                     <th className="thTitle">

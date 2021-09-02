@@ -33,16 +33,16 @@ class Header extends Component {
     return (
       <div className="container-fluid">
         <div className='row App-header' style={{}}>
-          <div className='col-xs-6 col-md-4'>
+          <div className='col-xs-8 col-md-6'>
             <div className="topBar">
               <h2>Bookeroo</h2>
-              <span className="connectNav"><Link to="/aboutus">About us</Link></span>
               <span className="connectNav"><Link to="/contactus">Contact us</Link></span>
+              <span className="connectNav"><Link to="/aboutus">About us</Link></span>
             </div>
           </div>
 
 
-          <div className='col-xs-0 col-md-6 hidden-md' >
+          <div className='col-xs-0 col-md-4 hidden-md' >
             {/* <div className="input-group">
               <div className="input-group-btn">
                 <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">All Department <span className="caret"></span></button>
@@ -60,14 +60,18 @@ class Header extends Component {
               </span>
             </div> */}
           </div>
-
-
-          <div className='col-xs-6 col-md-4'>
+          {/* <div className='col-xs-4 col-md-4'>
+              <div className="topBar">
+              <span className="connectNav"><Link to="/contactus">Contact us</Link></span>
+              <span className="connectNav"><Link to="/aboutus">About us</Link></span>
+              </div>
+          </div> */}
+          <div className='col-xs-4 col-md-2'>
             <div className="btn-group pull-right" role="group" style={{ marginTop: '20px' }}>
 
               {/* <button type="button" className="btn btn-default"><Link to='/orders'>My Order</Link></button> */}
 
-              <div className="btn-group" role="group" style={{ marginRight: '60px' }}>
+              <div className="btn-group" role="group" style={{ marginRight: '80px' }}>
                 <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Drop
                   <span className="caret"></span>
@@ -75,7 +79,7 @@ class Header extends Component {
                 <ul className="dropdown-menu">
                   <li>
                     <Link to="/Personal">
-                      Person Setting
+                      Person infomation
                     </Link>
                     </li>
                   <li onClick={this.logout}><a href="#">LogOut</a></li>
