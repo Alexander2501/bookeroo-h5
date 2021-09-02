@@ -26,7 +26,7 @@ class BookItem extends Component {
 
 
   render() {
-    const { picUrl, bookName, bookDesc, price, author, stock } = this.props.bookInfo;
+    const { picUrl, bookName, bookDesc, category,price, author, stock } = this.props.bookInfo;
 
     return (
       <div className="col-sm-4 col-md-4" onClick={this.handleBuy}>
@@ -35,8 +35,10 @@ class BookItem extends Component {
           <div className="caption">
             <h4 style={{ height: '40px' }}>{bookName}</h4>
             <p style={{ height: '60px', overflow: 'hidden', textOverflow: 'ellipsis' }}>{bookDesc}</p>
+            
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
               <p style={{ color: "black", paddingLeft: '10px' }}><span>Price:</span><span style={{ fontWeight: 'bold', color: 'red' }}>${price}</span></p>
+              <p style={{ color: "gray", paddingRight: '10px',fontSize:'12px',display:(category?'block':'none')}}><span>Category:</span><span>{category}</span></p>
               <p style={{ color: "black", paddingRight: '10px' }}><span>Stock:</span><span>{stock}</span></p>
             </div>
             <p className='clearfix'>

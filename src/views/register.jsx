@@ -165,7 +165,7 @@ export default class Register extends Component {
                                                 type="text"
                                                 className="form-control"
                                                 ref={value => this.clientId = value}
-                                                placeholder="Enter your PayPal clientId/Can be Null"
+                                                placeholder="Enter your PayPal clientId"
                                             />
                                         </div>
 
@@ -174,7 +174,7 @@ export default class Register extends Component {
                                                 type="text"
                                                 className="form-control"
                                                 ref={value => this.secret = value}
-                                                placeholder="Enter your PayPal secret/Can be Null"
+                                                placeholder="Enter your PayPal secret"
                                             />
                                         </div>
 
