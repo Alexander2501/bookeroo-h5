@@ -485,7 +485,7 @@ class BookList extends Component {
                             </form>
                         </div>
                         <div className='col-md-3'>
-                        <button type="button" className="btn btn-success"
+                        <button type="button" className="btn btn-success pull-right"
                                
                                 onClick={this.reset}>
                                 Reset
