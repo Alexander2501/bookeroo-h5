@@ -281,7 +281,7 @@ class BookList extends Component {
         }
         // debugger?
 
-        if(!this.state.isUpload1&&!this.state.isUpload2){
+        if(!this.state.isUpload1){
             alert("The image was not uploaded successfully");
             return;
         }else{
@@ -290,7 +290,7 @@ class BookList extends Component {
                 // console.log(data);
                 if (res.data.code == "1000000") {               
                     this.getBookList();
-                    alert("图书添加成功");
+                    alert("The Book add successfully");
                 } else {
                     alert(res.data.message);
                 }
@@ -437,7 +437,8 @@ class BookList extends Component {
         }else{
             axios.post(editUrl, data).then(res => {
                 console.log(res);
-              if(res.data.code=="1000000"){           
+              if(res.data.code=="1000000"){     
+                alert("Edit successfully")      
                 this.getBookList();
               }
             }).catch(err => {
@@ -806,7 +807,7 @@ class BookList extends Component {
                                 <button type="button" className="btn btn-default" data-dismiss="modal">Close
                                 </button>
                                 {/* data-dismiss="modal" */}
-                                <button type="button" className="btn btn-primary" 
+                                <button type="button" className="btn btn-primary"
                                     onClick={this.addBook}>Add
                                 </button>
                             </div>

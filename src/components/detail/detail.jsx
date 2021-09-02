@@ -21,6 +21,8 @@ class Detail extends Component {
         commentList: []
     }
 
+
+
     componentDidMount() {
         let userId = localStorage.getItem("userId");
         let token = localStorage.getItem("token");
@@ -107,17 +109,17 @@ class Detail extends Component {
         // console.log(this.state.bookMes);
         let isShow = this.state.commentList.length == 0 ? 'block' : 'none';
         let { bookName, picUrl, tocPicUrl, bookDesc, price, publishingHouse, publishingTime, author, stock } = this.state.bookMes;
-        let isPicShow = tocPicUrl?'none':'block';
-        let isSwipperShow = tocPicUrl?'block':'none';
+        let isPicShow = tocPicUrl ? 'none' : 'block';
+        let isSwipperShow = tocPicUrl ? 'block' : 'none';
         return (
             <div>
                 <div className="row" style={{ marginLeft: '0', marginRight: '0' }}>
                     <div className="col-xs-12 col-md-4">
-                      
-                        <div className="thumbnail" style={{display:isPicShow}}>
+
+                        <div className="thumbnail" style={{ display: isPicShow }}>
                             <img src={picUrl} alt="..." />
                         </div>
-                        <div id="carousel-example-generic" className="carousel slide" data-ride="carousel" style={{display:isSwipperShow}}>
+                        <div id="carousel-example-generic" className="carousel slide" data-ride="carousel" style={{ display: isSwipperShow }}>
                             {/* <!-- Indicators --> */}
                             <ol className="carousel-indicators">
                                 <li data-target="#carousel-example-generic" data-slide-to="0" className="active"></li>
