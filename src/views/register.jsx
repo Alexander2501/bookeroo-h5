@@ -52,7 +52,7 @@ export default class Register extends Component {
         let secret = this.secret.value.toString();
         let abn = this.abn.value.toString();
 
-        if (mail == '' || name == '' || nickName == '' || phoneNumber == ''||this.state.password=='') {
+        if (mail == '' || name == '' || nickName == '' || phoneNumber == ''||this.state.password==''||clientId==''||secret=='') {
             alert('Fields can not be null');
             return
         }
