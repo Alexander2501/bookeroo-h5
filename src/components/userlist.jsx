@@ -37,18 +37,18 @@ export default class UserList extends Component {
       })
       .then((res) => {
         let result = res.data.data;
-        if(res.data.code=='1000000'){
+        if (res.data.code == '1000000') {
           this.setState({
             userList: result.entity
           });
-        }else{
+        } else {
           alert(res.data.message);
         }
-        if(res.data.code=='1000001'){
+        if (res.data.code == '1000001') {
           // alert(res.data.message);
           this.props.history.push('/login');
         }
-       
+
       })
       .catch((err) => {
         console.log(err);
@@ -233,6 +233,24 @@ export default class UserList extends Component {
         });
     }
   };
+  //授权商户
+  authorize = (index) => {
+    let url = 'https://web.tootz.cn/api/open/user/set';
+    let userId = this.state.userList[index].userId;
+    //status 1approved 2blocked
+    let data ={
+      status:1
+    }
+    axios.post(url,data).then(res=>{
+      console.log(res);
+      if(res.data.code=="1000000"){
+        alert("Business Approved");
+      }else{
+        alert(res.data.message);
+      }
+      
+    }).catch();
+  }
 
   render() {
     const { userList } = this.state;
@@ -290,18 +308,33 @@ export default class UserList extends Component {
                     <td>{item.name}</td>
                     <td>{item.nickName}</td>
                     <td>{item.mail}</td>
-                    <td>{item.type}</td>
+
+                    <td style={{ display: (item.type == 3 ? "block" : "none") }}>Admin</td>
+                    <td style={{ display: (item.type == 2 ? "block" : "none") }}>Business</td>
+                    <td style={{ display: (item.type == 1 ? "block" : "none") }}>Customer</td>
+
                     <td>{item.phoneNumber}</td>
-                    <td>{item.status}</td>
+                    <td>{item.status == 1 ? 'approved' : 'auditing'}</td>
                     <td>
                       <button
                         className="btn btn-primary"
                         data-toggle="modal"
                         data-target="#editModal"
                         onClick={() => { this.openEditModal(index) }}
+                        style={{}}
                       >
                         Edit
                       </button>
+
+                      <button
+                        className="btn btn-success"
+                        onClick={() => { this.authorize(index) }}
+                        style={{ marginLeft: "5px" }}
+                        disabled={item.status != 0}
+                      >
+                        Authorize
+                      </button>
+
                       <button
                         className="btn btn btn-danger"
                         onClick={() => {
