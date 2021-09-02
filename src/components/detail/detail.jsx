@@ -42,7 +42,7 @@ class Detail extends Component {
         // console.log(bookId);
         let data = { pageSize: 1000, pageNum: 1, bookId: bookId }
         axios.post(commentUrl, data).then(res => {
-            // console.log(res);
+            console.log(res);
             if (res.data.code == "1000000") {
                 this.setState({
                     commentList: res.data.data.entity
