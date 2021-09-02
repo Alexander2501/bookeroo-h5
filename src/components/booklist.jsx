@@ -8,6 +8,7 @@ import Detail from "./detail/detail";
 class BookList extends Component {
     state = {
         picUrl: '',
+        tocPicUrl:'',
         pageNum: 1,
         pageSize: 1000,
         isShow: true,
@@ -116,6 +117,38 @@ class BookList extends Component {
             });
         }
     }
+
+    changPic1 = () => {
+        // let reads = new FileReader();
+        let f = document.getElementById('file1').files[0];
+        let fileSize = f.size;
+        // console.log(fileSize);
+        let param = new FormData()  // 创建form对象
+        param.append('file', f)  // 通过append向form对象添加数据
+        let upImgUrl = "https://web.tootz.cn/api/open/upload";
+        // reads.readAsDataURL(f);
+        // reads.onload = function (e) {
+        //   document.getElementById('show').src = this.result;
+        //   this.setState({
+        //     picUrl: this.result
+        //   });
+        // };
+        if (fileSize >= 1024 * 1024) {
+            alert('The picture can not be larger than 1M');
+        } else {
+            axios.post(upImgUrl, param).then(res => {
+                if (res.data.code == "1000000") {
+                    let imgUrl = res.data.data;
+                    this.setState({
+                        tocPicUrl: imgUrl
+                    });
+                }
+            }).catch(err => {
+                console.log(err);
+            });
+        }
+    }
+
     //clear add modal
     handleAddOpen = () => {
         this.setState({
@@ -173,9 +206,16 @@ class BookList extends Component {
         // this.setState({ books });
         // console.log(this.state.status);
         // debugger
-        let addNBookUrl = "https://web.tootz.cn/api/book/addNew";
+        let addNBookUrl;
+        if(this.state.newOld){//true未添加旧书
+            addNBookUrl = "https://web.tootz.cn/api/book/addOld";
+        }else{
+            addNBookUrl = "https://web.tootz.cn/api/book/addNew";
+        }
+
         let bookName = this.bookName.value.toString();
         let bookDesc = this.bookDesc.value.toString();
+        let category = this.category.value.toString();
         let picUrl = this.state.picUrl;
         let author = this.author.value.toString();
         let price = this.price.value;
@@ -189,6 +229,7 @@ class BookList extends Component {
         let data = {
             bookName,
             bookDesc,
+            category,
             picUrl,
             author,
             price,
@@ -584,6 +625,14 @@ class BookList extends Component {
                                         </div>
                                     </div>
                                     <div className="form-group">
+                                        <label className=" col-sm-3 control-label">Category</label>
+                                        <div className="col-sm-6">
+                                            <input type="text" className="form-control"
+                                                ref={value => this.category = value} placeholder="Category" />
+                                        </div>
+                                    </div>
+                                    
+                                    <div className="form-group">
                                         <label className=" col-sm-3 control-label">PicUrl</label>
                                         <div className="col-sm-6">
                                             <label>File input</label>
@@ -591,6 +640,16 @@ class BookList extends Component {
                                             <img src={this.state.picUrl} id="show" width="200" />
                                         </div>
                                     </div>
+
+                                    <div className="form-group">
+                                        <label className=" col-sm-3 control-label">TocPicUrl</label>
+                                        <div className="col-sm-6">
+                                            <label>TocFile input</label>
+                                            <input type="file" id="file1" accept="image/*" onChange={this.changPic1} />
+                                            <img src={this.state.tocPicUrl} id="show" width="200" />
+                                        </div>
+                                    </div>
+
                                     <div className="form-group">
                                         <label className=" col-sm-3 control-label">Author</label>
                                         <div className="col-sm-6">
