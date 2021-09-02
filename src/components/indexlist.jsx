@@ -176,8 +176,6 @@ class IndexList extends Component {
     this.getBookList();
   }
 
-
-
   render() {
     return (
       <div>

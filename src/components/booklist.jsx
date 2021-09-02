@@ -281,7 +281,7 @@ class BookList extends Component {
         }
         // debugger?
 
-        if(!isUpload1&&!isUpload2){
+        if(!this.state.isUpload1&&!this.state.isUpload2){
             alert("The image was not uploaded successfully");
             return;
         }else{
@@ -431,7 +431,7 @@ class BookList extends Component {
         };
         let editUrl = "https://web.tootz.cn/api/book/update";
 
-        if(!isUpload3){
+        if(!this.state.isUpload3){
             alert("The image was not uploaded successfully");
             return;
         }else{
@@ -805,7 +805,8 @@ class BookList extends Component {
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-default" data-dismiss="modal">Close
                                 </button>
-                                <button type="button" className="btn btn-primary" data-dismiss="modal"
+                                {/* data-dismiss="modal" */}
+                                <button type="button" className="btn btn-primary" 
                                     onClick={this.addBook}>Add
                                 </button>
                             </div>

@@ -104,7 +104,7 @@ class Detail extends Component {
 
 
     render() {
-        console.log(this.state.bookMes);
+        // console.log(this.state.bookMes);
         let isShow = this.state.commentList.length == 0 ? 'block' : 'none';
         let { bookName, picUrl, tocPicUrl, bookDesc, price, publishingHouse, publishingTime, author, stock } = this.state.bookMes;
         let isPicShow = tocPicUrl?'none':'block';
