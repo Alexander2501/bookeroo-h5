@@ -9,6 +9,9 @@ class BookList extends Component {
     state = {
         picUrl: '',
         tocPicUrl:'',
+        isUpload1:false,
+        isUpload2:false, 
+        isUpload3:false,       
         pageNum: 1,
         pageSize: 1000,
         isShow: true,
@@ -110,7 +113,8 @@ class BookList extends Component {
                 if (res.data.code == "1000000") {
                     let imgUrl = res.data.data;
                     this.setState({
-                        picUrl: imgUrl
+                        picUrl: imgUrl,
+                        isUpload1:true
                     });
                 }
             }).catch(err => {
@@ -141,7 +145,8 @@ class BookList extends Component {
                 if (res.data.code == "1000000") {
                     let imgUrl = res.data.data;
                     this.setState({
-                        tocPicUrl: imgUrl
+                        tocPicUrl: imgUrl,
+                        isUpload2:true
                     });
                 }
             }).catch(err => {
@@ -172,7 +177,8 @@ class BookList extends Component {
                 if (res.data.code == "1000000") {
                     let imgUrl = res.data.data;
                     this.setState({
-                        tocPicUrl: imgUrl
+                        tocPicUrl: imgUrl,
+                        isUpload3:true
                     });
                 }
             }).catch(err => {
@@ -275,25 +281,27 @@ class BookList extends Component {
         }
         // debugger?
 
-        
-        axios.post(addNBookUrl, data).then(res => {
-            console.log(res);
-            // console.log(data);
-            if (res.data.code == "1000000") {               
-                this.getBookList();
-                alert("图书添加成功");
-            } else {
-                alert(res.data.message);
-            }
-        }).catch(err => {
-            // console.log(err);
-            this.setState({
-                uploadflag: true
+        if(!isUpload1&&!isUpload2){
+            alert("The image was not uploaded successfully");
+            return;
+        }else{
+            axios.post(addNBookUrl, data).then(res => {
+                console.log(res);
+                // console.log(data);
+                if (res.data.code == "1000000") {               
+                    this.getBookList();
+                    alert("图书添加成功");
+                } else {
+                    alert(res.data.message);
+                }
+            }).catch(err => {
+                // console.log(err);
+                this.setState({
+                    uploadflag: true
+                });
+    
             });
-
-        });
-
-
+        }        
     }
     deleteBook = (index) => {
         console.log(index);
@@ -422,14 +430,20 @@ class BookList extends Component {
             status: parseInt(status)
         };
         let editUrl = "https://web.tootz.cn/api/book/update";
-        axios.post(editUrl, data).then(res => {
-            console.log(res);
-          if(res.data.code=="1000000"){           
-            this.getBookList();
-          }
-        }).catch(err => {
-            console.log(err);
-        });
+
+        if(!isUpload3){
+            alert("The image was not uploaded successfully");
+            return;
+        }else{
+            axios.post(editUrl, data).then(res => {
+                console.log(res);
+              if(res.data.code=="1000000"){           
+                this.getBookList();
+              }
+            }).catch(err => {
+                console.log(err);
+            });
+        }        
     }
     handleToDetail = (index) => {
         // console.log(index);
