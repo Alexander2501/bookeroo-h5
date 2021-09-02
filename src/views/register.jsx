@@ -63,8 +63,8 @@ export default class Register extends Component {
             return;
         }
          //validate phonenumber
-        if(!(/^((\+)?86|((\+)?86)?)0?1[3458]\d{9}$/.test(phoneNumber))) {
-            alert("Please input correct phone format");
+        if(!(/^(61)[0-9]{9}$/.test(phoneNumber))) {
+            alert("Please Enter eleven digits stating with 61.");
             return;
         }
         // console.log(this.state.password);
@@ -117,7 +117,7 @@ export default class Register extends Component {
                                             <input
                                                 type="text"
                                                 className="form-control"
-                                                placeholder="enter your name here"
+                                                placeholder="Enter your name here"
                                                 ref={inputValue => this.name = inputValue
                                                 }
                                             />
@@ -127,7 +127,7 @@ export default class Register extends Component {
                                             <input
                                                 type="text"
                                                 className="form-control"
-                                                placeholder="enter your nickname here"
+                                                placeholder="Enter your nickname here"
                                                 ref={inputValue => this.nickName = inputValue}
                                             />
                                         </div>
@@ -135,7 +135,7 @@ export default class Register extends Component {
                                         <div className="form-group">
                                             <input type="email" className="form-control"
                                                 ref={value => this.mail = value}
-                                                placeholder="enter your email here" />
+                                                placeholder="Enter your email here" />
                                         </div>
 
                                         <div className="form-group">
@@ -147,16 +147,17 @@ export default class Register extends Component {
                                         </div>
 
                                         <div className="form-group">
-                                            <input type="abn" className="form-control"
+                                            <input type="text" className="form-control"
                                                 ref={value => this.abn = value}
-                                                placeholder="enter your abn here"
+                                                placeholder="Enter your abn here"
                                                 style={{display:abnShowHidden}} />
                                         </div>
 
                                         <div className="form-group">
-                                            <input type="email" className="form-control"
+                                            <input type="number" className="form-control"
                                                 ref={value => this.phoneNumber = value}
-                                                placeholder="enter your phonenumber here" />
+                                                placeholder="Enter your phonenumber here"
+                                                style={{padding:'0 18px',color:'#a69999'}} />
                                         </div>
 
                                         <div className="form-group">
@@ -164,7 +165,7 @@ export default class Register extends Component {
                                                 type="text"
                                                 className="form-control"
                                                 ref={value => this.clientId = value}
-                                                placeholder="enter your PayPal clientId"
+                                                placeholder="Enter your PayPal clientId/Can be Null"
                                             />
                                         </div>
 
@@ -173,7 +174,7 @@ export default class Register extends Component {
                                                 type="text"
                                                 className="form-control"
                                                 ref={value => this.secret = value}
-                                                placeholder="enter your PayPal secret"
+                                                placeholder="Enter your PayPal secret/Can be Null"
                                             />
                                         </div>
 

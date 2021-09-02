@@ -8,6 +8,10 @@ import Detail from "./detail/detail";
 class BookList extends Component {
     state = {
         picUrl: '',
+        tocPicUrl:'',
+        isUpload1:false,
+        isUpload2:false, 
+        isUpload3:false,       
         pageNum: 1,
         pageSize: 1000,
         isShow: true,
@@ -15,6 +19,7 @@ class BookList extends Component {
         editBookMes: {},
         bookName: '',
         bookDesc: '',
+        category:'',
         author: '',
         price: '',
         isbn: '',
@@ -108,7 +113,72 @@ class BookList extends Component {
                 if (res.data.code == "1000000") {
                     let imgUrl = res.data.data;
                     this.setState({
-                        picUrl: imgUrl
+                        picUrl: imgUrl,
+                        isUpload1:true
+                    });
+                }
+            }).catch(err => {
+                console.log(err);
+            });
+        }
+    }
+
+    changPic1 = () => {
+        // let reads = new FileReader();
+        let f = document.getElementById('file1').files[0];
+        let fileSize = f.size;
+        // console.log(fileSize);
+        let param = new FormData()  // 创建form对象
+        param.append('file', f)  // 通过append向form对象添加数据
+        let upImgUrl = "https://web.tootz.cn/api/open/upload";
+        // reads.readAsDataURL(f);
+        // reads.onload = function (e) {
+        //   document.getElementById('show').src = this.result;
+        //   this.setState({
+        //     picUrl: this.result
+        //   });
+        // };
+        if (fileSize >= 1024 * 1024) {
+            alert('The picture can not be larger than 1M');
+        } else {
+            axios.post(upImgUrl, param).then(res => {
+                if (res.data.code == "1000000") {
+                    let imgUrl = res.data.data;
+                    this.setState({
+                        tocPicUrl: imgUrl,
+                        isUpload2:true
+                    });
+                }
+            }).catch(err => {
+                console.log(err);
+            });
+        }
+    }
+
+    changPic2 = () => {
+        // let reads = new FileReader();
+        let f = document.getElementById('file2').files[0];
+        let fileSize = f.size;
+        // console.log(fileSize);
+        let param = new FormData()  // 创建form对象
+        param.append('file', f)  // 通过append向form对象添加数据
+        let upImgUrl = "https://web.tootz.cn/api/open/upload";
+        // reads.readAsDataURL(f);
+        // reads.onload = function (e) {
+        //   document.getElementById('show').src = this.result;
+        //   this.setState({
+        //     picUrl: this.result
+        //   });
+        // };
+        if (fileSize >= 1024 * 1024) {
+            alert('The picture can not be larger than 1M');
+        } else {
+            axios.post(upImgUrl, param).then(res => {
+                if (res.data.code == "1000000") {
+                    let imgUrl = res.data.data;
+                    this.setState({
+                        tocPicUrl: imgUrl,
+                        isUpload3:true
                     });
                 }
             }).catch(err => {
@@ -173,10 +243,18 @@ class BookList extends Component {
         // this.setState({ books });
         // console.log(this.state.status);
         // debugger
-        let addNBookUrl = "https://web.tootz.cn/api/book/addNew";
+        let addNBookUrl;
+        if(this.state.newOld){//true未添加旧书
+            addNBookUrl = "https://web.tootz.cn/api/book/addOld";
+        }else{
+            addNBookUrl = "https://web.tootz.cn/api/book/addNew";
+        }
+
         let bookName = this.bookName.value.toString();
         let bookDesc = this.bookDesc.value.toString();
+        let category = this.category.value.toString();
         let picUrl = this.state.picUrl;
+        let tocPicUrl = this.state.tocPicUrl;
         let author = this.author.value.toString();
         let price = this.price.value;
         let isbn = this.isbn.value.toString();
@@ -189,7 +267,9 @@ class BookList extends Component {
         let data = {
             bookName,
             bookDesc,
+            category,
             picUrl,
+            tocPicUrl,
             author,
             price,
             isbn,
@@ -197,29 +277,31 @@ class BookList extends Component {
             publishingTime,
             language,
             stock,
-            status
-
+            status           
         }
         // debugger?
 
-        axios.post(addNBookUrl, data).then(res => {
-            console.log(res);
-            // console.log(data);
-            if (res.data.code == "1000000") {
-                alert("图书添加成功");
-                this.getBookList();
-            } else {
-                alert(res.data.message);
-            }
-        }).catch(err => {
-            // console.log(err);
-            this.setState({
-                uploadflag: true
+        if(!this.state.isUpload1&&!this.state.isUpload2){
+            alert("The image was not uploaded successfully");
+            return;
+        }else{
+            axios.post(addNBookUrl, data).then(res => {
+                console.log(res);
+                // console.log(data);
+                if (res.data.code == "1000000") {               
+                    this.getBookList();
+                    alert("图书添加成功");
+                } else {
+                    alert(res.data.message);
+                }
+            }).catch(err => {
+                // console.log(err);
+                this.setState({
+                    uploadflag: true
+                });
+    
             });
-
-        });
-
-
+        }        
     }
     deleteBook = (index) => {
         console.log(index);
@@ -270,6 +352,11 @@ class BookList extends Component {
             case 'bookDesc':
                 this.setState({
                     bookDesc: e.target.value.toString()
+                });
+                break;
+                case 'category':
+                this.setState({
+                    category: e.target.value.toString()
                 });
                 break;
             case 'picUrl':
@@ -325,12 +412,14 @@ class BookList extends Component {
         }
     }
     editBook = () => {
-        const { bookId, bookName, bookDesc, picUrl, author, price, isbn, publishingHouse, publishingTime, language, stock, status } = this.state;
+        const { bookId, bookName, bookDesc,category, picUrl,tocPicUrl, author, price, isbn, publishingHouse, publishingTime, language, stock, status } = this.state;
         let data = {
             bookId: bookId,
             bookName: bookName,
             bookDesc: bookDesc,
+            category:category,
             picUrl: picUrl,
+            tocPicUrl:tocPicUrl,
             author: author,
             price: parseFloat(price),
             isbn: isbn,
@@ -341,12 +430,20 @@ class BookList extends Component {
             status: parseInt(status)
         };
         let editUrl = "https://web.tootz.cn/api/book/update";
-        axios.post(editUrl, data).then(res => {
-            console.log(res);
-            this.getBookList();
-        }).catch(err => {
-            console.log(err);
-        });
+
+        if(!this.state.isUpload3){
+            alert("The image was not uploaded successfully");
+            return;
+        }else{
+            axios.post(editUrl, data).then(res => {
+                console.log(res);
+              if(res.data.code=="1000000"){           
+                this.getBookList();
+              }
+            }).catch(err => {
+                console.log(err);
+            });
+        }        
     }
     handleToDetail = (index) => {
         // console.log(index);
@@ -366,7 +463,7 @@ class BookList extends Component {
         });
     }
     inputSearchVal = (e) => {
-        console.log(e.target.value);
+        // console.log(e.target.value);
         this.setState({
             searchValue: e.target.value
         });
@@ -374,9 +471,10 @@ class BookList extends Component {
     search = () => {
         let data = null;
         // console.log(this.state.searchType);
+        let tempArr;
         if (this.state.searchType == 'name') {
             let value = this.state.searchValue;
-            let tempArr = this.state.books.filter(function (item) {  
+            tempArr = this.state.books.filter(function (item) {  
                 console.log(item);             
                 return item.bookName == value
             });
@@ -389,7 +487,7 @@ class BookList extends Component {
         if (this.state.searchType == 'author') {
             
             let value = this.state.searchValue;
-            let tempArr = this.state.books.filter(function (item) {    
+           tempArr = this.state.books.filter(function (item) {    
                 // console.log(item);                 
                 return item.author == value
             });
@@ -401,15 +499,28 @@ class BookList extends Component {
         }
         if (this.state.searchType == 'isbn') {
             let value = this.state.searchValue;
-            let tempArr = this.state.books.filter(function (item) {               
+            tempArr = this.state.books.filter(function (item) {               
                 return item.isbn == value
             });
             this.setState({
                 books:tempArr
             });
             console.log(tempArr);
+        }
+        if (this.state.searchType == 'category') {
+            let value = this.state.searchValue;
+           tempArr = this.state.books.filter(function (item) {               
+                return item.category == value
+            });
+            this.setState({
+                books:tempArr
+            });
+            console.log(tempArr);
+        }
 
-
+        if(tempArr.length==0){
+            alert("The book you searched was not found!")
+            this.getBookList();
         }
         // console.log(data);
         // axios.post(this.state.bookUrl, data).then(
@@ -476,6 +587,7 @@ class BookList extends Component {
                                     <option value="name">Name</option>
                                     <option value="author">Author</option>
                                     <option value="isbn">ISBN</option>
+                                    <option value="category">Category</option>
                                 </select>
 
                                 <input type="text" className="form-control" onChange={this.inputSearchVal} placeholder="Search for..." />
@@ -502,6 +614,7 @@ class BookList extends Component {
                                 <th>Image</th>
                                 <th>BookName</th>
                                 <th>BookDesc</th>
+                                <th>Category</th>
                                 <th>Author</th>
                                 <th>Price</th>
                                 <th>ISBN</th>
@@ -519,9 +632,9 @@ class BookList extends Component {
                                         <td><img src={item.picUrl} alt="" style={{ width: '50px', height: '30px' }} /></td>
                                         <td>{item.bookName}</td>
                                         <td>{item.bookDesc}</td>
+                                        <td>{item.category}</td>
                                         <td>{item.author}</td>
                                         <td>{item.price}</td>
-
                                         <td>{item.isbn}</td>
                                         <td>{item.publishingHouse}</td>
                                         <td>{item.publishingTime}</td>
@@ -584,6 +697,14 @@ class BookList extends Component {
                                         </div>
                                     </div>
                                     <div className="form-group">
+                                        <label className=" col-sm-3 control-label">Category</label>
+                                        <div className="col-sm-6">
+                                            <input type="text" className="form-control"
+                                                ref={value => this.category = value} placeholder="Category" />
+                                        </div>
+                                    </div>
+                                    
+                                    <div className="form-group">
                                         <label className=" col-sm-3 control-label">PicUrl</label>
                                         <div className="col-sm-6">
                                             <label>File input</label>
@@ -591,6 +712,16 @@ class BookList extends Component {
                                             <img src={this.state.picUrl} id="show" width="200" />
                                         </div>
                                     </div>
+
+                                    <div className="form-group">
+                                        <label className=" col-sm-3 control-label">TocPicUrl</label>
+                                        <div className="col-sm-6">
+                                            <label>TocFile input</label>
+                                            <input type="file" id="file1" accept="image/*" onChange={this.changPic1} />
+                                            <img src={this.state.tocPicUrl} id="show" width="200" />
+                                        </div>
+                                    </div>
+
                                     <div className="form-group">
                                         <label className=" col-sm-3 control-label">Author</label>
                                         <div className="col-sm-6">
@@ -674,7 +805,8 @@ class BookList extends Component {
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-default" data-dismiss="modal">Close
                                 </button>
-                                <button type="button" className="btn btn-primary" data-dismiss="modal"
+                                {/* data-dismiss="modal" */}
+                                <button type="button" className="btn btn-primary" 
                                     onClick={this.addBook}>Add
                                 </button>
                             </div>
@@ -709,15 +841,36 @@ class BookList extends Component {
                                                 placeholder="BookDesc" />
                                         </div>
                                     </div>
+
+                                    <div className="form-group">
+                                        <label className=" col-sm-3 control-label">Category</label>
+                                        <div className="col-sm-6">
+                                            <input type="text" className="form-control" name="category"
+                                                value={this.state.category} onChange={this.editInputChange}
+                                                placeholder="BookCategory" />
+                                        </div>
+                                    </div>
+
                                     <div className="form-group">
                                         <label className=" col-sm-3 control-label">PicUrl</label>
                                         <div className="col-sm-6">
                                             <label>File input</label>
                                             <input type="file" id="file" accept="image/*" onChange={this.changPic} />
                                             <img src={this.state.picUrl} id="show" width="200" />
-                                            <span style={{ display: this.state.uploadflag, color: 'red' }}>Please choose image less than 1M in size </span>
+                                            {/* <span style={{ display: this.state.uploadflag, color: 'red' }}>Please choose image less than 1M in size </span> */}
                                         </div>
                                     </div>
+
+                                    <div className="form-group">
+                                        <label className=" col-sm-3 control-label">TocPicUrl</label>
+                                        <div className="col-sm-6">
+                                            <label>TocFile input</label>
+                                            <input type="file" id="file2" accept="image/*" onChange={this.changPic2} />
+                                            <img src={this.state.tocPicUrl} id="show" width="200" />
+                                        </div>
+                                    </div>
+
+
                                     <div className="form-group">
                                         <label className=" col-sm-3 control-label">Author</label>
                                         <div className="col-sm-6">
@@ -788,7 +941,7 @@ class BookList extends Component {
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-default" data-dismiss="modal">Close
                                 </button>
-                                <button type="button" className="btn btn-primary" data-dismiss="modal"
+                                <button type="button" className="btn btn-primary"
                                     onClick={this.editBook}>Edit
                                 </button>
                             </div>
