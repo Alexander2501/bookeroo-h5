@@ -1,0 +1,36 @@
+.descStyle{
+    color:black;
+    height:40px;
+}
+.hrefStyle a{
+    color:brown
+}
+.tableStyle{
+    margin-top:30px;
+    width:100%;
+}
+.trStyle{
+    height:40px;
+    border:1px solid black;
+    line-height: 40px;
+}
+.trStyle:first-child{
+    background-color: lightgray;
+}
+.trStyle span{
+    margin-left:60px
+}
+.thTitle{
+    font-weight:bold;
+    width:50%;
+}
+.thValue{
+    width:50%;
+}
+.thValue span{
+    margin-left:10px;
+}
+.iconStyle{
+    width:20px;
+    height:20px;
+}

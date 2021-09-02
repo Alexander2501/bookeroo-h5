@@ -1,0 +1,26 @@
+.listItemTitle,.listItemValue{
+    margin-top: 5px;
+}
+.listItemTitle{
+    /* color:red; */
+    list-style: none;
+    width:98px;
+    text-align: center;
+    font-size:15px;
+    line-height: 38px;
+    height:40px;
+    background-color: lightgrey;
+    
+    /* border:1px dotted gray; */
+}
+.listItemValue{
+    font-size:15px;
+    line-height: 38px;
+    /* border:1px dotted white; */
+    height:40px;
+    margin-left:10px;
+}
+.row{
+    display: flex;
+    align-items: center;
+}
