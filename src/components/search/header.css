@@ -1,0 +1,17 @@
+.topBar{
+    display:flex;
+    align-items:flex-end;
+}
+.connectNav{
+    font-size:17px;
+    margin-left:25px;
+    cursor:pointer;
+}
+.connectNav a:hover{
+    color:white;
+    text-decoration:none
+}
+.connectNav a{
+    color:white;
+    text-decoration:none
+}

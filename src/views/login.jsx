@@ -41,6 +41,10 @@ export default class Login extends Component {
           localStorage.setItem("userId", result.userId);
           localStorage.setItem("token", result.token);
           localStorage.setItem("type", result.type);
+          localStorage.setItem("mobile", result.phoneNumber);
+          localStorage.setItem("address", result.address);
+          localStorage.setItem("nickName", result.nickName);
+          localStorage.setItem("name", result.name);
           this.props.history.push("/home");
         } else {
           alert(res.data.message);

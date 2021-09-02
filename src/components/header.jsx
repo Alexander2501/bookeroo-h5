@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { Link, NavLink } from "react-router-dom";
 import PropTypes from "prop-types";
 import PubSub from 'pubsub-js'
-
+import './search/header.css'
 let userId = localStorage.getItem("userId");
 let token = localStorage.getItem("token");
 //设置请求头
@@ -33,9 +33,11 @@ class Header extends Component {
     return (
       <div className="container-fluid">
         <div className='row App-header' style={{}}>
-          <div className='col-xs-6 col-md-2'>
-            <div>
+          <div className='col-xs-6 col-md-4'>
+            <div className="topBar">
               <h2>Bookeroo</h2>
+              <span className="connectNav"><Link to="/aboutus">About us</Link></span>
+              <span className="connectNav"><Link to="/contactus">Contact us</Link></span>
             </div>
           </div>
 

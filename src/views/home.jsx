@@ -92,12 +92,12 @@ class Home extends Component {
                             <li role="presentation">
                                 <NavLink to='/book'>BookManage</NavLink>
                             </li>
-                            <li role="presentation">
+                            {/* <li role="presentation">
                                 <NavLink to='/aboutus'>AboutUs</NavLink>
                             </li>
                             <li role="presentation">
                                 <NavLink to='/contactus'>ContactUS</NavLink>
-                            </li>
+                            </li> */}
                         </ul>
                     </div>
 
