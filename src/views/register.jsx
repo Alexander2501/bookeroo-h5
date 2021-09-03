@@ -7,7 +7,8 @@ export default class Register extends Component {
     state = {
         pwd: '',
         password: '',
-        abnShow:false
+        abnShow: false,
+        type: 1
     }
     judgeSame = (e) => {
 
@@ -22,32 +23,33 @@ export default class Register extends Component {
         })
     }
 
-    selectUserType = (e)=>{
+    selectUserType = (e) => {
         console.log(e.target.value);
         let userType = e.target.value;
-        if(userType=='business'){
+        if (userType == 'business') {
             this.setState({
-                type:2,
-                abnShow:true
+                type: 2,
+                abnShow: true
             });
         }
-        if(userType=='customer '){
+        if (userType == 'customer ') {
             this.setState({
-                type:1,
-                abnShow:false               
+                type: 1,
+                abnShow: false
             });
         }
+        // console.log(this.state.type);
     }
 
     handleRegister = () => {
         let mail = this.mail.value.toString();
-       
+
         // let password = this.password.value.toString();
         let name = this.name.value.toString();
 
-        let nickName = this.nickName.value.toString();
+        let nickName = this.address.value.toString();
         let phoneNumber = this.phoneNumber.value.toString();
-        
+
         let clientId = this.clientId.value.toString();
         let secret = this.secret.value.toString();
 
@@ -55,24 +57,24 @@ export default class Register extends Component {
 
         let abn = this.abn.value.toString();
 
-        if (mail == '' || name == '' || nickName == '' || phoneNumber == ''||this.state.password==''||clientId==''||secret==''||address=='') {
+        if (mail == '' || name == '' || nickName == '' || phoneNumber == '' || this.state.password == '' || clientId == '' || secret == '' || address == '') {
             alert('Fields can not be null');
             return
         }
-        
+
         //validate mail
-        if(!(/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(mail))) {
+        if (!(/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(mail))) {
             alert("Please input correct email format");
             return;
         }
-         //validate phonenumber
-        if(!(/^(61)[0-9]{9}$/.test(phoneNumber))) {
+        //validate phonenumber
+        if (!(/^(61)[0-9]{9}$/.test(phoneNumber))) {
             alert("Please Enter eleven digits stating with 61.");
             return;
         }
         // console.log(this.state.password);
         // console.log(this.state.pwd);
-        if(this.state.password!=this.state.pwd){
+        if (this.state.password != this.state.pwd) {
             alert('THe two passwords you typed do not match');
         }
 
@@ -87,7 +89,7 @@ export default class Register extends Component {
                 phoneNumber: phoneNumber,
                 clientId: clientId,
                 secret: secret,
-                abn:abn
+                abn: abn
             })
             .then((res) => {
                 console.log(res);
@@ -105,7 +107,7 @@ export default class Register extends Component {
 
 
     render() {
-        let abnShowHidden = this.state.abnShow?'block':'none';
+        let abnShowHidden = this.state.abnShow ? 'block' : 'none';
         return (
             <div className="signin signup">
                 <div className="container">
@@ -142,8 +144,8 @@ export default class Register extends Component {
                                         </div>
 
                                         <div className="form-group">
-                                            <select className="form-control" onChange={(e)=>{this.selectUserType(e)}} style={{padding:'0 18px',color:'#a69999'}}>
-                                            <option disabled selected style={{display:'none'}}>Please Choose User Type</option>  
+                                            <select  className="form-control" onChange={(e) => { this.selectUserType(e) }} style={{ padding: '0 18px', color: '#a69999' }}>
+                                               
                                                 <option value="customer">Customer</option>
                                                 <option value="business">Business</option>
                                             </select>
@@ -153,14 +155,14 @@ export default class Register extends Component {
                                             <input type="text" className="form-control"
                                                 ref={value => this.abn = value}
                                                 placeholder="Enter your abn here"
-                                                style={{display:abnShowHidden}} />
+                                                style={{ display: abnShowHidden }} />
                                         </div>
 
                                         <div className="form-group">
                                             <input type="number" className="form-control"
                                                 ref={value => this.phoneNumber = value}
                                                 placeholder="Enter your phonenumber here"
-                                                style={{padding:'0 18px',color:'#a69999'}} />
+                                                style={{ padding: '0 18px', color: '#a69999' }} />
                                         </div>
 
                                         <div className="form-group">

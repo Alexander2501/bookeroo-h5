@@ -137,7 +137,7 @@ class IndexList extends Component {
       let value = this.state.searchValue;
       tempArr = this.state.books.filter(function (item) {
         // console.log(item);                 
-       return item.author.toLowerCase().indexOf(value)!==-1;
+       return item.author.toLowerCase().indexOf(value)!=-1;
       });
       this.setState({
         books: tempArr
@@ -148,7 +148,7 @@ class IndexList extends Component {
     if (this.state.searchType == 'isbn') {
       let value = this.state.searchValue;
       tempArr = this.state.books.filter(function (item) {
-        return item.isbn.toLowerCase().indexOf(value)!==-1;
+        return item.isbn.toLowerCase().indexOf(value)!=-1;
       });
       this.setState({
         books: tempArr
@@ -158,7 +158,7 @@ class IndexList extends Component {
     if (this.state.searchType == 'category') {
       let value = this.state.searchValue;
       tempArr = this.state.books.filter(function (item) {
-        return item.category.toLowerCase().indexOf(value)!==-1;
+        return item.category.toLowerCase().indexOf(value)!=-1;
       });
       this.setState({
         books: tempArr
