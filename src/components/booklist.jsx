@@ -479,11 +479,11 @@ class BookList extends Component {
         let data = null;
         // console.log(this.state.searchType);
         let tempArr;
-        if (this.state.searchType == 'name') {
+        if (this.state.searchType === 'name') {
             let value = this.state.searchValue;
             tempArr = this.state.books.filter(function (item) {  
-                console.log(item);             
-                return item.bookName == value
+                // console.log(item);             
+                return item.bookName.toLowerCase().indexOf(value)!==-1
             });
             this.setState({
                 books:tempArr
@@ -491,12 +491,13 @@ class BookList extends Component {
             console.log(tempArr);
 
         }
-        if (this.state.searchType == 'author') {
+        if (this.state.searchType === 'author') {
             
             let value = this.state.searchValue;
            tempArr = this.state.books.filter(function (item) {    
                 // console.log(item);                 
-                return item.author == value
+                // return item.author == value
+                return item.author.toLowerCase().indexOf(value)!==-1;
             });
             this.setState({
                 books:tempArr
@@ -504,20 +505,22 @@ class BookList extends Component {
             console.log(tempArr);
 
         }
-        if (this.state.searchType == 'isbn') {
+        if (this.state.searchType === 'isbn') {
             let value = this.state.searchValue;
             tempArr = this.state.books.filter(function (item) {               
-                return item.isbn == value
+                // return item.isbn == value
+                return item.isbn.toLowerCase().indexOf(value)!==-1;
             });
             this.setState({
                 books:tempArr
             });
             console.log(tempArr);
         }
-        if (this.state.searchType == 'category') {
+        if (this.state.searchType === 'category') {
             let value = this.state.searchValue;
            tempArr = this.state.books.filter(function (item) {               
-                return item.category == value
+                // return item.category == value
+                return item.category.toLowerCase().indexOf(value)!==-1;
             });
             this.setState({
                 books:tempArr
@@ -525,7 +528,7 @@ class BookList extends Component {
             console.log(tempArr);
         }
 
-        if(tempArr.length==0){
+        if(tempArr.length===0){
             alert("The book you searched was not found!")
             this.getBookList();
         }

@@ -50,9 +50,12 @@ export default class Register extends Component {
         
         let clientId = this.clientId.value.toString();
         let secret = this.secret.value.toString();
+
+        let address = this.address.value.toString();
+
         let abn = this.abn.value.toString();
 
-        if (mail == '' || name == '' || nickName == '' || phoneNumber == ''||this.state.password==''||clientId==''||secret=='') {
+        if (mail == '' || name == '' || nickName == '' || phoneNumber == ''||this.state.password==''||clientId==''||secret==''||address=='') {
             alert('Fields can not be null');
             return
         }
@@ -84,6 +87,7 @@ export default class Register extends Component {
                 phoneNumber: phoneNumber,
                 clientId: clientId,
                 secret: secret,
+                address:address,
                 abn:abn
             })
             .then((res) => {
@@ -175,6 +179,15 @@ export default class Register extends Component {
                                                 className="form-control"
                                                 ref={value => this.secret = value}
                                                 placeholder="Enter your PayPal secret"
+                                            />
+                                        </div>
+
+                                        <div className="form-group">
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                ref={value => this.address = value}
+                                                placeholder="Enter your Address"
                                             />
                                         </div>
 
