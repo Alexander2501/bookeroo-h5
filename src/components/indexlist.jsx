@@ -121,7 +121,7 @@ class IndexList extends Component {
     // console.log(this.state.searchType);
     let tempArr;
     if (this.state.searchType == 'name') {
-      let value = this.state.searchValue;
+      let value = this.state.searchValue.trim().toLowerCase();
       tempArr = this.state.books.filter(function (item) {
         // console.log(item);
         return item.bookName.toLowerCase().indexOf(value)!==-1;
@@ -134,7 +134,7 @@ class IndexList extends Component {
     }
     if (this.state.searchType == 'author') {
 
-      let value = this.state.searchValue;
+      let value = this.state.searchValue.trim().toLowerCase();
       tempArr = this.state.books.filter(function (item) {
         // console.log(item);                 
        return item.author.toLowerCase().indexOf(value)!=-1;
@@ -146,7 +146,7 @@ class IndexList extends Component {
 
     }
     if (this.state.searchType == 'isbn') {
-      let value = this.state.searchValue;
+      let value = this.state.searchValue.trim().toLowerCase();
       tempArr = this.state.books.filter(function (item) {
         return item.isbn.toLowerCase().indexOf(value)!=-1;
       });
@@ -156,7 +156,7 @@ class IndexList extends Component {
       console.log(tempArr);
     }
     if (this.state.searchType == 'category') {
-      let value = this.state.searchValue;
+      let value = this.state.searchValue.trim().toLowerCase();
       tempArr = this.state.books.filter(function (item) {
         return item.category.toLowerCase().indexOf(value)!=-1;
       });

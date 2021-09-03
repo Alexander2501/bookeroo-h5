@@ -480,7 +480,7 @@ class BookList extends Component {
         // console.log(this.state.searchType);
         let tempArr;
         if (this.state.searchType == 'name') {
-            let value = this.state.searchValue.toLowerCase();
+            let value = this.state.searchValue.trim().toLowerCase();
             tempArr = this.state.books.filter(function (item) {  
                 // console.log(item);             
                 return item.bookName.toLowerCase().indexOf(value)!=-1
@@ -493,7 +493,7 @@ class BookList extends Component {
         }
         if (this.state.searchType == 'author') {
             
-            let value = this.state.searchValue.toLowerCase();
+            let value = this.state.searchValue.trim().toLowerCase();
            tempArr = this.state.books.filter(function (item) {    
                 // console.log(item);                 
                 // return item.author == value
@@ -506,7 +506,7 @@ class BookList extends Component {
 
         }
         if (this.state.searchType == 'isbn') {
-            let value = this.state.searchValue.toLowerCase();
+            let value = this.state.searchValue.trim().toLowerCase();
             tempArr = this.state.books.filter(function (item) {               
                 // return item.isbn == value
                 return item.isbn.toLowerCase().indexOf(value)!=-1;
@@ -517,7 +517,7 @@ class BookList extends Component {
             console.log(tempArr);
         }
         if (this.state.searchType == 'category') {
-            let value = this.state.searchValue.toLowerCase();
+            let value = this.state.searchValue.trim().toLowerCase();
            tempArr = this.state.books.filter(function (item) {               
                 // return item.category == value
                 return item.category.toLowerCase().indexOf(value)!=-1;
