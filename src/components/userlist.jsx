@@ -416,13 +416,13 @@ export default class UserList extends Component {
                     />
                   </div>
                   <div className="form-group">
-                    <label>NickName</label>
+                    <label>Address</label>
                     <input
                       type="text"
                       name="nickName"
                       className="form-control"
                       value={this.state.nickName}
-                      placeholder="NickName"
+                      placeholder="Address"
                       onChange={this.handleEditChange}
                     />
                   </div>
@@ -529,12 +529,12 @@ export default class UserList extends Component {
                     />
                   </div>
                   <div className="form-group">
-                    <label>NickName</label>
+                    <label>Address</label>
                     <input
                       type="text"
                       name="nickname"
                       className="form-control"
-                      placeholder="NickName"
+                      placeholder="Address"
                       ref={value => this.addNickName = value}
                     />
                   </div>
