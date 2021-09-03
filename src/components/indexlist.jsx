@@ -166,56 +166,56 @@ class IndexList extends Component {
         });
         // console.log(tempArr);
     }
-    if (this.state.searchType == 'author') {
+    // if (this.state.searchType == 'author') {
 
-        let value = this.state.searchValue.trim().toLowerCase();
-        tempArr = this.state.books.filter(function (item) {
-            // console.log(item);                 
-            // return item.author == value
-            return item.author.toLowerCase().indexOf(value) != -1;
-        });
-        this.setState({
-            books: tempArr
-        });
-        console.log(tempArr);
+    //     let value = this.state.searchValue.trim().toLowerCase();
+    //     tempArr = this.state.books.filter(function (item) {
+    //         // console.log(item);                 
+    //         // return item.author == value
+    //         return item.author.toLowerCase().indexOf(value) != -1;
+    //     });
+    //     this.setState({
+    //         books: tempArr
+    //     });
+    //     console.log(tempArr);
 
-    }
-    if (this.state.searchType == 'isbn') {
-        let value = this.state.searchValue.trim().toLowerCase();
-        tempArr = this.state.books.filter(function (item) {
-            // return item.isbn == value
-            return item.isbn.toLowerCase().indexOf(value) != -1;
-        });
-        this.setState({
-            books: tempArr
-        });
-        console.log(tempArr);
-    }
-    if (this.state.searchType == 'category') {
-        let value = this.state.searchValue.trim().toLowerCase();
-        tempArr = this.state.books.filter(function (item) {
-            // return item.category == value
-            return item.category.toLowerCase().indexOf(value) != -1;
-        });
-        this.setState({
-            books: tempArr
-        });
-        console.log(tempArr);
-    }
+    // }
+    // if (this.state.searchType == 'isbn') {
+    //     let value = this.state.searchValue.trim().toLowerCase();
+    //     tempArr = this.state.books.filter(function (item) {
+    //         // return item.isbn == value
+    //         return item.isbn.toLowerCase().indexOf(value) != -1;
+    //     });
+    //     this.setState({
+    //         books: tempArr
+    //     });
+    //     console.log(tempArr);
+    // }
+    // if (this.state.searchType == 'category') {
+    //     let value = this.state.searchValue.trim().toLowerCase();
+    //     tempArr = this.state.books.filter(function (item) {
+    //         // return item.category == value
+    //         return item.category.toLowerCase().indexOf(value) != -1;
+    //     });
+    //     this.setState({
+    //         books: tempArr
+    //     });
+    //     console.log(tempArr);
+    // }
 
-    if (tempArr.length == 0) {
-        alert("The book you searched was not found!")
-        this.getBookList();
-    }
+    // if (tempArr.length == 0) {
+    //     alert("The book you searched was not found!")
+    //     this.getBookList();
+    // }
     // console.log(data);
     axios.post(this.state.bookUrl, data).then(
         res => {
             // console.log(res);
             if (res.data.code == '1000000') {
-                // this.setState({
-                //     books: res.data.data.entity
-                // });
-                console.log(res);
+                this.setState({
+                    books: res.data.data.entity
+                });
+                // console.log(res);
             } else {
                 alert(res.data.message);
             }
