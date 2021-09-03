@@ -8,10 +8,10 @@ import Detail from "./detail/detail";
 class BookList extends Component {
     state = {
         picUrl: '',
-        tocPicUrl:'',
-        isUpload1:false,
-        isUpload2:false, 
-        isUpload3:false,       
+        tocPicUrl: '',
+        isUpload1: false,
+        isUpload2: false,
+        isUpload3: false,
         pageNum: 1,
         pageSize: 1000,
         isShow: true,
@@ -19,7 +19,7 @@ class BookList extends Component {
         editBookMes: {},
         bookName: '',
         bookDesc: '',
-        category:'',
+        category: '',
         author: '',
         price: '',
         isbn: '',
@@ -39,7 +39,11 @@ class BookList extends Component {
             bookName: '',
             author: '',
             isbn: ''
-        }
+        },
+        searchBookName:'',
+        searchBookIsbn:'',
+        searchBookAuthor:'',
+        searchBookCate:''
     };
 
     componentDidMount() {
@@ -57,7 +61,7 @@ class BookList extends Component {
             this.state.bookUrl = "https://web.tootz.cn/api/book/personalList";
         }
 
-        if(userType==1){
+        if (userType == 1) {
             this.setState({
                 newOld: true
             });
@@ -120,7 +124,7 @@ class BookList extends Component {
                     let imgUrl = res.data.data;
                     this.setState({
                         picUrl: imgUrl,
-                        isUpload1:true
+                        isUpload1: true
                     });
                 }
             }).catch(err => {
@@ -152,7 +156,7 @@ class BookList extends Component {
                     let imgUrl = res.data.data;
                     this.setState({
                         tocPicUrl: imgUrl,
-                        isUpload2:true
+                        isUpload2: true
                     });
                 }
             }).catch(err => {
@@ -184,7 +188,7 @@ class BookList extends Component {
                     let imgUrl = res.data.data;
                     this.setState({
                         tocPicUrl: imgUrl,
-                        isUpload3:true
+                        isUpload3: true
                     });
                 }
             }).catch(err => {
@@ -250,9 +254,9 @@ class BookList extends Component {
         // console.log(this.state.status);
         // debugger
         let addNBookUrl;
-        if(this.state.newOld){//true未添加旧书
+        if (this.state.newOld) {//true未添加旧书
             addNBookUrl = "https://web.tootz.cn/api/book/addOld";
-        }else{
+        } else {
             addNBookUrl = "https://web.tootz.cn/api/book/addNew";
         }
 
@@ -283,18 +287,18 @@ class BookList extends Component {
             publishingTime,
             language,
             stock,
-            status           
+            status
         }
         // debugger?
 
-        if(!this.state.isUpload1){
+        if (!this.state.isUpload1) {
             alert("The image was not uploaded successfully");
             return;
-        }else{
+        } else {
             axios.post(addNBookUrl, data).then(res => {
                 console.log(res);
                 // console.log(data);
-                if (res.data.code == "1000000") {               
+                if (res.data.code == "1000000") {
                     this.getBookList();
                     alert("The Book add successfully");
                 } else {
@@ -305,9 +309,9 @@ class BookList extends Component {
                 this.setState({
                     uploadflag: true
                 });
-    
+
             });
-        }        
+        }
     }
     deleteBook = (index) => {
         console.log(index);
@@ -360,7 +364,7 @@ class BookList extends Component {
                     bookDesc: e.target.value.toString()
                 });
                 break;
-                case 'category':
+            case 'category':
                 this.setState({
                     category: e.target.value.toString()
                 });
@@ -418,14 +422,14 @@ class BookList extends Component {
         }
     }
     editBook = () => {
-        const { bookId, bookName, bookDesc,category, picUrl,tocPicUrl, author, price, isbn, publishingHouse, publishingTime, language, stock, status } = this.state;
+        const { bookId, bookName, bookDesc, category, picUrl, tocPicUrl, author, price, isbn, publishingHouse, publishingTime, language, stock, status } = this.state;
         let data = {
             bookId: bookId,
             bookName: bookName,
             bookDesc: bookDesc,
-            category:category,
+            category: category,
             picUrl: picUrl,
-            tocPicUrl:tocPicUrl,
+            tocPicUrl: tocPicUrl,
             author: author,
             price: parseFloat(price),
             isbn: isbn,
@@ -437,20 +441,20 @@ class BookList extends Component {
         };
         let editUrl = "https://web.tootz.cn/api/book/update";
 
-        if(!this.state.isUpload3){
+        if (!this.state.isUpload3) {
             alert("The image was not uploaded successfully");
             return;
-        }else{
+        } else {
             axios.post(editUrl, data).then(res => {
                 console.log(res);
-              if(res.data.code=="1000000"){     
-                alert("Edit successfully")      
-                this.getBookList();
-              }
+                if (res.data.code == "1000000") {
+                    alert("Edit successfully")
+                    this.getBookList();
+                }
             }).catch(err => {
                 console.log(err);
             });
-        }        
+        }
     }
     handleToDetail = (index) => {
         // console.log(index);
@@ -468,92 +472,131 @@ class BookList extends Component {
         this.setState({
             searchType: e.target.value
         });
+
+
     }
     inputSearchVal = (e) => {
-        // console.log(e.target.value);
+        // console.log(e.target.value);       
         this.setState({
-            searchValue: e.target.value
+            searchValue: e.target.value.trim()
         });
+
+        
     }
     search = () => {
-        let data = null;
+        let data;
+        let selStr = this.state.searchType;       
+      
+        if (selStr == "name") {
+            console.log(1);
+            data = {
+                pageNum: 1,
+                pageSize: 1000,
+                bookName: this.state.searchValue
+            }
+           
+        }
+        if (selStr == 'author') {
+            data = {
+                pageNum: 1,
+                pageSize: 1000,
+                author: this.state.searchValue             
+            }
+          
+        }
+        if (selStr == 'isbn') {
+            data = {
+                pageNum: 1,
+                pageSize: 1000,                
+                isbn: this.state.searchValue
+            }
+           
+        }
+        if (selStr == 'category') {
+            data = {
+                pageNum: 1,
+                pageSize: 1000,
+                category:this.state.searchValue
+            }
+        }
+        // console.log(data);
         // console.log(this.state.searchType);
         let tempArr;
         if (this.state.searchType == 'name') {
             let value = this.state.searchValue.trim().toLowerCase();
-            tempArr = this.state.books.filter(function (item) {  
+            tempArr = this.state.books.filter(function (item) {
                 // console.log(item);             
-                return item.bookName.toLowerCase().indexOf(value)!=-1
+                return item.bookName.toLowerCase().indexOf(value) != -1
             });
             this.setState({
-                books:tempArr
+                books: tempArr
             });
             // console.log(tempArr);
-
         }
         if (this.state.searchType == 'author') {
-            
+
             let value = this.state.searchValue.trim().toLowerCase();
-           tempArr = this.state.books.filter(function (item) {    
+            tempArr = this.state.books.filter(function (item) {
                 // console.log(item);                 
                 // return item.author == value
-                return item.author.toLowerCase().indexOf(value)!=-1;
+                return item.author.toLowerCase().indexOf(value) != -1;
             });
             this.setState({
-                books:tempArr
+                books: tempArr
             });
             console.log(tempArr);
 
         }
         if (this.state.searchType == 'isbn') {
             let value = this.state.searchValue.trim().toLowerCase();
-            tempArr = this.state.books.filter(function (item) {               
+            tempArr = this.state.books.filter(function (item) {
                 // return item.isbn == value
-                return item.isbn.toLowerCase().indexOf(value)!=-1;
+                return item.isbn.toLowerCase().indexOf(value) != -1;
             });
             this.setState({
-                books:tempArr
+                books: tempArr
             });
             console.log(tempArr);
         }
         if (this.state.searchType == 'category') {
             let value = this.state.searchValue.trim().toLowerCase();
-           tempArr = this.state.books.filter(function (item) {               
+            tempArr = this.state.books.filter(function (item) {
                 // return item.category == value
-                return item.category.toLowerCase().indexOf(value)!=-1;
+                return item.category.toLowerCase().indexOf(value) != -1;
             });
             this.setState({
-                books:tempArr
+                books: tempArr
             });
             console.log(tempArr);
         }
 
-        if(tempArr.length==0){
+        if (tempArr.length == 0) {
             alert("The book you searched was not found!")
             this.getBookList();
         }
         // console.log(data);
-        // axios.post(this.state.bookUrl, data).then(
-        //     res => {
-        //         console.log(res);
-        //         if (res.data.code == '1000000') {
-        //             this.setState({
-        //                 books: res.data.data.entity
-        //             });
-        //         } else {
-        //             alert(res.data.message);
-        //         }
-        //         if (res.data.code == '1000001') {
-        //             //    alert(res.data.message);
-        //             this.props.history.push('/login');
-        //         }
-        //     }
-        // ).catch(err => {
-        //     localStorage.clear();
-        //     console.log(err);
-        // });
+        axios.post(this.state.bookUrl, data).then(
+            res => {
+                // console.log(res);
+                if (res.data.code == '1000000') {
+                    // this.setState({
+                    //     books: res.data.data.entity
+                    // });
+                    // console.log(res);
+                } else {
+                    alert(res.data.message);
+                }
+                if (res.data.code == '1000001') {
+                    //    alert(res.data.message);
+                    this.props.history.push('/login');
+                }
+            }
+        ).catch(err => {
+            localStorage.clear();
+            console.log(err);
+        });
     }
-    reset=()=>{
+    reset = () => {
         this.getBookList();
     }
 
@@ -584,9 +627,9 @@ class BookList extends Component {
                     <div className='row'>
                         <div className='col-md-3'>
                             {/* <h2 style={{ display: 'inline-block', margin: '0' }}>Book At Bookeroo</h2> */}
-                             <button type="button" className="btn btn-primary" data-toggle="modal"
+                            <button type="button" className="btn btn-primary" data-toggle="modal"
                                 data-target="#bookAddModal"
-                               
+
                                 onClick={this.handleAddOpen}>
                                 Add
                             </button>
@@ -607,8 +650,8 @@ class BookList extends Component {
                             </form>
                         </div>
                         <div className='col-md-3'>
-                        <button type="button" className="btn btn-success pull-right"
-                               
+                            <button type="button" className="btn btn-success pull-right"
+
                                 onClick={this.reset}>
                                 Reset
                             </button>
@@ -650,7 +693,7 @@ class BookList extends Component {
                                         <td>{item.publishingTime}</td>
                                         <td>{item.language}</td>
                                         <td>{item.stock}</td>
-                                        <td>{item.status==1?"online":"offline"}</td>
+                                        <td>{item.status == 1 ? "online" : "offline"}</td>
                                         <td width="15%">
                                             <button
                                                 className="btn btn-primary"
@@ -713,7 +756,7 @@ class BookList extends Component {
                                                 ref={value => this.category = value} placeholder="Category" />
                                         </div>
                                     </div>
-                                    
+
                                     <div className="form-group">
                                         <label className=" col-sm-3 control-label">PicUrl</label>
                                         <div className="col-sm-6">
