@@ -647,7 +647,7 @@ class BookList extends Component {
                                         <td>{item.publishingTime}</td>
                                         <td>{item.language}</td>
                                         <td>{item.stock}</td>
-                                        <td>{item.status}</td>
+                                        <td>{item.status==1?"online":"offline"}</td>
                                         <td width="15%">
                                             <button
                                                 className="btn btn-primary"
