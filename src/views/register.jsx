@@ -32,11 +32,12 @@ export default class Register extends Component {
                 abnShow: true
             });
         }
-        if (userType == 'customer ') {
+        if (userType == 'customer') {
             this.setState({
                 type: 1,
                 abnShow: false
             });
+           
         }
         // console.log(this.state.type);
     }
