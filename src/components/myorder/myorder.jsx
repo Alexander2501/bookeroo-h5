@@ -289,7 +289,7 @@ class MyOrder extends Component {
                                     <div className='col-md-3 ordercontrol' style={delShow}>
                                         {/* {item.orderStatus == '4' ? <button className='btn btn-info btn-sm' onClick={() => { this.refundOrder(index) }}>Refund</button> : <button type="button" className="btn btn-danger  btn-sm" onClick={() => { this.cancelOrder(index) }}>Cancel</button>} */}
                                         <button type="button" disabled={item.refundButton == 0 ? true : false} className="btn btn-danger  btn-sm" onClick={() => { this.refundOrder(index) }}>Refund</button>
-                                        {item.commentStatus}
+                                        {/* {item.commentStatus} */}
                                         <button type="button" disabled={item.commentStatus == 0 ? false : true} className="btn btn-primary  btn-sm" data-toggle="modal" data-target="#myModal" onClick={() => { this.handleAddComment(index) }}>Comment</button>
                                     </div>
                                 </div>

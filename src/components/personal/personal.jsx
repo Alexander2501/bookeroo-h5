@@ -8,7 +8,8 @@ class Personal extends Component {
         userInfo:{
             mobile:localStorage.getItem("mobile"),
             address:localStorage.getItem("address"),
-            nickName:localStorage.getItem("nickName"),
+            nickName:localStorage.getItem("nickName"),//address
+            name:localStorage.getItem('name')
         },
         username:localStorage.getItem("name")
     };
@@ -29,15 +30,15 @@ class Personal extends Component {
                                 <img src={addressPic} className="iconStyle"/>
                                 <span>Address: </span>
                             </div> 
-                            <div className="listItemValue">{this.state.userInfo.address}</div>  
+                            <div className="listItemValue">{this.state.userInfo.nickName}</div>  
                         </div>
-                        <div className="infoRow">
+                        {/* <div className="infoRow">
                             <div className="listItemTitle">
                                 <img src={nickName} className="iconStyle"/>
                                 <span>Nickname: </span>
                             </div> 
-                            <div className="listItemValue">{this.state.userInfo.nickName}</div>  
-                        </div>
+                            <div className="listItemValue">{this.state.userInfo.name}</div>  
+                        </div> */}
                     {/* {Object.keys(this.state.userInfo).map((obj, idx) => (
                         <div className="infoRow">
                             <div key={idx} className="listItemTitle">{obj} : </div> 

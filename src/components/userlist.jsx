@@ -298,7 +298,7 @@ export default class UserList extends Component {
                 <tr>
                   <td>ID</td>
                   <td>UserName</td>
-                  <td>NickName</td>
+                  {/* <td>NickName</td> */}
                   <td>Mail</td>
                   <td>Type</td>
                   <td>PhoneNumber</td>
@@ -309,7 +309,7 @@ export default class UserList extends Component {
                   <tr key={index}>
                     <td>{index + 1}</td>
                     <td>{item.name}</td>
-                    <td>{item.nickName}</td>
+                    {/* <td>{item.nickName}</td> */}
                     <td>{item.mail}</td>
 
                     <td style={{ display: (item.type == 3 ? "block" : "none") }}>Admin</td>

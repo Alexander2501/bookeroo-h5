@@ -83,11 +83,10 @@ export default class Register extends Component {
                 password: this.state.password,
                 type: this.state.type,
                 name: name,
-                nickName: nickName,
+                nickName: address,
                 phoneNumber: phoneNumber,
                 clientId: clientId,
                 secret: secret,
-                address:address,
                 abn:abn
             })
             .then((res) => {
@@ -131,8 +130,8 @@ export default class Register extends Component {
                                             <input
                                                 type="text"
                                                 className="form-control"
-                                                placeholder="Enter your nickname here"
-                                                ref={inputValue => this.nickName = inputValue}
+                                                placeholder="Enter your Address here"
+                                                ref={inputValue => this.address = inputValue}
                                             />
                                         </div>
 
@@ -145,7 +144,7 @@ export default class Register extends Component {
                                         <div className="form-group">
                                             <select className="form-control" onChange={(e)=>{this.selectUserType(e)}} style={{padding:'0 18px',color:'#a69999'}}>
                                             <option disabled selected style={{display:'none'}}>Please Choose User Type</option>  
-                                                <option value="customer ">Customer</option>
+                                                <option value="customer">Customer</option>
                                                 <option value="business">Business</option>
                                             </select>
                                         </div>
@@ -182,14 +181,14 @@ export default class Register extends Component {
                                             />
                                         </div>
 
-                                        <div className="form-group">
+                                        {/* <div className="form-group">
                                             <input
                                                 type="text"
                                                 className="form-control"
                                                 ref={value => this.address = value}
                                                 placeholder="Enter your Address"
                                             />
-                                        </div>
+                                        </div> */}
 
                                         <div className="form-group">
                                             <input
